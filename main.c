@@ -27,7 +27,7 @@
 - le monstre se déplace d'une case à chaque tour et marque sur la case auquel il se trouve le nb 16. Il se déplace en l'une des 4 cases différentes, H B G D  aléatoirement(ou flaire les traces des pisteurs)
     et s'il tombe sur même case que pisteur alors il le mange et l'indique à l'écran
 - A noter qu'il check les 4 cases autour de lui pour savoir s'il y a un pisteur et si oui, il va sur cette case en question pour le manger
-    Si touché par coup de tir alors pendant quatre tours un point apparaît au dernier endroit séjourné avt déplacement
+    Si touché par coup de tir alors pendant quatre tours un point apparaît au dernier endroit séjourné avt déplacement et perd 1 pv
 
 
     //CONDITION de victoire : les pv du monstres ont atteints 0
@@ -49,7 +49,37 @@
 
 int main()
 {
-    printf("Hello world!\n");
+
+
+
+  //INIT variables :____________________________________________________________
+  state etatJeu=debut;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return 0;
 
 

@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1607536539 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\main.c
+	"define.h"
+
+1607537158 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\define.h
+	<stdio.h>
+	<stdlib.h>
+	"pisteurs.h"
+	"monstre.h"
+	"vue.h"
+
+1607525987 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\pisteurs.h
+	"define.h"
+
+1607525987 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\monstre.h
+	"define.h"
+
+1607525987 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\vue.h
+	"define.h"
+
+1607523404 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\monstre.c
+	"define.h"
+
+1607525987 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\pisteurs.c
+	"define.h"
+
+1607525523 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\vue.c
+	"define.h"
+
