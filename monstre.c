@@ -2,8 +2,160 @@
 #include "monstre.h"
 
 
-void CheckCaseVoisine_Monstre(){
+
+void CheckCasesVoisine_Monstre(int grillePerso, int nbPist, int checkCases_nbChoix, int x, int y, booleanPerso caseNonPisteur){
 //BUT:checker si pisteur ou non sur les 8 cases lors de l'init, et sur les 4 cases lors de déplacement
+
+    //check lors de l'init, on check donc sur les 8 cases. On se base sur 4 cases pour éviter plantage et après on regarde si l'en des une cases possible, il y a un pisteur
+    if(checkCases_nbChoix==0){
+
+        if ((x>1) || (x<HAUTEUR_Map)){
+
+            //or comme certaines positions ne disposent pas de quatres cases les entourant (les coins par exemple), il faut en tenir compte lors de la verification des
+            // 'X' voisins et ainsi eviter le plantage du prog en placant des condtions
+                if ((y>1) || (y<LARGEUR_Map)){
+
+                    if((grillePerso[x-1][y]==nbPist)||(grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)||(grillePerso[x-1][y-1]==nbPist)||(grillePerso[x-1][y+1]==nbPist)||(grillePerso[x+1][y+1]==nbPist)||(grillePerso[x+1][y-1]==nbPist)){
+                        caseNonPisteur=faux;
+                    }
+                }
+                else if(y==1){
+
+                    if ((grille[x-1][y]==nbPist) || (grille[x+1][y]==nbPist) || (grille[x][y+1]==nbPist)||(grillePerso[x-1][y+1]==nbPist)||(grillePerso[x+1][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                    }
+                }
+                else if (y==LARGEUR_Map){
+
+                    if ((grille[x-1][y]==nbPist) || (grille[x+1][y]==nbPist) || (grille[x][y-1]==nbPist)||(grillePerso[x-1][y-1]==nbPist)||(grillePerso[x+1][y-1]==nbPist)){
+                        caseNonPisteur=faux;
+                    }
+
+                }
+        }
+        else if (x==1){
+
+                if ((y>1) || (y<LARGEUR_Map)){
+
+                     if  ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)||(grillePerso[x+1][y+1]==nbPist)||(grillePerso[x+1][y-1]==nbPist)){
+                        caseNonPisteur=faux;
+                     }
+                }
+                else if(y==1){
+
+                      if ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y+1]==nbPist)||(grillePerso[x+1][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                      }
+                }
+                else if (y==LARGEUR_Map){
+
+                      if  ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist)||(grillePerso[x+1][y-1]==nbPist)){
+                        caseNonPisteur=faux;
+                      }
+                }
+        }
+        else if (x==HAUTEUR_Map){
+
+                if ((y>1) || (y<LARGEUR_Map)){
+
+                     if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)||(grillePerso[x-1][y-1]==nbPist)||(grillePerso[x-1][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                     }
+                }
+               else if (y==1){
+
+                     if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y+1]==nbPist)||(grillePerso[x-1][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                     }
+              }
+              else if (y==LARGEUR_Map){
+
+                     if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y-1]==nbPist)||(grillePerso[x-1][y-1]==nbPist)){
+                        caseNonPisteur=faux;
+                     }
+              }
+
+         }
+
+    }
+
+
+
+
+    //que check sur 4 cases
+    if(CheckCases==1){
+
+
+        if ((x>1) || (x<HAUTEUR_Map)){
+
+            //or comme certaines positions ne disposent pas de quatres cases les entourant (les coins par exemple), il faut en tenir compte lors de la verification des
+            // 'X' voisins et ainsi eviter le plantage du prog en placant des condtions
+                if ((y>1) || (y<LARGEUR_Map)){
+
+                    if((grillePerso[x-1][y]==nbPist)||(grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                    }
+                }
+                else if(y==1){
+
+                    if ((grille[x-1][y]==nbPist) || (grille[x+1][y]==nbPist) || (grille[x][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                    }
+                }
+                else if (y==LARGEUR_Map){
+
+                    if ((grille[x-1][y]==nbPist) || (grille[x+1][y]==nbPist) || (grille[x][y-1]==nbPist)){
+                        caseNonPisteur=faux;
+                    }
+
+                }
+        }
+        else if (x==1){
+
+                if ((y>1) || (y<LARGEUR_Map)){
+
+                     if  ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                     }
+                }
+                else if(y==1){
+
+                      if ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                      }
+                }
+                else if (y==LARGEUR_Map){
+
+                      if  ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist)){
+                        caseNonPisteur=faux;
+                      }
+                }
+        }
+        else if (x==HAUTEUR_Map){
+
+                if ((y>1) || (y<LARGEUR_Map)){
+
+                     if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                     }
+                }
+               else if (y==1){
+
+                     if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y+1]==nbPist)){
+                        caseNonPisteur=faux;
+                     }
+              }
+              else if (y==LARGEUR_Map){
+
+                     if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y-1]==nbPist)){
+                        caseNonPisteur=faux;
+                     }
+              }
+
+         }
+    }
+
+
 }
 
 
@@ -11,10 +163,95 @@ void CheckCaseVoisine_Monstre(){
 //INIT Monstre________________________________________
 
 //Position de départ MONSTRE--------------------------
-void Pos_DepartMonstre(){
+void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces, monster *monstre, pisteur tabPisteur[], int nbPisteurChoisi, int monstrePV, int nouvelleTrace, int retireTrace, int nbToursPos, char carBlessure, char carMonstre){
 //BUT:positioner ke monstre sur une case différente et non voisine de celle des pisteurs
 //ENTREE:
 //SORTIE:
+
+    boolean enVie=vrai;
+    int nbAleatoire;
+    int x;
+    int y;
+    int i;
+    int j;
+    int min;
+    int max;
+    booleanPerso casesVoisines_vides=vrai;
+    booleanPerso caseNonPisteur=vrai;
+    caseNb nbCase=nbMonstre;
+
+
+    //init des variables associées au monstre : chiffres et car
+    monstre.estVivant=enVie;
+    monstre.vieRestante=monstrePV;
+    monstre.tracesFraiches=nouvelleTrace;
+    monstre.traceEnMoins=retireTrace;
+    monstre.toursBlessureRestante=nbToursPos;
+    monstre.car_Monstre=carMonstre;
+    monstre.ptBlessure=carBlessure;
+
+
+    //puis on passe à la création des coordoonées de départ
+        //on génère des coods et on check si celles-ci ne sont pas voisines ou autour de celles des pisteurs
+
+
+    do{
+        casesVoisines_vides=vrai;
+        caseNonPisteur=vrai;
+
+                //X:
+        max=HAUTEUR_Map;
+        min=1;
+        x=(rand()%(max-min+1)) + min;//nb aléatoire entre 1 et 14
+
+                //Y:
+        max=LARGEUR_Map;
+        min=1;
+        y=(rand()%(max-min+1)) + min;//nb aléatoire entre 1 et 29
+
+
+                //check cases :
+        for(i=0;i<nbPisteurChoisi;i++){
+            //on check si case select il n'y a pas de pisteurs
+            if((tabPisteur[i].coords.x==x) && (tabPisteur[i].coords.y==y)){
+
+                caseNonPisteur=faux;// si les coordoonéees générées tombent sur une case de pisteur alors faux
+            }
+            //sinon on check qu'il n'y a pas de pisteur sur les cases voisines
+            else{
+
+
+
+
+
+
+
+            }
+        }
+
+
+
+    }while((caseNonPisteur==faux)||(casesVoisines_vides==faux));
+
+
+
+
+
+
+
+
+    //position de départ du monstre validée :
+    monstre.coords.x=x;
+    monstre.coords.y=y;
+
+    //on ajoute le monstre dans la grille :
+    grillePersonnage[monstre.coords.x][monstre.coords.y]=nbCase;
+
+    //enfin on appose la première trace du monstre:
+    AjoutTrace_Monstre(monstre,grilleTraces);
+
+
+
 }
 
 
@@ -25,8 +262,13 @@ void Pos_DepartMonstre(){
 
 
 //Traces du monstre à ajouter et enlever progressivement--------------------------
-void AjoutTrace_Monstre(){
+void AjoutTrace_Monstre(monster monstre, int grilleTraces[]){
 //BUT: on ajoute le nb 16 à l'ancienne position du monstre
+//ENTREE: les var du monstre, et le tableau qui fait l'historique des traces
+//SORTIE:tab traces avec nb ajouté dedans
+
+    grilleTraces[monstre.coords.x][monstre.coords.y]=monstre.tracesFraiches;
+
 }
 
 void EffacementTraces_Monstre(){

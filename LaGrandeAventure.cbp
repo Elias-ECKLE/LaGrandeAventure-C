@@ -43,6 +43,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="pisteurs.h" />
+		<Unit filename="struct_const.h" />
 		<Unit filename="vue.c">
 			<Option compilerVar="CC" />
 		</Unit>

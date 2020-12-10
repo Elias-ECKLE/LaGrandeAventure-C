@@ -40,7 +40,7 @@ void Init_MapVide(int grille[][LARGEUR_Map]){
 
 
 
-void Maj_AffichMap(int grille[][LARGEUR_Map],char delimtMap){
+void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state etatJeu, pisteur tabPisteur[], monster monstre){
 //BUT:Affiche les caractères correspondants aux nbs stockés dans le tab. A terme affiche la SDL correspondante aux nbs
 //ENTREE:
 //SORTIE:
@@ -49,34 +49,74 @@ void Maj_AffichMap(int grille[][LARGEUR_Map],char delimtMap){
 
     int i;
     int j;
+    caseNb nbCase;
 
     //tracé horizontal haut
-    for(j=0;j<LARGEUR_Map+1;j++){
-        gotoxy(j,0);
+    for(i=0;i<LARGEUR_Map+1;i++){
+        gotoxy(i,0);
         printf("%c",delimtMap);
     }
 
     //tracé horizontal bas
-    for(j=0;j<LARGEUR_Map+1;j++){
-        gotoxy(j,HAUTEUR_Map+1);
+    for(i=0;i<LARGEUR_Map+1;i++){
+        gotoxy(i,HAUTEUR_Map+1);
         printf("%c",delimtMap);
     }
 
     //tracé vetical gauche
-    for(j=0;j<HAUTEUR_Map+1;j++){
-        gotoxy(0,j);
+    for(i=0;i<HAUTEUR_Map+1;i++){
+        gotoxy(0,i);
         printf("%c",delimtMap);
     }
 
     //tracé vertical droit
-    for(j=0;j<HAUTEUR_Map+1;j++){
-        gotoxy(LARGEUR_Map+1,j);
+    for(i=0;i<HAUTEUR_Map+1;i++){
+        gotoxy(LARGEUR_Map+1,i);
         printf("%c",delimtMap);
     }
 
-//caracts pisteurs
 
-//caracts monstre
+
+    for(i=0;i<HAUTEUR_Map;i++){
+
+        for(j=0;j<LARGEUR_Map;j++){
+
+
+        //caracts pisteurs
+            nbCases=nbPisteur;
+            if(grillePersonnages[i][j]==nbCases){
+
+                gotoxy();
+                if(etatJeu==pisteurs_VerifVoisine){
+
+                    printf("%c",tabPisteur[0].car_Verifie);
+                }
+                else if(etatJeu==dplmtPisteurs){
+
+                    printf("%c",tabPisteur[0].car_EnAttente);
+                }
+                else{
+                    printf("%c";tabPisteur[0].car_Pisteur);
+                }
+            }
+
+        //caracts monstre
+            nbCases=nbMonstre;
+            if(grillePersonnages[i][j]==nbCases){
+
+                gotoxy();
+                printf("%c",monstre.car_Monstre);
+            }
+
+
+        }
+
+        printf("\n");
+    }
+
+
+
+
 
 }
 
@@ -87,9 +127,12 @@ void Maj_AffichMap(int grille[][LARGEUR_Map],char delimtMap){
 
 
 //AFFICHAGE TEXTE JEU__________________________________________________________
-void MsgDebut_FinJeu(state etatJeu){
+void MsgConsignes_Jeu(state etatJeu){
 //BUT:Afficher message d'accueil, règles expliquées & qui a gagné/perdu
+//ENTREE: état du jeu pour voir quelle consigne énoncer
+//SORTIE: RAS
 
+    system("cls");
 
     if(etatJeu==debut){
          //message début :
@@ -99,7 +142,7 @@ void MsgDebut_FinJeu(state etatJeu){
     else if(etatJeu==debut_SaisieCoords){
 
         //message début saisi de coord
-        printf("Avant de commencer la partie, vous devez positioner chacun de vos pisteurs en saissisant une coordoonee X et Y ci-après :\n");
+        printf("Avant de commencer la partie, vous devez positioner chacun de vos pisteurs en saisissant une coordoonee X et Y ci-apres\n");
     }
     else if(etatJeu==fin){
 
@@ -109,7 +152,7 @@ void MsgDebut_FinJeu(state etatJeu){
 
 
 
-void AffichTexte(texteNb nbTexte){
+void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab){
 //BUT : afficher tous les printf et à terme font SDL2 ici pour mieux s'y retrouver
     //Chaque num coorespond à un message différent à afficher
 
@@ -122,16 +165,20 @@ void AffichTexte(texteNb nbTexte){
     }
 
 
+
+
         //texte: void Saisie_posPisteursX();
     if(nbTexte==nbPos_TPisteurX){
 
-        printf("\nVeuillez entrer la coordoonee x: ");
+        printf("\nVeuillez entrer la coordoonee x du %s (entre 1 & 14): ",tab[indexTab].nom);
     }
 
         //texte: void Saisie_posPisteursY();
     if(nbTexte==nbPos_TPisteurY){
-        printf("\nVeuillez entrer la coordoonee y: ");
+        printf("\nVeuillez entrer la coordoonee y du %s (sentre 1 & 29): ",tab[indexTab].nom);
     }
+
+
 
         //texte: void Pos_DepartMonstre();
     if(nbTexte==nbPos_TDepartMonstre){

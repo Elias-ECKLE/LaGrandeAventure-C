@@ -54,23 +54,32 @@ int main()
 
   //INIT variables :____________________________________________________________
   state etatJeu=debut;
-  int nbPisteurChoisi;
+  srand(time(0)); //init de la fct rand
 
 
         //tabs :
    int grillePersonnages[HAUTEUR_Map][LARGEUR_Map];
    int grilleTraces[HAUTEUR_Map][LARGEUR_Map];
-   pisteur tabPisteur[NB_PisteursMax];
-
-   Init_MapVide(grillePersonnages); //nbCase avec nbInit
-
-
+   Init_MapVide(grillePersonnages);
         //init affichage map
     Maj_AffichMap(grillePersonnages,CAR_DelimitationMap);
 
 
-        //init nombre de pisteurs :
-    Saisie_NBPisteurs(tabPisteur,&nbPisteurChoisi,NB_PisteursMin,NB_PisteursMax,CAR_PisteurEnAttente,CAR_PisteurVerifie,CAR_Pisteur,NB_LettresNom);
+
+        //init des PISTEURS :-------------------------------
+    pisteur tabPisteur[NB_PisteursMax];
+    int nbPisteurChoisi;
+            //init nombre de pisteurs :
+    Init_Saisie_NBPisteurs(tabPisteur,&nbPisteurChoisi,NB_PisteursMin,NB_PisteursMax,CAR_PisteurEnAttente,CAR_PisteurVerifie,CAR_Pisteur,NB_LettresNom);
+            //init position de départ des pisteurs
+    Saisie_posPisteurs(grillePersonnages,tabPisteur,nbPisteurChoisi);
+
+
+        //init MONSTRE :-------------------------------------
+    monster monstre;
+    Init_Pos_DepartMonstre(grillePersonnages,grilleTraces, monstre,tabPisteur,NB_MonstrePV,NB_NouvelleTrace,NB_RetireTrace,NB_ToursPoint_DernierePos,CAR_Blessure_DernierePos,CAR_Monstre);
+
+
 
 
 

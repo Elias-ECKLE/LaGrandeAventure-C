@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <time.h> //on inclut une biblio pour utiliser la fct aléatoire
 
 
 //CONSTANTES A MODIFIER_____________________________________________________
@@ -31,6 +32,7 @@
 #define NB_RetireTrace 1
 #define NB_ToursPoint_DernierePos 4
 #define CAR_Blessure_DernierePos '.'
+#define CAR_Monstre 'M'
 
 
 //ENUM:___________________________________________________________________
@@ -129,6 +131,8 @@ typedef struct monster{
 
     coordXY coords;
     int vieRestante;
+    int tracesFraiches;
+    int traceEnMoins;
     boolean estVivant;
     int toursBlessureRestante;
     char ptBlessure;
