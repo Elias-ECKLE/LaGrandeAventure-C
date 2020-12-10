@@ -1,4 +1,5 @@
-#include "define.h"
+#include "struct_const.h"
+#include "monstre.h"
 
 
 void CheckCaseVoisine_Monstre(){

@@ -54,33 +54,31 @@ int main()
 
   //INIT variables :____________________________________________________________
   state etatJeu=debut;
+  int nbPisteurChoisi;
+
+
+        //tabs :
+   int grillePersonnages[HAUTEUR_Map][LARGEUR_Map];
+   int grilleTraces[HAUTEUR_Map][LARGEUR_Map];
+   pisteur tabPisteur[NB_PisteursMax];
+
+   Init_MapVide(grillePersonnages); //nbCase avec nbInit
+
+
+        //init affichage map
+    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap);
+
+
+        //init nombre de pisteurs :
+    Saisie_NBPisteurs(tabPisteur,&nbPisteurChoisi,NB_PisteursMin,NB_PisteursMax,CAR_PisteurEnAttente,CAR_PisteurVerifie,CAR_Pisteur,NB_LettresNom);
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return 0;
+    getchar();
+   return 0;
 
 
 

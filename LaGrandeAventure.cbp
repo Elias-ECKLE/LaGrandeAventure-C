@@ -31,9 +31,22 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="define.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="monstre.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="monstre.h" />
+		<Unit filename="pisteurs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pisteurs.h" />
+		<Unit filename="vue.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="vue.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
