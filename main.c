@@ -73,7 +73,7 @@ int main()
         //init des PISTEURS :-------------------------------
     int nbPisteurChoisi;
             //init nombre de pisteurs :
-        Init_Saisie_NBPisteurs(tabPisteur,&nbPisteurChoisi,NB_PisteursMin,NB_PisteursMax,CAR_PisteurEnAttente,CAR_PisteurVerifie,CAR_Pisteur,NB_LettresNom);
+    Init_Saisie_NBPisteurs(tabPisteur,&nbPisteurChoisi,NB_PisteursMin,NB_PisteursMax,CAR_PisteurEnAttente,CAR_PisteurVerifie,CAR_Pisteur,NB_LettresNom,NB_PisteurPV);
             //init position de départ des pisteurs
     Saisie_posPisteurs(grillePersonnages,tabPisteur,nbPisteurChoisi);
 
@@ -93,10 +93,19 @@ int main()
     //on commence par effacer d'un pt les traces du monstre :
     EffacementTraces_Monstre(grilleTraces,NB_RetireTrace);
 
-    //compte rendu des pisteurs :
     etatJeu=pisteurs_VerifVoisine;
     Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
-    CheckCaseVoisine_Pisteur(grillePersonnages,grilleTraces,tabPisteur,nbPisteurChoisi,&monstre,CHANCE_ReussirTir);
+    CheckCaseVoisine_Pisteur(grillePersonnages,grilleTraces,tabPisteur,nbPisteurChoisi,&monstre,CHANCE_ReussirTir,etatJeu);
+
+
+    //deplacement des pisteurs :
+    etatJeu=dplmtPisteurs;
+    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+    Deplcmt_Pisteur(grillePersonnages,etatJeu,tabPisteur,nbPisteurChoisi,NB_DistanceMax,CAR_DelimitationMap,monstre);
+
+
+
+
 
 
 

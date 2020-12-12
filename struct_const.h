@@ -66,7 +66,9 @@ typedef enum texteNb{
     nbRAS_TCaseVoisine,
 
     nbChoix_TDistance,
+    nbChoix_Erreur_TDistance,
     nbChoix_TDirection,
+    nbChoix_Erreur_TDirection,
     nbDplmt_TPisteur,
 
     nbManger_TPisteur,
@@ -131,6 +133,7 @@ typedef struct pisteur{
 
     coordXY coords;
     boolean estVivant;
+    int vieRestante;
     char car_Pisteur;
     char car_Verifie;
     char car_EnAttente;

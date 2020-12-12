@@ -7,7 +7,7 @@
 
 //Saisie NB Pisteurs :--------------------------------
 
-void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int max, char carAttente, char carVerif, char carPisteur, int maxLettres){
+void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int max, char carAttente, char carVerif, char carPisteur, int maxLettres,int nbPV){
 //BUT:Demander en début de partie le nb de pisteurs qu'il y aura dans le jeu
 //ENTREE:RAS
 //SORTIE:Nb pisteurs
@@ -42,6 +42,7 @@ void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int 
          tab[i].car_Pisteur=carPisteur;
          tab[i].car_Verifie=carVerif;
          tab[i].estVivant= pisteurEnVie;
+         tab[i].vieRestante=nbPV;
 
          //on convertit le int i en char
          char tabNb[maxLettres-5];
@@ -197,7 +198,7 @@ int Tirer_SurMonstre(int vieMonstre,int chanceTir){
 
 }
 
-void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[][LARGEUR_Map], pisteur tabPisteur[], int nbPisteurs, monster *monstre,int chanceTir){
+void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[][LARGEUR_Map], pisteur tabPisteur[], int nbPisteurs, monster *monstre,int chanceTir,state etatJeu){
 //BUT:checker toutes les cases voisines, les 8 et voir si monstre à côté, il y a des traces ou rien
 
     int i;
@@ -211,6 +212,8 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
     booleanPerso traceEstLa=faux;
     caseAutour autourCase;
 
+    MsgConsignes_Jeu(etatJeu);
+
     for(i=0;i<nbPisteurs;i++){
 
         x=tabPisteur[i].coords.x;
@@ -220,7 +223,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
         y=y-1;
         nbCase=nbMonstre;
         //on affiche le pisteur avec un !
-        majElement_SurMap(x,y,tabPisteur[i].car_Verifie,16+i);
+        majElement_SurMap(x,y,tabPisteur[i].car_Verifie,18+i);
 
 
 
@@ -559,7 +562,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
         getchar();
         //on remet l'affichage du pisteur par défaut
 
-        majElement_SurMap(x,y,tabPisteur[i].car_Pisteur,16+i);
+        majElement_SurMap(x,y,tabPisteur[i].car_Pisteur,18+i);
     }
 
 
@@ -570,18 +573,239 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
 
 
 
-void ChoixDistance(){
+int ChoixDistance(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,int x,int y,int maxDistance,int nb_Direction){
 //BUT:choisir la distance de cases qu'on veut atteindre. MAX:4
+
+
+
+    texteNb nbTexte=nbChoix_TDistance;
+    int nb_Distance;
+    booleanPerso distancePossible=vrai;
+    caseNb nbCase=nbPisteur;
+
+
+    //demander quelle direction prendre :
+    AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+
+
+    do{
+
+        //reinit
+        distancePossible=vrai;
+        nbTexte=nbChoix_TDistance;
+
+        //demander quelle distance
+        do{
+            scanf("%d",&nb_Distance);
+            if((nb_Distance<1)||(nb_Distance>maxDistance)){
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }while((nb_Distance<1)||(nb_Distance>maxDistance));
+
+
+
+        //checker si la distance est possible : fait un check de la case de la distance prise
+        if(nb_Direction==haut){
+            if((x-nb_Distance<0)||(grillePersos[x-nb_Distance][y]==nbCase)){
+
+                distancePossible=faux;
+                nbTexte=nbChoix_Erreur_TDistance;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }
+        else if(nb_Direction==droite){
+            if((y+nb_Distance>=LARGEUR_Map)||(grillePersos[x][y+nb_Distance]==nbCase)){
+
+                distancePossible=faux;
+                nbTexte=nbChoix_Erreur_TDistance;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }
+        else if(nb_Direction==bas){
+            if((x+nb_Distance>=HAUTEUR_Map)||(grillePersos[x+nb_Distance][y]==nbCase)){
+
+                distancePossible=faux;
+                nbTexte=nbChoix_Erreur_TDistance;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }
+        else if(nb_Direction==gauche){
+            if((y-nb_Distance<0)||(grillePersos[x][y-nb_Distance]==nbCase)){
+
+                distancePossible=faux;
+                nbTexte=nbChoix_Erreur_TDistance;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }
+
+
+    }while(distancePossible==faux);
+
+    return nb_Distance;
+
+
+
+
 }
 
 
-void ChoixDirection(){
+int ChoixDirection(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,int x,int y){
 //BUT:choix de la direction dans laquelle part le pisteur : soit H B G D
+
+    texteNb nbTexte=nbChoix_TDirection;
+    int nb_Direction;
+    booleanPerso directionPossible=vrai;
+    caseNb nbCase=nbPisteur;
+
+
+    //demander quelle direction prendre :
+    AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+
+
+    do{
+
+        //reinit
+        directionPossible=vrai;
+        nbTexte=nbChoix_TDirection;
+        do{
+            scanf("%d",&nb_Direction);
+            if((nb_Direction!=haut)&&(nb_Direction!=droite)&&(nb_Direction!=bas)&&(nb_Direction!=gauche)){
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }while((nb_Direction!=haut)&&(nb_Direction!=droite)&&(nb_Direction!=bas)&&(nb_Direction!=gauche));
+
+
+
+        //checker si la direction est possible : fait un check de la case juste voisine de la direction prise
+        if(nb_Direction==haut){
+            if((x-1<0)||(grillePersos[x-1][y]==nbCase)){
+
+                directionPossible=faux;
+                nbTexte=nbChoix_Erreur_TDirection;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }
+        else if(nb_Direction==droite){
+            if((y+1>=LARGEUR_Map)||(grillePersos[x][y+1]==nbCase)){
+
+                directionPossible=faux;
+                nbTexte=nbChoix_Erreur_TDirection;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }
+        else if(nb_Direction==bas){
+            if((x+1>=HAUTEUR_Map)||(grillePersos[x+1][y]==nbCase)){
+
+                directionPossible=faux;
+                nbTexte=nbChoix_Erreur_TDirection;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }
+        else if(nb_Direction==gauche){
+            if((y-1<0)||(grillePersos[x][y-1]==nbCase)){
+
+                directionPossible=faux;
+                nbTexte=nbChoix_Erreur_TDirection;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+                nbTexte=nb_TErreur;
+                AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+            }
+        }
+
+
+    }while(directionPossible==faux);
+
+    return nb_Direction;
+
+
+
 }
 
 
-void Deplcmt_Pisteur(){
+void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map],state etatJeu, pisteur tabPisteur[],int nbPisteurs, int maxDistance, char carDelimt,monster monstre){
 //BUT:déplacer le pisteur
+
+    int i;
+    int x;
+    int y;
+    int nb_DirectionChoisie;
+    int nb_DistanceChoisie;
+    caseNb nbCase;
+
+    //on affiche l'état de la situation : déplacement de chaque pisteur
+    MsgConsignes_Jeu(etatJeu);
+
+
+
+    for(i=0;i<nbPisteurs;i++){
+
+        //-1 pour coller à la plage du tableau : 0 à... et non 1 à...
+        x=tabPisteur[i].coords.x-1;
+        y=tabPisteur[i].coords.y-1;
+        majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18+i);
+
+    //demander direction et distance
+        //direction :
+        nb_DirectionChoisie=ChoixDirection(grillePersos,tabPisteur,i,x,y);
+        //distance :
+        nb_DistanceChoisie=ChoixDistance(grillePersos,tabPisteur,i,x,y,maxDistance,nb_DirectionChoisie);
+        //reinit
+        majElement_SurMap(x,y,tabPisteur[i].car_Pisteur,18+i);
+
+
+
+    //atribuer ces nouvelles informations
+        nbCase=nbPisteur;
+        switch(nb_DirectionChoisie){
+
+            case haut:
+                //attribuer les coords au pisteur
+                tabPisteur[i].coords.x=tabPisteur[i].coords.x-nb_DistanceChoisie;
+                //mettre le chiffre case grillePerso position coorrespondante
+                grillePersos[x][y]=0;
+                grillePersos[x-nb_DistanceChoisie][y]=nbCase;
+                break;
+
+            case droite :
+                tabPisteur[i].coords.y=tabPisteur[i].coords.y+nb_DistanceChoisie;
+                grillePersos[x][y]=0;
+                grillePersos[x][y+nb_DistanceChoisie]=nbCase;
+                break;
+
+            case bas:
+                tabPisteur[i].coords.x=tabPisteur[i].coords.x+nb_DistanceChoisie;
+                grillePersos[x][y]=0;
+                grillePersos[x+nb_DistanceChoisie][y]=nbCase;
+                break;
+
+
+            case gauche:
+                tabPisteur[i].coords.y=tabPisteur[i].coords.y-nb_DistanceChoisie;
+                grillePersos[x][y]=0;
+                grillePersos[x][y-nb_DistanceChoisie]=nbCase;
+                break;
+
+        }
+        //on reaffiche la map pour modifier l'affichage de la position du pisteur
+        Maj_AffichMap(grillePersos,carDelimt,etatJeu,tabPisteur,monstre);
+
+    }
 }
 
 

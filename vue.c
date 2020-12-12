@@ -89,13 +89,7 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
             if(grillePersonnages[i][j]==nbCase){
 
                 gotoxy(j+1,i+1);
-                if(etatJeu==dplmtPisteurs){
-
-                    printf("%c",tabPisteur[0].car_EnAttente);
-                }
-                else{
-                    printf("%c",tabPisteur[0].car_Pisteur);
-                }
+                printf("%c",tabPisteur[0].car_Pisteur);
             }
 
         //caracts monstre
@@ -141,21 +135,25 @@ void MsgConsignes_Jeu(state etatJeu){
 //ENTREE: état du jeu pour voir quelle consigne énoncer
 //SORTIE: RAS
 
-    system("cls");
+
 
     if(etatJeu==debut){
          //message début :
+             system("cls");
         printf("Bienvenue dans le jeu de La Grande Aventure. Arriverez-vous a eliminer le terrible monstre qui rode dans les parages.\n");
         printf("Bon courage, vous en aurez bien besoin. Et tachez de ne pas mourir");
     }
     else if(etatJeu==debut_SaisieCoords){
-
+            system("cls");
         //message début saisi de coord
         printf("Avant de commencer la partie, vous devez positioner chacun de vos pisteurs en saisissant une coordoonee X et Y ci-apres\n");
     }
     else if(etatJeu==pisteurs_VerifVoisine){
         //moment ou les pisteus disent ce qu'ils voient dans les cases voisines
-        printf("\n\nIl est l heure du compte rendu des pisteurs : \n");
+        printf("\nIl est l heure du compte rendu des pisteurs : \n\n");
+    }
+    else if(etatJeu==dplmtPisteurs){
+        printf("\nLe deplacement des pisteurs commence  : \n\n");
     }
     else if(etatJeu==fin){
 
@@ -236,16 +234,22 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int n
     //-------------------------------------------------------
 
 
-
     //------------------------------------------------------
         //texte : vvoid ChoixDistance();
     if(nbTexte==nbChoix_TDistance){
-
+        printf("Quelle distance pour le %s (entre 1 et 4 au maximum) ? ",tab[indexTab].nom);
+    }
+    if(nbTexte==nbChoix_Erreur_TDistance){
+        printf("Impossible de valider la distance choisie. Il semble qu'un obstacle empeche la validation");
     }
 
         //texte  :  void ChoixDirection
     if(nbTexte==nbChoix_TDirection){
 
+        printf("Quelle direction pour le %s (1=haut/ 2=droite/ 3=bas/ 4=gauche/): ",tab[indexTab].nom);
+    }
+    if(nbTexte==nbChoix_Erreur_TDirection){
+        printf("Impossible de valider la direction choisie. Il semble qu'un obstacle empeche la validation");
     }
 
         //texte ; void Deplcmt_Pisteur()
