@@ -50,17 +50,28 @@ typedef enum state{
 typedef enum texteNb{
 
     nbSaisie_TPisteur=0,
+
     nbPos_TPisteurX,
     nbPos_TPisteurY,
+
     nbPos_TDepartMonstre,
+
     nbTirer_TMonstre,
-    nbCheckCasVoisine_TPisteur,
+    nbTirLoupe_TMonstre,
+    nbTirReussi_TMonstre,
+
+    nbMonstre_TCaseVoisine,
+    nbTraces_TCaseVoisine,
+    nbRAS_TCaseVoisine,
+
     nbChoix_TDistance,
     nbChoix_TDirection,
     nbDplmt_TPisteur,
+
     nbManger_TPisteur,
     nbDplmt_TMonstre,
     nbMonstre_TTouche,
+
     nb_TErreur
 
 }texteNb;

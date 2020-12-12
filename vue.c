@@ -75,18 +75,17 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
         printf("%c",delimtMap);
     }
 
-
-
+    gotoxy(0,0);
     for(i=0;i<HAUTEUR_Map;i++){
 
         for(j=0;j<LARGEUR_Map;j++){
 
 
         //caracts pisteurs
-            nbCases=nbPisteur;
-            if(grillePersonnages[i][j]==nbCases){
+            nbCase=nbPisteur;
+            if(grillePersonnages[i][j]==nbCase){
 
-                gotoxy();
+                gotoxy(i,j);
                 if(etatJeu==pisteurs_VerifVoisine){
 
                     printf("%c",tabPisteur[0].car_Verifie);
@@ -96,15 +95,15 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
                     printf("%c",tabPisteur[0].car_EnAttente);
                 }
                 else{
-                    printf("%c";tabPisteur[0].car_Pisteur);
+                    printf("%c",tabPisteur[0].car_Pisteur);
                 }
             }
 
         //caracts monstre
-            nbCases=nbMonstre;
-            if(grillePersonnages[i][j]==nbCases){
+            nbCase=nbMonstre;
+            if(grillePersonnages[i][j]==nbCase){
 
-                gotoxy();
+                gotoxy(i,j);
                 printf("%c",monstre.car_Monstre);
             }
 
@@ -144,6 +143,10 @@ void MsgConsignes_Jeu(state etatJeu){
         //message début saisi de coord
         printf("Avant de commencer la partie, vous devez positioner chacun de vos pisteurs en saisissant une coordoonee X et Y ci-apres\n");
     }
+    else if(etatJeu==pisteurs_VerifVoisine){
+        //moment ou les pisteus disent ce qu'ils voient dans les cases voisines
+        printf("\n\nIl est l heure du compte rendu des pisteurs : \n");
+    }
     else if(etatJeu==fin){
 
     }
@@ -152,7 +155,7 @@ void MsgConsignes_Jeu(state etatJeu){
 
 
 
-void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab){
+void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int nbFraicheurTrace, int vieMonstre){
 //BUT : afficher tous les printf et à terme font SDL2 ici pour mieux s'y retrouver
     //Chaque num coorespond à un message différent à afficher
 
@@ -161,11 +164,11 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab){
         //texte: void Saisie_NBPisteurs();
     if(nbTexte==nbSaisie_TPisteur){
 
-        printf("\nCombien de pisteurs voulez-vous ? Vous pouvez choisir de 1 a 10 au maximum : ");
+        printf("\n\nCombien de pisteurs voulez-vous ? Vous pouvez choisir de 1 a 10 au maximum : ");
     }
 
 
-
+   //--------------------------------------------------------------
 
         //texte: void Saisie_posPisteursX();
     if(nbTexte==nbPos_TPisteurX){
@@ -175,26 +178,55 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab){
 
         //texte: void Saisie_posPisteursY();
     if(nbTexte==nbPos_TPisteurY){
-        printf("\nVeuillez entrer la coordoonee y du %s (sentre 1 & 29): ",tab[indexTab].nom);
+        printf("\nVeuillez entrer la coordoonee y du %s (entre 1 & 29): ",tab[indexTab].nom);
     }
 
-
+    //-------------------------------------------------------------
 
         //texte: void Pos_DepartMonstre();
     if(nbTexte==nbPos_TDepartMonstre){
-
+        printf("Le monstre est entre dans l'arene");
     }
+
+
+    //--------------------------------------------------------------
 
         //void Tirer_SurMonstre();
     if(nbTexte==nbTirer_TMonstre){
 
+        printf(" (t pour tirer /r pour ne rien faire) : ");
+    }
+    if(nbTexte==nbTirLoupe_TMonstre){
+        printf("\nVous avez loupe votre tir");
+    }
+    if(nbTexte==nbTirReussi_TMonstre){
+        printf("Vous avez reussi votre tir. Il reste %d PV au monstre",vieMonstre);
+
     }
 
+    //-------------------------------------------------------
         //texte : void CheckCaseVoisine_Pisteur();
-    if(nbTexte==nbCheckCasVoisine_TPisteur){
 
+            //monstre est dans une case voisine
+    if(nbTexte==nbMonstre_TCaseVoisine){
+        printf("\n\n %s",tab[indexTab].nom);
+        printf(": Je le vois");
     }
+            //il y a des traces autour
+    if(nbTexte==nbTraces_TCaseVoisine){
+        printf("\n\n %s",tab[indexTab].nom);
+        printf(": traces en %d de valeur %d",nbCase,nbFraicheurTrace);
+    }
+            //il n'y a rien
+    if(nbTexte==nbRAS_TCaseVoisine){
+        printf("\n\n %s",tab[indexTab].nom);
+        printf(": Rien en 1,2,3,4,5,6,7,8");
+    }
+    //-------------------------------------------------------
 
+
+
+    //------------------------------------------------------
         //texte : vvoid ChoixDistance();
     if(nbTexte==nbChoix_TDistance){
 
@@ -209,6 +241,9 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab){
     if(nbTexte==nbDplmt_TPisteur){
 
     }
+    //------------------------------------------------------
+
+
 
         //texte:void MangerPisteur();
     if(nbTexte==nbManger_TPisteur){
@@ -226,6 +261,10 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab){
 
     }
 
+
+
+
+    //-------------------------------------------------------
         //si il y a une erreur dans la saisie d'une valeur par l'utilisateur ou autre même, afficher ce msg
     if(nbTexte==nb_TErreur){
 

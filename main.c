@@ -55,29 +55,48 @@ int main()
   //INIT variables :____________________________________________________________
   state etatJeu=debut;
   srand(time(0)); //init de la fct rand
+  pisteur tabPisteur[NB_PisteursMax];
+  monster monstre;
 
 
         //tabs :
    int grillePersonnages[HAUTEUR_Map][LARGEUR_Map];
    int grilleTraces[HAUTEUR_Map][LARGEUR_Map];
    Init_MapVide(grillePersonnages);
+   Init_MapVide(grilleTraces);
         //init affichage map
-    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap);
+    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+
 
 
 
         //init des PISTEURS :-------------------------------
-    pisteur tabPisteur[NB_PisteursMax];
     int nbPisteurChoisi;
             //init nombre de pisteurs :
-    Init_Saisie_NBPisteurs(tabPisteur,&nbPisteurChoisi,NB_PisteursMin,NB_PisteursMax,CAR_PisteurEnAttente,CAR_PisteurVerifie,CAR_Pisteur,NB_LettresNom);
+        Init_Saisie_NBPisteurs(tabPisteur,&nbPisteurChoisi,NB_PisteursMin,NB_PisteursMax,CAR_PisteurEnAttente,CAR_PisteurVerifie,CAR_Pisteur,NB_LettresNom);
             //init position de départ des pisteurs
     Saisie_posPisteurs(grillePersonnages,tabPisteur,nbPisteurChoisi);
 
 
         //init MONSTRE :-------------------------------------
-    monster monstre;
-    Init_Pos_DepartMonstre(grillePersonnages,grilleTraces, monstre,tabPisteur,NB_MonstrePV,NB_NouvelleTrace,NB_RetireTrace,NB_ToursPoint_DernierePos,CAR_Blessure_DernierePos,CAR_Monstre);
+    Init_Pos_DepartMonstre(grillePersonnages,grilleTraces,&monstre,tabPisteur,nbPisteurChoisi,NB_MonstrePV,NB_NouvelleTrace,NB_RetireTrace,NB_ToursPoint_DernierePos,CAR_Blessure_DernierePos,CAR_Monstre);
+
+
+
+
+    getchar();
+   //JEU______________________________________________
+
+    grilleTraces[13-1][13-1]=14;
+    grilleTraces[11-1][15-1]=10;
+    grilleTraces[12-1][15-1]=15;
+
+    //on commence par effacer d'un pt les traces du monstre :
+    EffacementTraces_Monstre(grilleTraces,NB_RetireTrace);
+
+    //compte rendu des pisteurs :
+    CheckCaseVoisine_Pisteur(grillePersonnages,grilleTraces,tabPisteur,nbPisteurChoisi,&monstre,CHANCE_ReussirTir);
+
 
 
 
@@ -87,32 +106,7 @@ int main()
 
 
     getchar();
-   return 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return 0;
 
 
 }

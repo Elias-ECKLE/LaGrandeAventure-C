@@ -21,14 +21,14 @@ void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int 
 
     //on demande à saisir le fameux nombre
     nbTexte=nbSaisie_TPisteur;
-    AffichTexte(nbTexte,tab,0); //on paramètre la valeur corsspondant au texte à afficher ds proc : AfficTexte
+    AffichTexte(nbTexte,tab,0,0,0); //on paramètre la valeur corsspondant au texte à afficher ds proc : AfficTexte
     do{
 
         scanf("%d",&nbPisteursChoisi);
         if ((nbPisteursChoisi<min)||(nbPisteursChoisi>max)){
 
             nbTexte=nb_TErreur;
-            AffichTexte(nbTexte);
+            AffichTexte(nbTexte,tab,0,0,0);
         }
 
     }while((nbPisteursChoisi<min)||(nbPisteursChoisi>max));
@@ -55,10 +55,6 @@ void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int 
 }
 
 
-
-
-
-
 //Saisie position pisteur en x et y-------------------
 
 void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int nbPisteursChoisi){
@@ -81,7 +77,7 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int 
 
             //X
             nbTexte=nbPos_TPisteurX;
-            AffichTexte(nbTexte,tab,i);
+            AffichTexte(nbTexte,tab,i,0,0);
             do{
                 scanf("%d",&x);
                 if((x>HAUTEUR_Map)||(x<1)){
@@ -94,7 +90,7 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int 
 
             //Y
             nbTexte=nbPos_TPisteurY;
-            AffichTexte(nbTexte,tab,i);
+            AffichTexte(nbTexte,tab,i,0,0);
             do{
                 scanf("%d",&y);
                 if((y>LARGEUR_Map) ||(y<1)){
@@ -123,19 +119,163 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int 
 
 //JEU _______________________________________________________________________
 
-void Tirer_SurMonstre(){
+int Tirer_SurMonstre(int vieMonstre,int chanceTir){
 //BUT:on peut tirer sur le monstre ou non. Au choix
+//ENTREE:
+//SORTIE:
+
+    texteNb nbTexte;
+    int  min=1;
+    int max=10;
+    int result;
+    char car_TirerOuNon;
+
+    //on demande au joueur s'il veut tirer dessus ou non :
+    nbTexte=nbTirer_TMonstre;
+    AffichTexte(nbTexte,0,0,0,0,0);
+    do{
+        scanf("%c",&car_TirerOuNon);
+        if((car_TirerOuNon!='t')&&(car_TirerOuNon!='T')&&(car_TirerOuNon!='r')&&(car_TirerOuNon!='R')){
+            nbTexte=nb_TErreur;
+            AffichTexte(nbTexte,0,0,0,0,0);
+        }
+    }while((car_TirerOuNon!='t')&&(car_TirerOuNon!='T')&&(car_TirerOuNon!='r')&&(car_TirerOuNon!='R'));
+
+
+
+
+    if(car_TirerOuNon=='t'){
+
+        //40% de chances de toucher
+
+        //on en sort une valeur aléatoire
+        result=(rand()%(max-min+1)) + min;
+
+        if(result<=chanceTir/10){ //si on obtient soit 1,2,3 ou 4 alors on est dans les 40% de tir.
+        //alors que si on tombe sur 5,6,7,8,9,10 on est dans les 60% d'échouer
+            //il réussi le tir
+            nbTexte=nbTirReussi_TMonstre;
+            //on enlève 1 pv au monstre :
+            vieMonstre--;
+            AffichTexte(nbTexte,0,0,0,0,vieMonstre);
+        }
+        else{
+            //il loupe le tir
+            nbTexte=nbTirLoupe_TMonstre;
+            AffichTexte(nbTexte,0,0,0,0,0);
+        }
+    }
+
+    return vieMonstre;
+
 }
 
-void CheckCaseVoisine_Pisteur(){
-//BUT:checker toutes les cases voisines, les 8
+void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[][LARGEUR_Map], pisteur tabPisteur[], int nbPisteurs, monster *monstre,int chanceTir){
+//BUT:checker toutes les cases voisines, les 8 et voir si monstre à côté, il y a des traces ou rien
+
+    int i;
+    int x;
+    int y;
+    int vieMonstre=monstre->vieRestante;
+    int nbTrace;
+    caseNb nbCase;
+    texteNb nbTexte;
+    booleanPerso monstreEstLa=faux;
+    booleanPerso traceEstLa=faux;
+    caseAutour autourCase;
+
+    for(i=0;i<nbPisteurs;i++){
+
+        x=tabPisteur[i].coords.x;
+        y=tabPisteur[i].coords.y;
+        //on oublie pas que les tableaux commencent à 0 et non 1, du coup on retire 1
+        x=x-1;
+        y=y-1;
+        nbCase=nbMonstre;
 
 
-    //il n'y a rien :
+        //le monstre est à côté :
+        if((grillePerso[x-1][y]==nbMonstre)||(grillePerso[x+1][y]==nbMonstre) || (grillePerso[x][y-1]==nbMonstre) || (grillePerso[x][y+1]==nbMonstre)||(grillePerso[x-1][y-1]==nbMonstre)||(grillePerso[x-1][y+1]==nbMonstre)||(grillePerso[x+1][y+1]==nbMonstre)||(grillePerso[x+1][y-1]==nbMonstre)){
 
-    //traces visibles
+            monstreEstLa=vrai;
+            nbTexte=nbMonstre_TCaseVoisine;
+            AffichTexte(nbTexte,tabPisteur,i);
 
-    //le monstre est à côté :
+            vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir);
+            monstre->vieRestante=vieMonstre;
+        }
+
+        //traces visibles :
+        else if(monstreEstLa==faux){
+
+            nbTexte=nbTraces_TCaseVoisine;
+            //diagonaleH_G
+            if(grilleTraces[x-1][y-1]>0){
+                autourCase=diagH_G;
+                traceEstLa=vrai;
+                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y-1],0);
+
+            }
+            //Haut
+            if(grilleTraces[x-1][y]>0){
+                autourCase=auDessus;
+                traceEstLa=vrai;
+                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
+
+            }
+            //DiagonaleH_D
+            if(grilleTraces[x-1][y+1]>0){
+                autourCase=diagH_D;
+                traceEstLa=vrai;
+                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y+1],0);
+
+            }
+            //Droite
+            if(grilleTraces[x][y+1]>0){
+                autourCase=aDroite;
+                traceEstLa=vrai;
+                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
+            }
+            //DiagonaleB_D
+            if(grilleTraces[x+1][y+1]>0){
+                autourCase=diagB_D;
+                traceEstLa=vrai;
+                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y+1],0);
+            }
+            //Bas
+            if(grilleTraces[x+1][y]>0){
+                autourCase=enBas;
+                traceEstLa=vrai;
+                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
+            }
+            //DiagonaleB_G
+            if(grilleTraces[x+1][y-1]>0){
+                autourCase=diagB_G;
+                traceEstLa=vrai;
+                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y-1],0);
+            }
+            //Gauche
+            if(grilleTraces[x][y-1]>0){
+                autourCase=aGauche;
+                traceEstLa=vrai;
+                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
+            }
+        }
+
+        //il n'y a rien :
+        if((monstreEstLa==faux)&&(traceEstLa==faux)){
+            nbTexte=nbRAS_TCaseVoisine;
+            AffichTexte(nbTexte,tabPisteur,i,0,0,0);
+        }
+        monstreEstLa=faux;
+        traceEstLa=faux;
+
+    }
+
+
+
+
+
 }
 
 
