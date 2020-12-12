@@ -85,16 +85,17 @@ int main()
 
 
     getchar();
+
    //JEU______________________________________________
 
-    grilleTraces[13-1][13-1]=14;
-    grilleTraces[11-1][15-1]=10;
-    grilleTraces[12-1][15-1]=15;
+
 
     //on commence par effacer d'un pt les traces du monstre :
     EffacementTraces_Monstre(grilleTraces,NB_RetireTrace);
 
     //compte rendu des pisteurs :
+    etatJeu=pisteurs_VerifVoisine;
+    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
     CheckCaseVoisine_Pisteur(grillePersonnages,grilleTraces,tabPisteur,nbPisteurChoisi,&monstre,CHANCE_ReussirTir);
 
 

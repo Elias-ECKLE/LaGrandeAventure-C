@@ -53,6 +53,7 @@ typedef enum texteNb{
 
     nbPos_TPisteurX,
     nbPos_TPisteurY,
+    erreur_CoordsIdentiques,
 
     nbPos_TDepartMonstre,
 
@@ -108,8 +109,8 @@ typedef enum booleanPerso{
 typedef enum caseNb{
 
     nbInit=0,
-    nbPisteur=1,
-    nbMonstre=2,
+    nbPisteur=1199,
+    nbMonstre=2199,
     pointPos_Monstre=3
 
 }caseNb;

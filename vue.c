@@ -47,6 +47,8 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
 
 //caracts délimitation map
 
+    system("cls");
+
     int i;
     int j;
     caseNb nbCase;
@@ -74,6 +76,7 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
         gotoxy(LARGEUR_Map+1,i);
         printf("%c",delimtMap);
     }
+    //--------------------------------------------
 
     gotoxy(0,0);
     for(i=0;i<HAUTEUR_Map;i++){
@@ -85,12 +88,8 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
             nbCase=nbPisteur;
             if(grillePersonnages[i][j]==nbCase){
 
-                gotoxy(i,j);
-                if(etatJeu==pisteurs_VerifVoisine){
-
-                    printf("%c",tabPisteur[0].car_Verifie);
-                }
-                else if(etatJeu==dplmtPisteurs){
+                gotoxy(j+1,i+1);
+                if(etatJeu==dplmtPisteurs){
 
                     printf("%c",tabPisteur[0].car_EnAttente);
                 }
@@ -103,7 +102,7 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
             nbCase=nbMonstre;
             if(grillePersonnages[i][j]==nbCase){
 
-                gotoxy(i,j);
+                gotoxy(j+1,i+1);
                 printf("%c",monstre.car_Monstre);
             }
 
@@ -113,10 +112,21 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
         printf("\n");
     }
 
+    printf("\n\n");
 
 
 
 
+
+}
+
+void majElement_SurMap(int x, int y, char car,int decalageY_Goto){
+//BUT: mettre à jour l'affichage d'un élément en particulier et non toute la map (éviter de la reécrire en entier) ex: point d'exclamation pisteur
+
+    gotoxy(y+1,x+1);
+    printf("%c\n",car);
+    //on remet un goto en dessous du tableau, sinon va écrire par dessus le tabl
+    gotoxy(0,decalageY_Goto);
 }
 
 
@@ -166,8 +176,6 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int n
 
         printf("\n\nCombien de pisteurs voulez-vous ? Vous pouvez choisir de 1 a 10 au maximum : ");
     }
-
-
    //--------------------------------------------------------------
 
         //texte: void Saisie_posPisteursX();
@@ -179,6 +187,9 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int n
         //texte: void Saisie_posPisteursY();
     if(nbTexte==nbPos_TPisteurY){
         printf("\nVeuillez entrer la coordoonee y du %s (entre 1 & 29): ",tab[indexTab].nom);
+    }
+    if(nbTexte==erreur_CoordsIdentiques){
+        printf("\nCes coordonnees sont deja prises par un autre pisteur : ");
     }
 
     //-------------------------------------------------------------
@@ -197,10 +208,10 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int n
         printf(" (t pour tirer /r pour ne rien faire) : ");
     }
     if(nbTexte==nbTirLoupe_TMonstre){
-        printf("\nVous avez loupe votre tir");
+        printf("\nVous avez loupe votre tir\n");
     }
     if(nbTexte==nbTirReussi_TMonstre){
-        printf("Vous avez reussi votre tir. Il reste %d PV au monstre",vieMonstre);
+        printf("Vous avez reussi votre tir. Il reste %d PV au monstre\n",vieMonstre);
 
     }
 
@@ -214,7 +225,7 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int n
     }
             //il y a des traces autour
     if(nbTexte==nbTraces_TCaseVoisine){
-        printf("\n\n %s",tab[indexTab].nom);
+        printf("\n %s",tab[indexTab].nom);
         printf(": traces en %d de valeur %d",nbCase,nbFraicheurTrace);
     }
             //il n'y a rien

@@ -10,11 +10,11 @@ void CheckCasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int c
     //check lors de l'init, on check donc sur les 8 cases. On se base sur 4 cases pour éviter plantage et après on regarde si l'en des une cases possible, il y a un pisteur
     if(checkCases_nbChoix==0){
 
-        if ((x>0) || (x<HAUTEUR_Map-1)){
+        if ((x>0) && (x<HAUTEUR_Map-1)){
 
             //or comme certaines positions ne disposent pas de quatres cases les entourant (les coins par exemple), il faut en tenir compte lors de la verification des
             // 'X' voisins et ainsi eviter le plantage du prog en placant des condtions
-                if ((y>0) || (y<LARGEUR_Map-1)){
+                if ((y>0) && (y<LARGEUR_Map-1)){
 
                     if((grillePerso[x-1][y]==nbPist)||(grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)||(grillePerso[x-1][y-1]==nbPist)||(grillePerso[x-1][y+1]==nbPist)||(grillePerso[x+1][y+1]==nbPist)||(grillePerso[x+1][y-1]==nbPist)){
                         caseNonPisteur=faux;
@@ -36,7 +36,7 @@ void CheckCasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int c
         }
         else if (x==0){
 
-                if ((y>0) || (y<LARGEUR_Map-1)){
+                if ((y>0) && (y<LARGEUR_Map-1)){
 
                      if  ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)||(grillePerso[x+1][y+1]==nbPist)||(grillePerso[x+1][y-1]==nbPist)){
                         caseNonPisteur=faux;
@@ -57,7 +57,7 @@ void CheckCasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int c
         }
         else if (x==HAUTEUR_Map-1){
 
-                if ((y>0) || (y<LARGEUR_Map-1)){
+                if ((y>0) && (y<LARGEUR_Map-1)){
 
                      if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)||(grillePerso[x-1][y-1]==nbPist)||(grillePerso[x-1][y+1]==nbPist)){
                         caseNonPisteur=faux;
@@ -87,11 +87,11 @@ void CheckCasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int c
     if(checkCases_nbChoix==1){
 
 
-        if ((x>0) || (x<HAUTEUR_Map-1)){
+        if ((x>0) && (x<HAUTEUR_Map-1)){
 
             //or comme certaines positions ne disposent pas de quatres cases les entourant (les coins par exemple), il faut en tenir compte lors de la verification des
             // 'X' voisins et ainsi eviter le plantage du prog en placant des condtions
-                if ((y>0) || (y<LARGEUR_Map-1)){
+                if ((y>0) && (y<LARGEUR_Map-1)){
 
                     if((grillePerso[x-1][y]==nbPist)||(grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)){
                         caseNonPisteur=faux;
@@ -113,7 +113,7 @@ void CheckCasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int c
         }
         else if (x==0){
 
-                if ((y>0) || (y<LARGEUR_Map-1)){
+                if ((y>0) && (y<LARGEUR_Map-1)){
 
                      if  ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)){
                         caseNonPisteur=faux;
@@ -134,7 +134,7 @@ void CheckCasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int c
         }
         else if (x==HAUTEUR_Map-1){
 
-                if ((y>0) || (y<LARGEUR_Map-1)){
+                if ((y>0) && (y<LARGEUR_Map-1)){
 
                      if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)){
                         caseNonPisteur=faux;
@@ -211,9 +211,6 @@ void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces
         min=1;
         y=(rand()%(max-min+1)) + min;//nb aléatoire entre 1 et 29
 
-
-        x=8;
-        y=8;
 
 
                 //check cases :
