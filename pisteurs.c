@@ -63,7 +63,7 @@ void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int 
 
 //Saisie position pisteur en x et y-------------------
 
-void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int nbPisteursChoisi){
+void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int nbPisteursChoisi,char carDelimt, monster monstre){
 //BUT : demander à choisir la position de départ de chaque pisteurs
 //ENTREE:NB de pisteurs
 //SORTIE:coord position de chaque pisteur
@@ -78,6 +78,7 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int 
     int j;
 
     MsgConsignes_Jeu(etatJeu); // on affiche les consignes de l'état saisiCoords
+
 
     for(i=0;i<nbPisteursChoisi;i++){
 
@@ -136,6 +137,8 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int 
         tab[i].coords.x=x;
         tab[i].coords.y=y;
 
+        //on affiche la map avec à jour la position du pisteur :
+        Maj_AffichMap(grillePersonnages,carDelimt,etatJeu,tab,monstre);
 
     }
 

@@ -75,7 +75,8 @@ int main()
             //init nombre de pisteurs :
     Init_Saisie_NBPisteurs(tabPisteur,&nbPisteurChoisi,NB_PisteursMin,NB_PisteursMax,CAR_PisteurEnAttente,CAR_PisteurVerifie,CAR_Pisteur,NB_LettresNom,NB_PisteurPV);
             //init position de départ des pisteurs
-    Saisie_posPisteurs(grillePersonnages,tabPisteur,nbPisteurChoisi);
+    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+    Saisie_posPisteurs(grillePersonnages,tabPisteur,nbPisteurChoisi,CAR_DelimitationMap,monstre);
 
 
         //init MONSTRE :-------------------------------------
@@ -84,6 +85,7 @@ int main()
 
 
 
+    getchar();
     getchar();
 
    //JEU______________________________________________

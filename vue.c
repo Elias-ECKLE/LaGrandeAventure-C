@@ -139,12 +139,10 @@ void MsgConsignes_Jeu(state etatJeu){
 
     if(etatJeu==debut){
          //message début :
-             system("cls");
         printf("Bienvenue dans le jeu de La Grande Aventure. Arriverez-vous a eliminer le terrible monstre qui rode dans les parages.\n");
         printf("Bon courage, vous en aurez bien besoin. Et tachez de ne pas mourir");
     }
     else if(etatJeu==debut_SaisieCoords){
-            system("cls");
         //message début saisi de coord
         printf("Avant de commencer la partie, vous devez positioner chacun de vos pisteurs en saisissant une coordoonee X et Y ci-apres\n");
     }
