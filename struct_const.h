@@ -9,30 +9,34 @@
 
 //CONSTANTES A MODIFIER_____________________________________________________
 
+//donnees map
 #define LARGEUR_Map 29
 #define HAUTEUR_Map 14
 #define NB_CasesMap 406
 #define CAR_DelimitationMap '*'
 
+//doonnes communes :
+#define NB_NouvelleTrace 16
+#define NB_RetireTrace 1
 
-
-#define CHANCE_ReussirTir 40
-#define NB_DistanceMax 4
-#define NB_PisteursMin 1
-#define NB_PisteursMax 10
-#define NB_PisteurPV 1
-#define NB_LettresNom 10
+//donnees pisteurs
+#define CHANCE_ReussirTir 40//40% de chance de toucher le monstre
+#define NB_DistanceMax 4 //distance de déplacement maximal du pisteur
+#define NB_PisteursMin 1    //nb de pisteurs minimal
+#define NB_PisteursMax 10   //nb de pisteurs maximal
+#define NB_Degat_Pisteur 1 //nb de degats que va donner le pisteur en tirant sur le monstre
+#define NB_PisteurPV 1      //vie des pisteurs
+#define NB_LettresNom 10       //longueur de caractères max pour le nom des pisteurs
 #define CAR_Pisteur 'P'
 #define CAR_PisteurVerifie '!'
 #define CAR_PisteurEnAttente '?'
 
-
-#define NB_MonstrePV 4
-#define NB_NouvelleTrace 16
-#define NB_RetireTrace 1
+//donnees monstre
+#define NB_Degat_Monstre 1      //degats que donne le monstre au pisteur
+#define NB_MonstrePV 4  //vie du monstre
 #define NB_ToursPoint_DernierePos 4
 #define CAR_Blessure_DernierePos '.'
-#define CAR_Monstre 'M'
+#define CAR_Monstre 'M'     //car monstre d'affichage dans le mode Debug
 
 
 //ENUM:___________________________________________________________________
@@ -134,6 +138,8 @@ typedef struct pisteur{
     coordXY coords;
     boolean estVivant;
     int vieRestante;
+    int tracesFraiches;
+    int tracesEnMoins;
     char car_Pisteur;
     char car_Verifie;
     char car_EnAttente;

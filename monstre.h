@@ -6,4 +6,7 @@ extern void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grill
 extern void AjoutTrace_Monstre(monster monstre, int grilleTraces[][LARGEUR_Map]);
 extern void EffacementTraces_Monstre(int grilleTraces[][LARGEUR_Map], int retire);
 
+extern void PisteurEst_CaseMonstre(int grillePersos[][LARGEUR_Map], monster monstre, int nbDegatMonstre, pisteur tabPisteur[],int nbPisteursChoisi);
+extern void MangerPisteur(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,monster monstre, int nbDegatMonstre);
+
 #endif // MONSTRE_H_INCLUDED

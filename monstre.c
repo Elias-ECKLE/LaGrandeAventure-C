@@ -255,16 +255,16 @@ void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces
 
 
 //Traces du monstre à ajouter et enlever progressivement--------------------------
-void AjoutTrace_Monstre(monster monstre, int grilleTraces[][LARGEUR_Map]){
+void AjoutTrace_Monstre(monster monstre, int grilleTraces_Monstre[][LARGEUR_Map]){
 //BUT: on ajoute le nb 16 à l'ancienne position du monstre
 //ENTREE: les var du monstre, et le tableau qui fait l'historique des traces
 //SORTIE:tab traces avec nb ajouté dedans
 
-    grilleTraces[monstre.coords.x-1][monstre.coords.y-1]=monstre.tracesFraiches;
+    grilleTraces_Monstre[monstre.coords.x-1][monstre.coords.y-1]=monstre.tracesFraiches;
 
 }
 
-void EffacementTraces_Monstre(int grilleTraces[][LARGEUR_Map], int retire){
+void EffacementTraces_Monstre(int grilleTraces_Monstre[][LARGEUR_Map], int retire){
 //BUT:enlever à chaque tour un pt de trace jusqu'à diparaitre quand la valeur 0 atteinte
 
     int i;
@@ -273,9 +273,9 @@ void EffacementTraces_Monstre(int grilleTraces[][LARGEUR_Map], int retire){
     for(i=0;i<HAUTEUR_Map;i++){
         for(j=0;j<LARGEUR_Map;j++){
 
-                if(grilleTraces[i][j]>0){
+                if(grilleTraces_Monstre[i][j]>0){
 
-                    grilleTraces[i][j]=grilleTraces[i][j]-retire; //on retire 1
+                    grilleTraces_Monstre[i][j]=grilleTraces_Monstre[i][j]-retire; //on retire 1
                 }
 
         }
@@ -283,17 +283,70 @@ void EffacementTraces_Monstre(int grilleTraces[][LARGEUR_Map], int retire){
 }
 
 
+
 //manger pisteur :--------------------------------------------------------------------
-void MangerPisteur(){
-//BUT:Si case avec pisteir, il le tue
+void MangerPisteur(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,monster monstre, int nbDegatMonstre){
+//BUT:Si case avec pisteir, le monstre le tue et prend sa place
+
+    caseNb nbCase;
+    texteNb nbTexte;
+
+    //on retire 1 PV au pisteur
+    tabPisteur[indexTab].vieRestante=tabPisteur[indexTab].vieRestante-nbDegatMonstre;
+
+
+    //si il n'a plus de pv on indique qu'il est mort
+    if(tabPisteur[indexTab].vieRestante==0){
+
+        tabPisteur[indexTab].estVivant=faux;
+            //on mets les ccoords du pisteur en question en off
+        tabPisteur[indexTab].coords.x=-1;
+        tabPisteur[indexTab].coords.y=-1;
+            //on affiche la mort du pisteur en question :
+        nbTexte=nbManger_TPisteur;
+        AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+    }
+
+
+    //on n'oublie pas de mettre le monstre sur la grillePersonnages s'il a été écrasé par le pisteur
+    nbCase=nbMonstre;
+    grillePersos[monstre.coords.x-1][monstre.coords.y-1]=nbCase; //-1 car plage allant de 0 à ... et non commence à ppartir de 1
+
 }
+
+void PisteurEst_CaseMonstre(int grillePersos[][LARGEUR_Map], monster monstre, int nbDegatMonstre, pisteur tabPisteur[],int nbPisteursChoisi){
+//BUT:on vérifie si le pisteur se trouve sur la même case du monstre ou que le monstre a bien atterit sur sa case
+
+    int i;
+
+    for(i=0;i<nbPisteursChoisi;i++){
+
+        if((tabPisteur[i].coords.x==monstre.coords.x)&&(tabPisteur[i].coords.y==monstre.coords.y)){
+            //si les coordoonnees coorespondent c'est que le pisteur et le monstre se rencontrent face à face et se fait manger par ce dernier
+            MangerPisteur(grillePersos,tabPisteur,i,monstre,nbDegatMonstre);
+        }
+    }
+
+
+}
+
 
 //Déplacement du monstre après première position---------------------------------------
 void Deplcmt_Monstre(){
 //BUT:Le monstre se déplace. Pour cela il checke si pas pisteur voisin,puis pose trace(16) sur ancienne case : appel fcts
+
+    //on CHECK les quatre cases autour
+
+    //DEPLACEMENT
+    //si case voisine il y a pisteur on va dessus et on appelle PisteurEst_CaseMonstre
+
+    //si traces on va sur la plus fraiche, numero le plus près de 16 dans la limite du tableau
+
+    //sinon on prend une des quatre cases au pif et on va dessus
+
 }
 
 
 void MonstreTouche(){
-//BUT: le monstre est touché, alors il perd un pt de vie, et indication dernier endroit séjourné pendant 4 tours de jeu
+//BUT: le monstre est touché, alors il perd un pt de vie (dans proc TirerMonstre->pisteurs.c) , et indication dernier endroit séjourné pendant 4 tours de jeu
 }

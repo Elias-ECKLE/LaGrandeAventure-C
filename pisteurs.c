@@ -7,7 +7,7 @@
 
 //Saisie NB Pisteurs :--------------------------------
 
-void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int max, char carAttente, char carVerif, char carPisteur, int maxLettres,int nbPV){
+void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int max, char carAttente, char carVerif, char carPisteur, int maxLettres,int nbPV,int traceFraiche,int traceEnMoins){
 //BUT:Demander en début de partie le nb de pisteurs qu'il y aura dans le jeu
 //ENTREE:RAS
 //SORTIE:Nb pisteurs
@@ -25,7 +25,7 @@ void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int 
     AffichTexte(nbTexte,tab,0,0,0); //on paramètre la valeur corsspondant au texte à afficher ds proc : AfficTexte
     do{
 
-       scanf("%d",&nbPisteursChoisi); //si renvoie 1 alors scanf a trouvé la saisie si non on reboucle
+        scanf("%d",&nbPisteursChoisi); //si renvoie 1 alors scanf a trouvé la saisie si non on reboucle
         if ((nbPisteursChoisi<min)||(nbPisteursChoisi>max)||(erreur_Scanf==0)){
 
             nbTexte=nb_TErreur;
@@ -43,6 +43,8 @@ void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int 
          tab[i].car_Verifie=carVerif;
          tab[i].estVivant= pisteurEnVie;
          tab[i].vieRestante=nbPV;
+         tab[i].tracesFraiches=traceFraiche;
+         tab[i].tracesEnMoins=traceEnMoins;
 
          //on convertit le int i en char
          char tabNb[maxLettres-5];
@@ -60,10 +62,9 @@ void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int 
     *pNbPisteursChoisi=nbPisteursChoisi;
 }
 
-
 //Saisie position pisteur en x et y-------------------
 
-void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int nbPisteursChoisi,char carDelimt, monster monstre){
+void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map],int grilleTraces_Pisteur[][LARGEUR_Map], pisteur tab[],int nbPisteursChoisi,char carDelimt, monster monstre){
 //BUT : demander à choisir la position de départ de chaque pisteurs
 //ENTREE:NB de pisteurs
 //SORTIE:coord position de chaque pisteur
@@ -137,6 +138,9 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int 
         tab[i].coords.x=x;
         tab[i].coords.y=y;
 
+        //on mets la trace du pisteur à son état initial :
+        AjoutTrace_Pisteur(tab,i,grilleTraces_Pisteur);
+
         //on affiche la map avec à jour la position du pisteur :
         Maj_AffichMap(grillePersonnages,carDelimt,etatJeu,tab,monstre);
 
@@ -150,7 +154,40 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map], pisteur tab[],int 
 
 //JEU _______________________________________________________________________
 
-int Tirer_SurMonstre(int vieMonstre,int chanceTir){
+    //traces pisteurs ajouter et enlever :
+
+void AjoutTrace_Pisteur(pisteur tabPisteur[], int indexTab, int grilleTraces_Pisteur[][LARGEUR_Map]){
+//BUT: on ajoute le nb 16 à l'ancienne position du pisteur
+//ENTREE: les var du monstre, et le tableau qui fait l'historique des traces
+//SORTIE:tab traces avec nb ajouté dedans
+
+    grilleTraces_Pisteur[tabPisteur[indexTab].coords.x-1][tabPisteur[indexTab].coords.y-1]=tabPisteur[indexTab].tracesFraiches;
+
+}
+
+void EffacementTraces_Pisteur(int grilleTraces_Pisteur[][LARGEUR_Map], int retire){
+//BUT:enlever à chaque tour un pt de trace jusqu'à diparaitre quand la valeur 0 atteinte
+
+    int i;
+    int j;
+
+    for(i=0;i<HAUTEUR_Map;i++){
+        for(j=0;j<LARGEUR_Map;j++){
+
+                if(grilleTraces_Pisteur[i][j]>0){
+
+                    grilleTraces_Pisteur[i][j]=grilleTraces_Pisteur[i][j]-retire; //on retire 1
+                }
+
+        }
+    }
+}
+
+
+
+    //compte rendu des pisteurs
+
+int Tirer_SurMonstre(int vieMonstre,int chanceTir, int nbDegats_Pisteur){
 //BUT:on peut tirer sur le monstre ou non. Au choix
 //ENTREE:
 //SORTIE:
@@ -187,7 +224,7 @@ int Tirer_SurMonstre(int vieMonstre,int chanceTir){
             //il réussi le tir
             nbTexte=nbTirReussi_TMonstre;
             //on enlève 1 pv au monstre :
-            vieMonstre--;
+            vieMonstre=vieMonstre-nbDegats_Pisteur;
             AffichTexte(nbTexte,0,0,0,0,vieMonstre);
         }
         else{
@@ -201,7 +238,7 @@ int Tirer_SurMonstre(int vieMonstre,int chanceTir){
 
 }
 
-void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[][LARGEUR_Map], pisteur tabPisteur[], int nbPisteurs, monster *monstre,int chanceTir,state etatJeu){
+void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[][LARGEUR_Map], pisteur tabPisteur[], int nbPisteurs, monster *monstre,int chanceTir,state etatJeu, int nbDegats_Pisteur){
 //BUT:checker toutes les cases voisines, les 8 et voir si monstre à côté, il y a des traces ou rien
 
     int i;
@@ -240,7 +277,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
 
             AffichTexte(nbTexte,tabPisteur,i);
 
-            vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir);
+            vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
             monstre->vieRestante=vieMonstre;
         }
 
@@ -576,6 +613,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
 
 
 
+    //Déplacement de chaque pisteur
 int ChoixDistance(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,int x,int y,int maxDistance,int nb_Direction){
 //BUT:choisir la distance de cases qu'on veut atteindre. MAX:4
 
@@ -741,7 +779,7 @@ int ChoixDirection(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int in
 }
 
 
-void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map],state etatJeu, pisteur tabPisteur[],int nbPisteurs, int maxDistance, char carDelimt,monster monstre){
+void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[][LARGEUR_Map], state etatJeu, pisteur tabPisteur[],int nbPisteurs, int maxDistance, char carDelimt,monster monstre){
 //BUT:déplacer le pisteur
 
     int i;
@@ -807,6 +845,9 @@ void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map],state etatJeu, pisteur tabP
         }
         //on reaffiche la map pour modifier l'affichage de la position du pisteur
         Maj_AffichMap(grillePersos,carDelimt,etatJeu,tabPisteur,monstre);
+        //on ajoute nouvelle trace du pisteur
+        AjoutTrace_Pisteur(tabPisteur,i,grillesTraces_Pisteur);
+
 
     }
 }
