@@ -14,6 +14,7 @@ extern void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grille
 extern void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LARGEUR_Map],int grilleTracesMonstre[][LARGEUR_Map], int tabPisteurs[], int nbPisteursChoisi, int nbTracesMax,int nbDegats_Monstre, monster monstre, monster *pMonstre,state etatJeu);
 
 extern void MonstreEnVie(monster *monstre);
+extern void MonstreTouche(int grillePersos[][LARGEUR_Map], monster monstre, monster *pMonstre,int nbToursBlessure);
 
 
 

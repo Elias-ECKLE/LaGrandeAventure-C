@@ -100,6 +100,13 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
                 printf("%c",monstre.car_Monstre);
             }
 
+        //caracts blessure monstre
+            nbCase=nbpointPos_Monstre;
+            if(grillePersonnages[i][j]==nbCase){
+                gotoxy(j+1,i+1);
+                printf("%c",monstre.ptBlessure);
+
+            }
 
         }
 

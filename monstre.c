@@ -396,6 +396,10 @@ void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces
     monstre->toursBlessureRestante=nbToursPos;
     monstre->car_Monstre=carMonstre;
     monstre->ptBlessure=carBlessure;
+    monstre->estBlesse=faux;
+    monstre->ancienCoords.x=-1;
+    monstre->ancienCoords.y=-1;
+
 
 
     //puis on passe à la création des coordoonées de départ
@@ -670,14 +674,41 @@ void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LAR
 
     //on enleve le nbMonstre sur l'ancienne position du tableau grille :
     grillePersos[x-1][y-1]=0;
+    //on ajoute l'ancienne pos au cas ou si le monstre se fait blesser : affichage point blessure derniere pos
+    pMonstre->ancienCoords.x=x;
+    pMonstre->ancienCoords.y=y;
     //on ajoute la nouvelle trace du monstre
     AjoutTrace_Monstre(monstre,grilleTracesMonstre);
 
 }
 
 
-void MonstreTouche(){
+void MonstreTouche(int grillePersos[][LARGEUR_Map], monster monstre, monster *pMonstre,int nbToursBlessure){
 //BUT: le monstre est touché, alors il perd un pt de vie (dans proc TirerMonstre->pisteurs.c) , et indication dernier endroit séjourné pendant 4 tours de jeu
+    int i;
+    int j;
+    caseNb nbCase=nbpointPos_Monstre;
+
+
+    if(monstre.estBlesse==vrai){
+        pMonstre->toursBlessureRestante=monstre.toursBlessureRestante-1;
+        grillePersos[monstre.ancienCoords.x-1][monstre.ancienCoords.y-1]=nbCase;
+    }
+
+    if(monstre.toursBlessureRestante<=0){
+        pMonstre->estBlesse=faux;
+        pMonstre->toursBlessureRestante=nbToursBlessure;
+
+        for(i=0;i<HAUTEUR_Map;i++){
+            for(j=0;j<LARGEUR_Map;j++){
+                if(grillePersos[i][j]==nbCase){
+                    grillePersos[i][j]=0;
+                }
+            }
+        }
+    }
+
+
 }
 
 void MonstreEnVie(monster *monstre){

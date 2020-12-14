@@ -20,11 +20,11 @@
 #define NB_RetireTrace 1
 
 //donnees pisteurs
-#define CHANCE_ReussirTir 40//40% de chance de toucher le monstre
+#define CHANCE_ReussirTir 100//40% de chance de toucher le monstre
 #define NB_DistanceMax 4 //distance de déplacement maximal du pisteur
 #define NB_PisteursMin 1    //nb de pisteurs minimal
 #define NB_PisteursMax 10   //nb de pisteurs maximal
-#define NB_Degat_Pisteur 4 //nb de degats que va donner le pisteur en tirant sur le monstre
+#define NB_Degat_Pisteur 1 //nb de degats que va donner le pisteur en tirant sur le monstre
 #define NB_PisteurPV 1      //vie des pisteurs
 #define NB_LettresNom 10       //longueur de caractères max pour le nom des pisteurs
 #define CAR_Pisteur 'P'
@@ -119,7 +119,7 @@ typedef enum caseNb{
     nbInit=0,
     nbPisteur=1199,
     nbMonstre=2199,
-    pointPos_Monstre=3
+    nbpointPos_Monstre=3199
 
 }caseNb;
 
@@ -153,11 +153,13 @@ typedef struct pisteur{
 typedef struct monster{
 
     coordXY coords;
+    coordXY ancienCoords;
     int vieRestante;
     int tracesFraiches;
     int traceEnMoins;
     boolean estVivant;
     int toursBlessureRestante;
+    boolean estBlesse;
     char ptBlessure;
     char car_Monstre;
 

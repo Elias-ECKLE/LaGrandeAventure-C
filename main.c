@@ -104,14 +104,9 @@ int main()
 
 
 
-        //on vérifie s'il reste des pisteurs en vie ou non, idem pour le monstre
-            //pisteurs:
-        PisteursRestant_EnVie(tabPisteur,nbPisteurChoisi,&pisteursSontEnVie);
-            //monstre
-        MonstreEnVie(&monstre);
 
 
-        if((monstre.estVivant==vrai)&&(pisteursSontEnVie==vrai)){
+
         //compte rendu des pisteurs :
         etatJeu=pisteurs_VerifVoisine;
         Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
@@ -121,7 +116,7 @@ int main()
         etatJeu=dplmtPisteurs;
         Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
         Deplcmt_Pisteur(grillePersonnages,grilleTraces_Pisteurs,etatJeu,tabPisteur,nbPisteurChoisi,NB_DistanceMax,CAR_DelimitationMap,monstre,NB_Degat_Monstre);
-        }
+
 
 
 
@@ -141,6 +136,8 @@ int main()
             Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
         }
 
+        //on enleve 1 au nb de tours de blessure du monstre s'il y a :
+        MonstreTouche(grillePersonnages,monstre,&monstre,NB_ToursPoint_DernierePos);
 
 
 
@@ -174,12 +171,6 @@ int main()
         etatJeu=victoireMonstre;
     }
     MsgConsignes_Jeu(etatJeu);
-
-
-
-
-
-
 
 
 

@@ -187,7 +187,7 @@ void EffacementTraces_Pisteur(int grilleTraces_Pisteur[][LARGEUR_Map], int retir
 
     //compte rendu des pisteurs
 
-int Tirer_SurMonstre(int vieMonstre,int chanceTir, int nbDegats_Pisteur){
+int Tirer_SurMonstre(int vieMonstre,int chanceTir, int nbDegats_Pisteur, monster *monstre){
 //BUT:on peut tirer sur le monstre ou non. Au choix
 //ENTREE:
 //SORTIE:
@@ -226,6 +226,10 @@ int Tirer_SurMonstre(int vieMonstre,int chanceTir, int nbDegats_Pisteur){
             //on enlève 1 pv au monstre :
             vieMonstre=vieMonstre-nbDegats_Pisteur;
             AffichTexte(nbTexte,0,0,0,0,vieMonstre);
+
+            //on indique su'il est blessé
+            monstre->estBlesse=vrai;
+
         }
         else{
             //il loupe le tir
@@ -282,7 +286,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
                         monstreEstLa=vrai;
                         nbTexte=nbMonstre_TCaseVoisine;
                         AffichTexte(nbTexte,tabPisteur,i);
-                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur,monstre);
                         monstre->vieRestante=vieMonstre;
                     }
                 }
@@ -292,7 +296,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
                         monstreEstLa=vrai;
                         nbTexte=nbMonstre_TCaseVoisine;
                         AffichTexte(nbTexte,tabPisteur,i);
-                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur,monstre);
                         monstre->vieRestante=vieMonstre;
                     }
                 }
@@ -302,7 +306,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
                         monstreEstLa=vrai;
                         nbTexte=nbMonstre_TCaseVoisine;
                         AffichTexte(nbTexte,tabPisteur,i);
-                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur,monstre);
                         monstre->vieRestante=vieMonstre;
                     }
 
@@ -319,7 +323,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
                         monstreEstLa=vrai;
                         nbTexte=nbMonstre_TCaseVoisine;
                         AffichTexte(nbTexte,tabPisteur,i);
-                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur,monstre);
                         monstre->vieRestante=vieMonstre;
                     }
                 }
@@ -329,7 +333,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
                         monstreEstLa=vrai;
                         nbTexte=nbMonstre_TCaseVoisine;
                         AffichTexte(nbTexte,tabPisteur,i);
-                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur,monstre);
                         monstre->vieRestante=vieMonstre;
                     }
 
@@ -340,7 +344,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
                         monstreEstLa=vrai;
                         nbTexte=nbMonstre_TCaseVoisine;
                         AffichTexte(nbTexte,tabPisteur,i);
-                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur,monstre);
                         monstre->vieRestante=vieMonstre;
                     }
                 }
@@ -354,7 +358,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
                         monstreEstLa=vrai;
                         nbTexte=nbMonstre_TCaseVoisine;
                         AffichTexte(nbTexte,tabPisteur,i);
-                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur,monstre);
                         monstre->vieRestante=vieMonstre;
                     }
                 }
@@ -364,7 +368,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
                         monstreEstLa=vrai;
                         nbTexte=nbMonstre_TCaseVoisine;
                         AffichTexte(nbTexte,tabPisteur,i);
-                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur,monstre);
                         monstre->vieRestante=vieMonstre;
                     }
 
@@ -375,7 +379,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
                         monstreEstLa=vrai;
                         nbTexte=nbMonstre_TCaseVoisine;
                         AffichTexte(nbTexte,tabPisteur,i);
-                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur,monstre);
                         monstre->vieRestante=vieMonstre;
                         }
                 }
