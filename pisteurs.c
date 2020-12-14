@@ -232,6 +232,7 @@ int Tirer_SurMonstre(int vieMonstre,int chanceTir, int nbDegats_Pisteur){
             nbTexte=nbTirLoupe_TMonstre;
             AffichTexte(nbTexte,0,0,0,0,0);
         }
+        getchar();
     }
 
     return vieMonstre;
@@ -254,366 +255,464 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
 
     MsgConsignes_Jeu(etatJeu);
 
+
+
     for(i=0;i<nbPisteurs;i++){
 
-        x=tabPisteur[i].coords.x;
-        y=tabPisteur[i].coords.y;
-        //on oublie pas que les tableaux commencent à 0 et non 1, du coup on retire 1
-        x=x-1;
-        y=y-1;
-        nbCase=nbMonstre;
-        //on affiche le pisteur avec un !
-        majElement_SurMap(x,y,tabPisteur[i].car_Verifie,18+i);
+        if(tabPisteur[i].estVivant==vrai){
+
+            x=tabPisteur[i].coords.x;
+            y=tabPisteur[i].coords.y;
+            //on oublie pas que les tableaux commencent à 0 et non 1, du coup on retire 1
+            x=x-1;
+            y=y-1;
+            nbCase=nbMonstre;
+            //on affiche le pisteur avec un !
+            majElement_SurMap(x,y,tabPisteur[i].car_Verifie,18+i);
 
 
 
-
-
-        //le monstre est à côté :
-        if((grillePerso[x-1][y]==nbMonstre)||(grillePerso[x+1][y]==nbMonstre) || (grillePerso[x][y-1]==nbMonstre) || (grillePerso[x][y+1]==nbMonstre)||(grillePerso[x-1][y-1]==nbMonstre)||(grillePerso[x-1][y+1]==nbMonstre)||(grillePerso[x+1][y+1]==nbMonstre)||(grillePerso[x+1][y-1]==nbMonstre)){
-
-            monstreEstLa=vrai;
-            nbTexte=nbMonstre_TCaseVoisine;
-
-            AffichTexte(nbTexte,tabPisteur,i);
-
-            vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
-            monstre->vieRestante=vieMonstre;
-        }
-
-
-
-
-        //traces visibles :
-        else if(monstreEstLa==faux){
-
-            nbTexte=nbTraces_TCaseVoisine;
 
             if ((x>0) && (x<HAUTEUR_Map-1)){
 
                 if ((y>0) && (y<LARGEUR_Map-1)){
+                    //le monstre est à côté :
+                    if((grillePerso[x-1][y]==nbMonstre)||(grillePerso[x+1][y]==nbMonstre) || (grillePerso[x][y-1]==nbMonstre) || (grillePerso[x][y+1]==nbMonstre)||(grillePerso[x-1][y-1]==nbMonstre)||(grillePerso[x-1][y+1]==nbMonstre)||(grillePerso[x+1][y+1]==nbMonstre)||(grillePerso[x+1][y-1]==nbMonstre)){
 
-                        //diagonaleH_G
-                        if((grilleTraces[x-1][y-1]>0)&&(grilleTraces[x-1][y-1]<nbTraceMax)){
-                            autourCase=diagH_G;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y-1],0);
-
-                        }
-                        //Haut
-                        if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
-                            autourCase=auDessus;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
-
-                        }
-                        //DiagonaleH_D
-                        if((grilleTraces[x-1][y+1]>0)&&(grilleTraces[x-1][y+1]<nbTraceMax)){
-                            autourCase=diagH_D;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y+1],0);
-
-                        }
-                        //Droite
-                        if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
-                            autourCase=aDroite;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
-                        }
-                        //DiagonaleB_D
-                        if((grilleTraces[x+1][y+1]>0)&&(grilleTraces[x+1][y+1]<nbTraceMax)){
-                            autourCase=diagB_D;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y+1],0);
-                        }
-                        //Bas
-                        if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
-                            autourCase=enBas;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
-                        }
-                        //DiagonaleB_G
-                        if((grilleTraces[x+1][y-1]>0)&&(grilleTraces[x+1][y-1]<nbTraceMax)){
-                            autourCase=diagB_G;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y-1],0);
-                        }
-                        //Gauche
-                        if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
-                            autourCase=aGauche;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
-                        }
+                        monstreEstLa=vrai;
+                        nbTexte=nbMonstre_TCaseVoisine;
+                        AffichTexte(nbTexte,tabPisteur,i);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        monstre->vieRestante=vieMonstre;
+                    }
                 }
                 else if(y==0){
+                    if((grillePerso[x-1][y]==nbMonstre)||(grillePerso[x+1][y]==nbMonstre)  || (grillePerso[x][y+1]==nbMonstre)||(grillePerso[x-1][y+1]==nbMonstre)||(grillePerso[x+1][y+1]==nbMonstre)){
 
-                        //Haut
-                        if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
-                            autourCase=auDessus;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
-
-                        }
-                        //DiagonaleH_D
-                        if((grilleTraces[x-1][y+1]>0)&&(grilleTraces[x-1][y+1]<nbTraceMax)){
-                            autourCase=diagH_D;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y+1],0);
-
-                        }
-                        //Droite
-                        if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
-                            autourCase=aDroite;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
-                        }
-                        //DiagonaleB_D
-                        if((grilleTraces[x+1][y+1]>0)&&(grilleTraces[x+1][y+1]<nbTraceMax)){
-                            autourCase=diagB_D;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y+1],0);
-                        }
-                        //Bas
-                        if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
-                            autourCase=enBas;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
-                        }
-
+                        monstreEstLa=vrai;
+                        nbTexte=nbMonstre_TCaseVoisine;
+                        AffichTexte(nbTexte,tabPisteur,i);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        monstre->vieRestante=vieMonstre;
+                    }
                 }
                 else if (y==LARGEUR_Map-1){
+                        if((grillePerso[x-1][y]==nbMonstre)||(grillePerso[x+1][y]==nbMonstre) || (grillePerso[x][y-1]==nbMonstre)||(grillePerso[x-1][y-1]==nbMonstre)||(grillePerso[x+1][y-1]==nbMonstre)){
 
-                        //diagonaleH_G
-                        if((grilleTraces[x-1][y-1]>0)&&(grilleTraces[x-1][y-1]<nbTraceMax)){
-                            autourCase=diagH_G;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y-1],0);
-
-                        }
-                        //Haut
-                        if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
-                            autourCase=auDessus;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
-
-                        }
-                        //Bas
-                        if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
-                            autourCase=enBas;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
-                        }
-                        //DiagonaleB_G
-                        if((grilleTraces[x+1][y-1]>0)&&(grilleTraces[x+1][y-1]<nbTraceMax)){
-                            autourCase=diagB_G;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y-1],0);
-                        }
-                        //Gauche
-                        if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
-                            autourCase=aGauche;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
-                        }
-
-
+                        monstreEstLa=vrai;
+                        nbTexte=nbMonstre_TCaseVoisine;
+                        AffichTexte(nbTexte,tabPisteur,i);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        monstre->vieRestante=vieMonstre;
+                    }
 
                 }
             }
+
+
             else if (x==0){
 
                 if ((y>0) && (y<LARGEUR_Map-1)){
+                    //le monstre est à côté :
+                    if((grillePerso[x+1][y]==nbMonstre) || (grillePerso[x][y-1]==nbMonstre) || (grillePerso[x][y+1]==nbMonstre)||(grillePerso[x+1][y+1]==nbMonstre)||(grillePerso[x+1][y-1]==nbMonstre)){
 
-                        //Droite
-                        if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
-                            autourCase=aDroite;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
-                        }
-                        //DiagonaleB_D
-                        if((grilleTraces[x+1][y+1]>0)&&(grilleTraces[x+1][y+1]<nbTraceMax)){
-                            autourCase=diagB_D;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y+1],0);
-                        }
-                        //Bas
-                        if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
-                            autourCase=enBas;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
-                        }
-                        //DiagonaleB_G
-                        if((grilleTraces[x+1][y-1]>0)&&(grilleTraces[x+1][y-1]<nbTraceMax)){
-                            autourCase=diagB_G;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y-1],0);
-                        }
-                        //Gauche
-                        if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
-                            autourCase=aGauche;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
-                        }
-
+                        monstreEstLa=vrai;
+                        nbTexte=nbMonstre_TCaseVoisine;
+                        AffichTexte(nbTexte,tabPisteur,i);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        monstre->vieRestante=vieMonstre;
+                    }
                 }
                 else if(y==0){
+                    if((grillePerso[x+1][y]==nbMonstre) || (grillePerso[x][y+1]==nbMonstre)||(grillePerso[x+1][y+1]==nbMonstre)){
 
-                        //Droite
-                        if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
-                            autourCase=aDroite;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
-                        }
-                        //DiagonaleB_D
-                        if((grilleTraces[x+1][y+1]>0)&&(grilleTraces[x+1][y+1]<nbTraceMax)){
-                            autourCase=diagB_D;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y+1],0);
-                        }
-                        //Bas
-                        if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
-                            autourCase=enBas;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
-                        }
+                        monstreEstLa=vrai;
+                        nbTexte=nbMonstre_TCaseVoisine;
+                        AffichTexte(nbTexte,tabPisteur,i);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        monstre->vieRestante=vieMonstre;
+                    }
 
                 }
                 else if (y==LARGEUR_Map-1){
+                        if((grillePerso[x+1][y]==nbMonstre) || (grillePerso[x][y-1]==nbMonstre)||(grillePerso[x+1][y-1]==nbMonstre)){
 
-                        //Bas
-                        if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
-                            autourCase=enBas;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
-                        }
-                        //DiagonaleB_G
-                        if((grilleTraces[x+1][y-1]>0)&&(grilleTraces[x+1][y-1]<nbTraceMax)){
-                            autourCase=diagB_G;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y-1],0);
-                        }
-                        //Gauche
-                        if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
-                            autourCase=aGauche;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
-                        }
-
-
+                        monstreEstLa=vrai;
+                        nbTexte=nbMonstre_TCaseVoisine;
+                        AffichTexte(nbTexte,tabPisteur,i);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        monstre->vieRestante=vieMonstre;
+                    }
                 }
             }
+
             else if (x==HAUTEUR_Map-1){
-
                 if ((y>0) && (y<LARGEUR_Map-1)){
-                            //diagonaleH_G
-                        if((grilleTraces[x-1][y-1]>0)&&(grilleTraces[x-1][y-1]<nbTraceMax)){
-                            autourCase=diagH_G;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y-1],0);
+                    //le monstre est à côté :
+                    if((grillePerso[x-1][y]==nbMonstre) || (grillePerso[x][y-1]==nbMonstre) || (grillePerso[x][y+1]==nbMonstre)||(grillePerso[x-1][y-1]==nbMonstre)||(grillePerso[x-1][y+1]==nbMonstre)){
 
-                        }
-                        //Haut
-                        if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
-                            autourCase=auDessus;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
+                        monstreEstLa=vrai;
+                        nbTexte=nbMonstre_TCaseVoisine;
+                        AffichTexte(nbTexte,tabPisteur,i);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        monstre->vieRestante=vieMonstre;
+                    }
+                }
+                else if(y==0){
+                    if((grillePerso[x-1][y]==nbMonstre) || (grillePerso[x][y+1]==nbMonstre)||(grillePerso[x-1][y+1]==nbMonstre)){
 
-                        }
-                        //DiagonaleH_D
-                        if((grilleTraces[x-1][y+1]>0)&&(grilleTraces[x-1][y+1]<nbTraceMax)){
-                            autourCase=diagH_D;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y+1],0);
+                        monstreEstLa=vrai;
+                        nbTexte=nbMonstre_TCaseVoisine;
+                        AffichTexte(nbTexte,tabPisteur,i);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        monstre->vieRestante=vieMonstre;
+                    }
 
-                        }
-                        //Droite
-                        if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
-                            autourCase=aDroite;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
-                        }
-                        //Gauche
-                        if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
-                            autourCase=aGauche;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
+                }
+                else if (y==LARGEUR_Map-1){
+                        if((grillePerso[x-1][y]==nbMonstre) || (grillePerso[x][y-1]==nbMonstre)||(grillePerso[x-1][y-1]==nbMonstre)){
+
+                        monstreEstLa=vrai;
+                        nbTexte=nbMonstre_TCaseVoisine;
+                        AffichTexte(nbTexte,tabPisteur,i);
+                        vieMonstre=Tirer_SurMonstre(vieMonstre,chanceTir,nbDegats_Pisteur);
+                        monstre->vieRestante=vieMonstre;
                         }
                 }
-               else if (y==0){
-                        //Haut
-                        if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
-                            autourCase=auDessus;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
-
-                        }
-                        //DiagonaleH_D
-                        if((grilleTraces[x-1][y+1]>0)&&(grilleTraces[x-1][y+1]<nbTraceMax)){
-                            autourCase=diagH_D;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y+1],0);
-
-                        }
-                        //Droite
-                        if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
-                            autourCase=aDroite;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
-                        }
-               }
-               else if (y==LARGEUR_Map-1){
-                            //diagonaleH_G
-                        if((grilleTraces[x-1][y-1]>0)&&(grilleTraces[x-1][y-1]<nbTraceMax)){
-                            autourCase=diagH_G;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y-1],0);
-
-                        }
-                        //Haut
-                        if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
-                            autourCase=auDessus;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
-
-                        }
-
-                        //Gauche
-                        if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
-                            autourCase=aGauche;
-                            traceEstLa=vrai;
-                            AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
-                        }
-              }
 
             }
 
+
+
+
+
+            //traces visibles :
+            else if(monstreEstLa==faux){
+
+                nbTexte=nbTraces_TCaseVoisine;
+
+                if ((x>0) && (x<HAUTEUR_Map-1)){
+
+                    if ((y>0) && (y<LARGEUR_Map-1)){
+
+                            //diagonaleH_G
+                            if((grilleTraces[x-1][y-1]>0)&&(grilleTraces[x-1][y-1]<nbTraceMax)){
+                                autourCase=diagH_G;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y-1],0);
+
+                            }
+                            //Haut
+                            if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
+                                autourCase=auDessus;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
+
+                            }
+                            //DiagonaleH_D
+                            if((grilleTraces[x-1][y+1]>0)&&(grilleTraces[x-1][y+1]<nbTraceMax)){
+                                autourCase=diagH_D;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y+1],0);
+
+                            }
+                            //Droite
+                            if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
+                                autourCase=aDroite;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
+                            }
+                            //DiagonaleB_D
+                            if((grilleTraces[x+1][y+1]>0)&&(grilleTraces[x+1][y+1]<nbTraceMax)){
+                                autourCase=diagB_D;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y+1],0);
+                            }
+                            //Bas
+                            if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
+                                autourCase=enBas;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
+                            }
+                            //DiagonaleB_G
+                            if((grilleTraces[x+1][y-1]>0)&&(grilleTraces[x+1][y-1]<nbTraceMax)){
+                                autourCase=diagB_G;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y-1],0);
+                            }
+                            //Gauche
+                            if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
+                                autourCase=aGauche;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
+                            }
+                    }
+                    else if(y==0){
+
+                            //Haut
+                            if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
+                                autourCase=auDessus;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
+
+                            }
+                            //DiagonaleH_D
+                            if((grilleTraces[x-1][y+1]>0)&&(grilleTraces[x-1][y+1]<nbTraceMax)){
+                                autourCase=diagH_D;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y+1],0);
+
+                            }
+                            //Droite
+                            if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
+                                autourCase=aDroite;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
+                            }
+                            //DiagonaleB_D
+                            if((grilleTraces[x+1][y+1]>0)&&(grilleTraces[x+1][y+1]<nbTraceMax)){
+                                autourCase=diagB_D;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y+1],0);
+                            }
+                            //Bas
+                            if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
+                                autourCase=enBas;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
+                            }
+
+                    }
+                    else if (y==LARGEUR_Map-1){
+
+                            //diagonaleH_G
+                            if((grilleTraces[x-1][y-1]>0)&&(grilleTraces[x-1][y-1]<nbTraceMax)){
+                                autourCase=diagH_G;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y-1],0);
+
+                            }
+                            //Haut
+                            if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
+                                autourCase=auDessus;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
+
+                            }
+                            //Bas
+                            if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
+                                autourCase=enBas;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
+                            }
+                            //DiagonaleB_G
+                            if((grilleTraces[x+1][y-1]>0)&&(grilleTraces[x+1][y-1]<nbTraceMax)){
+                                autourCase=diagB_G;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y-1],0);
+                            }
+                            //Gauche
+                            if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
+                                autourCase=aGauche;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
+                            }
+
+
+
+                    }
+                }
+                else if (x==0){
+
+                    if ((y>0) && (y<LARGEUR_Map-1)){
+
+                            //Droite
+                            if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
+                                autourCase=aDroite;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
+                            }
+                            //DiagonaleB_D
+                            if((grilleTraces[x+1][y+1]>0)&&(grilleTraces[x+1][y+1]<nbTraceMax)){
+                                autourCase=diagB_D;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y+1],0);
+                            }
+                            //Bas
+                            if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
+                                autourCase=enBas;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
+                            }
+                            //DiagonaleB_G
+                            if((grilleTraces[x+1][y-1]>0)&&(grilleTraces[x+1][y-1]<nbTraceMax)){
+                                autourCase=diagB_G;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y-1],0);
+                            }
+                            //Gauche
+                            if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
+                                autourCase=aGauche;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
+                            }
+
+                    }
+                    else if(y==0){
+
+                            //Droite
+                            if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
+                                autourCase=aDroite;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
+                            }
+                            //DiagonaleB_D
+                            if((grilleTraces[x+1][y+1]>0)&&(grilleTraces[x+1][y+1]<nbTraceMax)){
+                                autourCase=diagB_D;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y+1],0);
+                            }
+                            //Bas
+                            if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
+                                autourCase=enBas;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
+                            }
+
+                    }
+                    else if (y==LARGEUR_Map-1){
+
+                            //Bas
+                            if((grilleTraces[x+1][y]>0)&&(grilleTraces[x+1][y]<nbTraceMax)){
+                                autourCase=enBas;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y],0);
+                            }
+                            //DiagonaleB_G
+                            if((grilleTraces[x+1][y-1]>0)&&(grilleTraces[x+1][y-1]<nbTraceMax)){
+                                autourCase=diagB_G;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x+1][y-1],0);
+                            }
+                            //Gauche
+                            if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
+                                autourCase=aGauche;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
+                            }
+
+
+                    }
+                }
+                else if (x==HAUTEUR_Map-1){
+
+                    if ((y>0) && (y<LARGEUR_Map-1)){
+                                //diagonaleH_G
+                            if((grilleTraces[x-1][y-1]>0)&&(grilleTraces[x-1][y-1]<nbTraceMax)){
+                                autourCase=diagH_G;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y-1],0);
+
+                            }
+                            //Haut
+                            if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
+                                autourCase=auDessus;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
+
+                            }
+                            //DiagonaleH_D
+                            if((grilleTraces[x-1][y+1]>0)&&(grilleTraces[x-1][y+1]<nbTraceMax)){
+                                autourCase=diagH_D;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y+1],0);
+
+                            }
+                            //Droite
+                            if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
+                                autourCase=aDroite;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
+                            }
+                            //Gauche
+                            if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
+                                autourCase=aGauche;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
+                            }
+                    }
+                   else if (y==0){
+                            //Haut
+                            if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
+                                autourCase=auDessus;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
+
+                            }
+                            //DiagonaleH_D
+                            if((grilleTraces[x-1][y+1]>0)&&(grilleTraces[x-1][y+1]<nbTraceMax)){
+                                autourCase=diagH_D;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y+1],0);
+
+                            }
+                            //Droite
+                            if((grilleTraces[x][y+1]>0)&&(grilleTraces[x][y+1]<nbTraceMax)){
+                                autourCase=aDroite;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y+1],0);
+                            }
+                   }
+                   else if (y==LARGEUR_Map-1){
+                                //diagonaleH_G
+                            if((grilleTraces[x-1][y-1]>0)&&(grilleTraces[x-1][y-1]<nbTraceMax)){
+                                autourCase=diagH_G;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y-1],0);
+
+                            }
+                            //Haut
+                            if((grilleTraces[x-1][y]>0)&&(grilleTraces[x-1][y]<nbTraceMax)){
+                                autourCase=auDessus;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x-1][y],0);
+
+                            }
+
+                            //Gauche
+                            if((grilleTraces[x][y-1]>0)&&(grilleTraces[x][y-1]<nbTraceMax)){
+                                autourCase=aGauche;
+                                traceEstLa=vrai;
+                                AffichTexte(nbTexte,tabPisteur,i,autourCase,grilleTraces[x][y-1],0);
+                            }
+                  }
+
+                }
+
+            }
+
+
+
+            //il n'y a rien :
+            if((monstreEstLa==faux)&&(traceEstLa==faux)){
+                nbTexte=nbRAS_TCaseVoisine;
+                AffichTexte(nbTexte,tabPisteur,i,0,0,0);
+            }
+            monstreEstLa=faux;
+            traceEstLa=faux;
+
+            getchar();
+            //on remet l'affichage du pisteur par défaut
+
+            majElement_SurMap(x,y,tabPisteur[i].car_Pisteur,18+i);
         }
-
-
-
-        //il n'y a rien :
-        if((monstreEstLa==faux)&&(traceEstLa==faux)){
-            nbTexte=nbRAS_TCaseVoisine;
-            AffichTexte(nbTexte,tabPisteur,i,0,0,0);
-        }
-        monstreEstLa=faux;
-        traceEstLa=faux;
-
-        getchar();
-        //on remet l'affichage du pisteur par défaut
-
-        majElement_SurMap(x,y,tabPisteur[i].car_Pisteur,18+i);
     }
-
-
-
-
 
 }
 
 
 
-    //Déplacement de chaque pisteur
+    //Déplacement d3e chaque pisteur
 int ChoixDistance(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,int x,int y,int maxDistance,int nb_Direction){
 //BUT:choisir la distance de cases qu'on veut atteindre. MAX:4
 
@@ -779,7 +878,7 @@ int ChoixDirection(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int in
 }
 
 
-void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[][LARGEUR_Map], state etatJeu, pisteur tabPisteur[],int nbPisteurs, int maxDistance, char carDelimt,monster monstre){
+void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[][LARGEUR_Map], state etatJeu, pisteur tabPisteur[],int nbPisteurs, int maxDistance, char carDelimt,monster monstre,int nbDegatsMonstre){
 //BUT:déplacer le pisteur
 
     int i;
@@ -796,60 +895,84 @@ void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[
 
     for(i=0;i<nbPisteurs;i++){
 
-        //-1 pour coller à la plage du tableau : 0 à... et non 1 à...
-        x=tabPisteur[i].coords.x-1;
-        y=tabPisteur[i].coords.y-1;
-        majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18+i);
+        if(tabPisteur[i].estVivant==vrai){
 
-    //demander direction et distance
-        //direction :
-        nb_DirectionChoisie=ChoixDirection(grillePersos,tabPisteur,i,x,y);
-        //distance :
-        nb_DistanceChoisie=ChoixDistance(grillePersos,tabPisteur,i,x,y,maxDistance,nb_DirectionChoisie);
-        //reinit
-        majElement_SurMap(x,y,tabPisteur[i].car_Pisteur,18+i);
+            //-1 pour coller à la plage du tableau : 0 à... et non 1 à...
+            x=tabPisteur[i].coords.x-1;
+            y=tabPisteur[i].coords.y-1;
+            majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18+i);
 
-
-
-    //atribuer ces nouvelles informations
-        nbCase=nbPisteur;
-        switch(nb_DirectionChoisie){
-
-            case haut:
-                //attribuer les coords au pisteur
-                tabPisteur[i].coords.x=tabPisteur[i].coords.x-nb_DistanceChoisie;
-                //mettre le chiffre case grillePerso position coorrespondante
-                grillePersos[x][y]=0;
-                grillePersos[x-nb_DistanceChoisie][y]=nbCase;
-                break;
-
-            case droite :
-                tabPisteur[i].coords.y=tabPisteur[i].coords.y+nb_DistanceChoisie;
-                grillePersos[x][y]=0;
-                grillePersos[x][y+nb_DistanceChoisie]=nbCase;
-                break;
-
-            case bas:
-                tabPisteur[i].coords.x=tabPisteur[i].coords.x+nb_DistanceChoisie;
-                grillePersos[x][y]=0;
-                grillePersos[x+nb_DistanceChoisie][y]=nbCase;
-                break;
+        //demander direction et distance
+            //direction :
+            nb_DirectionChoisie=ChoixDirection(grillePersos,tabPisteur,i,x,y);
+            //distance :
+            nb_DistanceChoisie=ChoixDistance(grillePersos,tabPisteur,i,x,y,maxDistance,nb_DirectionChoisie);
+            //reinit
+            majElement_SurMap(x,y,tabPisteur[i].car_Pisteur,18+i);
 
 
-            case gauche:
-                tabPisteur[i].coords.y=tabPisteur[i].coords.y-nb_DistanceChoisie;
-                grillePersos[x][y]=0;
-                grillePersos[x][y-nb_DistanceChoisie]=nbCase;
-                break;
+
+        //atribuer ces nouvelles informations
+            nbCase=nbPisteur;
+            switch(nb_DirectionChoisie){
+
+                case haut:
+                    //attribuer les coords au pisteur
+                    tabPisteur[i].coords.x=tabPisteur[i].coords.x-nb_DistanceChoisie;
+                    //mettre le chiffre case grillePerso position coorrespondante
+                    grillePersos[x][y]=0;
+                    grillePersos[x-nb_DistanceChoisie][y]=nbCase;
+                    break;
+
+                case droite :
+                    tabPisteur[i].coords.y=tabPisteur[i].coords.y+nb_DistanceChoisie;
+                    grillePersos[x][y]=0;
+                    grillePersos[x][y+nb_DistanceChoisie]=nbCase;
+                    break;
+
+                case bas:
+                    tabPisteur[i].coords.x=tabPisteur[i].coords.x+nb_DistanceChoisie;
+                    grillePersos[x][y]=0;
+                    grillePersos[x+nb_DistanceChoisie][y]=nbCase;
+                    break;
+
+
+                case gauche:
+                    tabPisteur[i].coords.y=tabPisteur[i].coords.y-nb_DistanceChoisie;
+                    grillePersos[x][y]=0;
+                    grillePersos[x][y-nb_DistanceChoisie]=nbCase;
+                    break;
+
+            }
+            //on reaffiche la map pour modifier l'affichage de la position du pisteur
+            Maj_AffichMap(grillePersos,carDelimt,etatJeu,tabPisteur,monstre);
+            //on ajoute nouvelle trace du pisteur
+            AjoutTrace_Pisteur(tabPisteur,i,grillesTraces_Pisteur);
+
 
         }
-        //on reaffiche la map pour modifier l'affichage de la position du pisteur
-        Maj_AffichMap(grillePersos,carDelimt,etatJeu,tabPisteur,monstre);
-        //on ajoute nouvelle trace du pisteur
-        AjoutTrace_Pisteur(tabPisteur,i,grillesTraces_Pisteur);
-
-
     }
+    //on vérifie si le déplacement fait n'est pas sur une case ou se trouve le monstre. Si oui pisteur est mangé par ce dernier
+    PisteurEst_CaseMonstre(grillePersos,monstre,nbDegatsMonstre,tabPisteur,nbPisteurs);
+    getchar();
 }
 
+
+void PisteursRestant_EnVie(pisteur tabPisteur[],int nbPisteursChoisi, booleanPerso *pisteursSontEnVie){
+//BUT: on vérifie s'il reste des pisteurs en vie. Si non alors o retourne false
+
+    int i;
+    int cptMort=0;
+
+    for(i=0;i<nbPisteursChoisi;i++){
+        if(tabPisteur[i].estVivant==faux){
+            cptMort++;
+        }
+    }
+    if(cptMort==nbPisteursChoisi){
+        *pisteursSontEnVie=faux;
+    }
+
+
+}
 

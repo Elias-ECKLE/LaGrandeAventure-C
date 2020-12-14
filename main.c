@@ -53,13 +53,16 @@ int main()
 
 
   //INIT variables :____________________________________________________________
+
+        //vars declar
   state etatJeu=debut;
   srand(time(0)); //init de la fct rand
   pisteur tabPisteur[NB_PisteursMax];
   monster monstre;
+  booleanPerso pisteursSontEnVie=vrai;
 
 
-        //tabs :
+        //tabs declar et init:
    int grillePersonnages[HAUTEUR_Map][LARGEUR_Map];
    int grilleTraces_Monstre[HAUTEUR_Map][LARGEUR_Map];//du monstre
    int grilleTraces_Pisteurs[HAUTEUR_Map][LARGEUR_Map];
@@ -87,43 +90,90 @@ int main()
 
 
 
-    getchar();
-    getchar();
+
 
    //JEU______________________________________________
+    getchar();
+    getchar();
+
+
+    do{
+        //on commence par effacer d'un pt les traces du monstre et des pisteurs:
+        EffacementTraces_Monstre(grilleTraces_Monstre,NB_RetireTrace);
+        EffacementTraces_Pisteur(grilleTraces_Pisteurs,NB_RetireTrace);
 
 
 
-    //on commence par effacer d'un pt les traces du monstre et des pisteurs:
-    EffacementTraces_Monstre(grilleTraces_Monstre,NB_RetireTrace);
-    EffacementTraces_Pisteur(grilleTraces_Pisteurs,NB_RetireTrace);
+        //on vérifie s'il reste des pisteurs en vie ou non, idem pour le monstre
+            //pisteurs:
+        PisteursRestant_EnVie(tabPisteur,nbPisteurChoisi,&pisteursSontEnVie);
+            //monstre
+        MonstreEnVie(&monstre);
 
 
-    //compte rendu des pisteurs :
-     etatJeu=pisteurs_VerifVoisine;
-    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
-    CheckCaseVoisine_Pisteur(grillePersonnages,grilleTraces_Monstre,tabPisteur,nbPisteurChoisi,&monstre,CHANCE_ReussirTir,etatJeu,NB_Degat_Pisteur );
+        if((monstre.estVivant==vrai)&&(pisteursSontEnVie==vrai)){
+        //compte rendu des pisteurs :
+        etatJeu=pisteurs_VerifVoisine;
+        Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+        CheckCaseVoisine_Pisteur(grillePersonnages,grilleTraces_Monstre,tabPisteur,nbPisteurChoisi,&monstre,CHANCE_ReussirTir,etatJeu,NB_Degat_Pisteur );
 
-    //deplacement des pisteurs :
-    etatJeu=dplmtPisteurs;
-    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
-    Deplcmt_Pisteur(grillePersonnages,grilleTraces_Pisteurs,etatJeu,tabPisteur,nbPisteurChoisi,NB_DistanceMax,CAR_DelimitationMap,monstre);
-
-
-
-    //deplacement du monstre :
-    etatJeu=dplmtMonstre;
-    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
-    //Deplcmt_Monstre
-    Deplcmt_Monstre(grillePersonnages,grilleTraces_Pisteurs,tabPisteur,nbPisteurChoisi,NB_NouvelleTrace,NB_Degat_Monstre,monstre,&monstre);
-
-    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+        //deplacement des pisteurs :
+        etatJeu=dplmtPisteurs;
+        Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+        Deplcmt_Pisteur(grillePersonnages,grilleTraces_Pisteurs,etatJeu,tabPisteur,nbPisteurChoisi,NB_DistanceMax,CAR_DelimitationMap,monstre,NB_Degat_Monstre);
+        }
 
 
 
 
+        //on vérifie s'il reste des pisteurs en vie ou non, idem pour le monstre
+            //pisteurs:
+        PisteursRestant_EnVie(tabPisteur,nbPisteurChoisi,&pisteursSontEnVie);
+            //monstre
+        MonstreEnVie(&monstre);
 
 
+        if((monstre.estVivant==vrai)&&(pisteursSontEnVie==vrai)){
+            //deplacement du monstre :
+            etatJeu=dplmtMonstre;
+            Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+            Deplcmt_Monstre(grillePersonnages,grilleTraces_Pisteurs,grilleTraces_Monstre,tabPisteur,nbPisteurChoisi,NB_NouvelleTrace,NB_Degat_Monstre,monstre,&monstre,etatJeu);
+            Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+        }
+
+
+
+
+
+        //on vérifie à nouveau s'il reste des pisteurs en vie ou non, idem pour le monstre
+            //pisteurs:
+        PisteursRestant_EnVie(tabPisteur,nbPisteurChoisi,&pisteursSontEnVie);
+            //monstre
+        MonstreEnVie(&monstre);
+
+        //message de reboucle du jeu
+        if((monstre.estVivant==vrai)&&(pisteursSontEnVie==vrai)){
+            etatJeu=rebouclePartie;
+            MsgConsignes_Jeu(etatJeu);
+        }
+
+        getchar();
+    }while((monstre.estVivant==vrai)&&(pisteursSontEnVie==vrai));
+
+
+
+
+
+
+    //FIN DU JEU______________________________________________________
+    if((pisteursSontEnVie==vrai)&&(monstre.estVivant==faux)){
+        etatJeu=victoirePisteurs;
+
+    }
+    else if((pisteursSontEnVie==faux)&&(monstre.estVivant==vrai)){
+        etatJeu=victoireMonstre;
+    }
+    MsgConsignes_Jeu(etatJeu);
 
 
 

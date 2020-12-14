@@ -89,42 +89,41 @@ void Check8CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int 
 }
 
 
-
-
-
 void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_Pisteurs[][LARGEUR_Map], historicTrace_Pisteur tabHistoricPist[], booleanPerso *pisteurEstLa,booleanPerso *traceEstLa,int nbTraceMax, int x,int y,int *pX, int *pY){
 
     //que check sur 4 cases. par contre on regarde si présence de pisteur ou de traces !!!
+    *pisteurEstLa=faux;
+    *traceEstLa=faux;
 
     //le pisteur se situe sur l'une des cases voisine
             //haut
         if(grillePerso[x-1][y]==nbPisteur){
-            pisteurEstLa=vrai;
-            pX=x;
-            pY=y+1;
+            *pisteurEstLa=vrai;
+            *pX=x;
+            *pY=y+1;
         }
             //bas
         if(grillePerso[x+1][y]==nbPisteur){
-            pisteurEstLa=vrai;
-            pX=x+2;
-            pY=y+1;
+            *pisteurEstLa=vrai;
+            *pX=x+2;
+            *pY=y+1;
         }
             //gauche
         if(grillePerso[x][y-1]==nbPisteur){
-            pisteurEstLa=vrai;
-            pX=x+1;
-            pY=y;
+            *pisteurEstLa=vrai;
+            *pX=x+1;
+            *pY=y;
         }
             //droite
         if(grillePerso[x][y+1]==nbPisteur){
-            pisteurEstLa=vrai;
-            pX=x+1;
-            pY=y+2;
+            *pisteurEstLa=vrai;
+            *pX=x+1;
+            *pY=y+2;
         }
 
 
         //Si ce n'est pas le cas, on regarde s'il y a des traces visibles de pisteurs:
-        else if(pisteurEstLa==faux){
+        else if(*pisteurEstLa==faux){
 
             if ((x>0) && (x<HAUTEUR_Map-1)){
 
@@ -132,7 +131,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Haut
                         if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
                             tabHistoricPist[0].coords.x=x;
                             tabHistoricPist[0].coords.y=y+1;
@@ -141,7 +140,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Droite
                         if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y+1];
                             tabHistoricPist[1].coords.x=x+1;
                             tabHistoricPist[1].coords.y=y+2;
@@ -150,7 +149,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Bas
                         if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[2].valeurTrace=grilleTraces_Pisteurs[x+1][y];
                             tabHistoricPist[2].coords.x=x+2;
                             tabHistoricPist[2].coords.y=y+1;
@@ -158,7 +157,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Gauche
                         if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[3].valeurTrace=grilleTraces_Pisteurs[x][y-1];
                             tabHistoricPist[3].coords.x=x+1;
                             tabHistoricPist[3].coords.y=y;
@@ -168,7 +167,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Haut
                         if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
                             tabHistoricPist[0].coords.x=x;
                             tabHistoricPist[0].coords.y=y+1;
@@ -177,7 +176,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Droite
                         if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y+1];
                             tabHistoricPist[1].coords.x=x+1;
                             tabHistoricPist[1].coords.y=y+2;
@@ -185,7 +184,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Bas
                         if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[2].valeurTrace=grilleTraces_Pisteurs[x+1][y];
                             tabHistoricPist[2].coords.x=x+2;
                             tabHistoricPist[2].coords.y=y+1;
@@ -196,7 +195,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Haut
                         if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
                             tabHistoricPist[0].coords.x=x;
                             tabHistoricPist[0].coords.y=y+1;
@@ -204,7 +203,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
                         }
                         //Bas
                         if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x+1][y];
                             tabHistoricPist[1].coords.x=x+2;
                             tabHistoricPist[1].coords.y=y+1;
@@ -212,7 +211,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Gauche
                         if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[2].valeurTrace=grilleTraces_Pisteurs[x][y-1];
                             tabHistoricPist[2].coords.x=x+1;
                             tabHistoricPist[2].coords.y=y;
@@ -228,14 +227,14 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Droite
                         if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x][y+1];
                             tabHistoricPist[0].coords.x=x+1;
                             tabHistoricPist[0].coords.y=y+2;
                         }
                         //Bas
                         if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x+1][y];
                             tabHistoricPist[1].coords.x=x+2;
                             tabHistoricPist[1].coords.y=y+1;
@@ -243,7 +242,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Gauche
                         if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[2].valeurTrace=grilleTraces_Pisteurs[x][y-1];
                             tabHistoricPist[2].coords.x=x+1;
                             tabHistoricPist[2].coords.y=y;
@@ -254,7 +253,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Droite
                         if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x][y+1];
                             tabHistoricPist[0].coords.x=x+1;
                             tabHistoricPist[0].coords.y=y+2;
@@ -262,7 +261,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Bas
                         if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x+1][y];
                             tabHistoricPist[1].coords.x=x+2;
                             tabHistoricPist[1].coords.y=y+1;
@@ -273,7 +272,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Bas
                         if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x+1][y];
                             tabHistoricPist[0].coords.x=x+2;
                             tabHistoricPist[0].coords.y=y+1;
@@ -281,7 +280,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Gauche
                         if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y-1];
                             tabHistoricPist[1].coords.x=x+1;
                             tabHistoricPist[1].coords.y=y;
@@ -296,7 +295,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Haut
                         if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
                             tabHistoricPist[0].coords.x=x;
                             tabHistoricPist[0].coords.y=y+1;
@@ -305,7 +304,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Droite
                         if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y+1];
                             tabHistoricPist[1].coords.x=x+1;
                             tabHistoricPist[1].coords.y=y+2;
@@ -321,7 +320,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
                else if (y==0){
                         //Haut
                         if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
                             tabHistoricPist[0].coords.x=x;
                             tabHistoricPist[0].coords.y=y+1;
@@ -330,7 +329,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Droite
                         if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y+1];
                             tabHistoricPist[1].coords.x=x+1;
                             tabHistoricPist[1].coords.y=y+2;
@@ -340,7 +339,7 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Haut
                         if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
-                            traceEstLa=vrai;
+                            *traceEstLa=vrai;
                             tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
                             tabHistoricPist[0].coords.x=x;
                             tabHistoricPist[0].coords.y=y+1;
@@ -349,10 +348,10 @@ void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_
 
                         //Gauche
                         if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
-                            traceEstLa=vrai;
-                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x][y-1];
-                            tabHistoricPist[0].coords.x=x+1;
-                            tabHistoricPist[0].coords.y=y;
+                            *traceEstLa=vrai;
+                            tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y-1];
+                            tabHistoricPist[1].coords.x=x+1;
+                            tabHistoricPist[1].coords.y=y;
                         }
               }
 
@@ -402,6 +401,8 @@ void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces
     //puis on passe à la création des coordoonées de départ
         //on génère des coods et on check si celles-ci ne sont pas voisines ou autour de celles des pisteurs
 
+    x=5;
+    y=22;
 
     do{
         casesVoisines_vides=vrai;
@@ -416,9 +417,6 @@ void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces
         max=LARGEUR_Map;
         min=1;
         y=(rand()%(max-min+1)) + min;//nb aléatoire entre 1 et 29
-
-        x=4;
-        y=8;
 
 
 
@@ -514,6 +512,7 @@ void MangerPisteur(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int in
             //on affiche la mort du pisteur en question :
         nbTexte=nbManger_TPisteur;
         AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
+        getchar();
     }
 
 
@@ -541,7 +540,7 @@ void PisteurEst_CaseMonstre(int grillePersos[][LARGEUR_Map], monster monstre, in
 
 
 //Déplacement du monstre après première position---------------------------------------
-void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LARGEUR_Map], int tabPisteurs[], int nbPisteursChoisi, int nbTracesMax,int nbDegats_Monstre, monster monstre, monster *pMonstre){
+void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LARGEUR_Map],int grilleTracesMonstre[][LARGEUR_Map], int tabPisteurs[], int nbPisteursChoisi, int nbTracesMax,int nbDegats_Monstre, monster monstre, monster *pMonstre,state etatJeu){
 //BUT:Le monstre se déplace. Pour cela il checke si pas pisteur voisin,puis pose trace(16) sur ancienne case : appel fcts
 
     int i;
@@ -558,6 +557,13 @@ void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LAR
     booleanPerso directionEstPossible=faux;
 
 
+
+    //on affiche la consigne de déplacement du monstre
+    MsgConsignes_Jeu(etatJeu);
+    getchar();
+        getchar();
+
+
     //init :
     x=monstre.coords.x;
     y=monstre.coords.y;
@@ -572,10 +578,12 @@ void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LAR
 
 
 
-
     //on CHECK les quatre cases autour
         //on appelel fct x-1,y-1,&caseVoisine_Pisteur/&caseVoisine_Trace,&xNew,&yNew
     Check4CasesVoisine_Monstre(grillePersos,grilleTracesPist,tabHistoric_Pisteurs,&caseVoisine_Pisteur,&caseVoisine_Trace,nbTracesMax,x-1,y-1,&xNew,&yNew);
+
+
+
 
 
 
@@ -611,6 +619,8 @@ void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LAR
         grillePersos[xNew-1][yNew-1]=nbMonstre;
         pMonstre->coords.x=xNew;
         pMonstre->coords.y=yNew;
+        monstre.coords.x=xNew;//on rempli aussi le monsre non pointeur pour l'envoyer dans la fct ci-dessous
+        monstre.coords.y=yNew;
     }
 
 
@@ -653,15 +663,26 @@ void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LAR
         grillePersos[xNew-1][yNew-1]=nbMonstre;
         pMonstre->coords.x=xNew;
         pMonstre->coords.y=yNew;
+        monstre.coords.x=xNew;//on rempli aussi le monsre non pointeur pour l'envoyer dans la fct ci-dessous
+        monstre.coords.y=yNew;
 
     }
 
     //on enleve le nbMonstre sur l'ancienne position du tableau grille :
     grillePersos[x-1][y-1]=0;
+    //on ajoute la nouvelle trace du monstre
+    AjoutTrace_Monstre(monstre,grilleTracesMonstre);
 
 }
 
 
 void MonstreTouche(){
 //BUT: le monstre est touché, alors il perd un pt de vie (dans proc TirerMonstre->pisteurs.c) , et indication dernier endroit séjourné pendant 4 tours de jeu
+}
+
+void MonstreEnVie(monster *monstre){
+
+    if(monstre->vieRestante<=0){
+        monstre->estVivant=faux;
+    }
 }

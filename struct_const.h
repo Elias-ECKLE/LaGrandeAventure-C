@@ -24,7 +24,7 @@
 #define NB_DistanceMax 4 //distance de déplacement maximal du pisteur
 #define NB_PisteursMin 1    //nb de pisteurs minimal
 #define NB_PisteursMax 10   //nb de pisteurs maximal
-#define NB_Degat_Pisteur 1 //nb de degats que va donner le pisteur en tirant sur le monstre
+#define NB_Degat_Pisteur 4 //nb de degats que va donner le pisteur en tirant sur le monstre
 #define NB_PisteurPV 1      //vie des pisteurs
 #define NB_LettresNom 10       //longueur de caractères max pour le nom des pisteurs
 #define CAR_Pisteur 'P'
@@ -47,7 +47,9 @@ typedef enum state{
     pisteurs_VerifVoisine,
     dplmtPisteurs,
     dplmtMonstre,
-    fin
+    rebouclePartie,
+    victoirePisteurs,
+    victoireMonstre
 
 }state;
 

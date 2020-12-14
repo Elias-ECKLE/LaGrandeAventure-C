@@ -11,6 +11,10 @@ extern void PisteurEst_CaseMonstre(int grillePersos[][LARGEUR_Map], monster mons
 extern void MangerPisteur(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,monster monstre, int nbDegatMonstre);
 
 extern void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_Pisteurs[][LARGEUR_Map], historicTrace_Pisteur tabHistoricPist[], booleanPerso *pisteurEstLa,booleanPerso *traceEstLa,int nbTraceMax, int x,int y,int *pX, int *pY);
-extern void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LARGEUR_Map], int tabPisteurs[], int nbPisteursChoisi, int nbTracesMax,int nbDegats_Monstre, monster monstre, monster *pMonstre);
+extern void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LARGEUR_Map],int grilleTracesMonstre[][LARGEUR_Map], int tabPisteurs[], int nbPisteursChoisi, int nbTracesMax,int nbDegats_Monstre, monster monstre, monster *pMonstre,state etatJeu);
+
+extern void MonstreEnVie(monster *monstre);
+
+
 
 #endif // MONSTRE_H_INCLUDED

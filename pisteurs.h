@@ -10,5 +10,8 @@ extern int Tirer_SurMonstre(int vieMonstre,int chanceTir,int nbDegats_Pisteur);
 
 extern int ChoixDirection(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,int x,int y);
 extern int ChoixDistance(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,int x,int y,int maxDistance,int nb_Direction);
-extern void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[][LARGEUR_Map], state etatJeu, pisteur tabPisteur[],int nbPisteurs, int maxDistance, char carDelimt,monster monstre);
+extern void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[][LARGEUR_Map], state etatJeu, pisteur tabPisteur[],int nbPisteurs, int maxDistance, char carDelimt,monster monstre,int nbDegatsMonstre);
+
+extern void PisteursRestant_EnVie(pisteur tabPisteur[],int nbPisteursChoisi, booleanPerso *pisteursSontEnVie);
+
 #endif // PISTEURS_H_INCLUDED

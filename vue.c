@@ -153,12 +153,21 @@ void MsgConsignes_Jeu(state etatJeu){
     else if(etatJeu==dplmtPisteurs){
         printf("\nLe deplacement des pisteurs commence  : \n\n");
     }
-    else if(etatJeu=dplmtMonstre){
-        printf("\nC est au tour du monstre de se déplacer. Attention a ne pas tomber sur la meme case que ce dernier sous peine d'en faire qu une bouchee");
+    else if(etatJeu==dplmtMonstre){
+        printf("\nC est au tour du monstre de se deplacer. Attention a ne pas tomber sur la meme case que ce dernier sous peine d'en faire qu une bouchee");
     }
-    else if(etatJeu==fin){
+    else if(etatJeu==rebouclePartie){
+        printf("\nLe monstre a fini son deplacement. Ni la totalite des pisteurs, ni le monstre ne sont morts, la partie alors continue");
+    }
+    else if(etatJeu==victoirePisteurs){
+        system("cls");
+        printf("La partie est terminee. Les pisteurs ont reussis a tuer le monstre");
+    }
+    else if(etatJeu==victoireMonstre){
+        system("cls");
+        printf("La partie est terminee ! Le monstre a mange tous les pisteurs");
+    }
 
-    }
 
 }
 
@@ -263,7 +272,7 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int n
 
         //texte:void MangerPisteur();
     if(nbTexte==nbManger_TPisteur){
-        printf("Malheureusement le monstre se trouve sur la meme case que l un de vos pisteurs. Le %s est donc mange par la bete, il ne reviendra pas de ses entrailles",tab[indexTab].nom);
+        printf("\n\nMalheureusement le monstre se trouve sur la meme case que l un de vos pisteurs. Le %s est donc mange par la bete, il ne reviendra pas de ses entrailles...",tab[indexTab].nom);
 
 
     }
