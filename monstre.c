@@ -3,12 +3,14 @@
 
 
             //ATTENTION X ET Y NE SONT PAS EXACTEMENT LES COORDS MAIS LES COORDS-1 POUR COLLER AUX DONNEES DU TABLEAU ALLANT DE 0 à 13 ou 28
-void CheckCasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int checkCases_nbChoix, int x, int y, booleanPerso *pcaseNonPisteur){
-//BUT:checker si pisteur ou non sur les 8 cases lors de l'init, et sur les 4 cases lors de déplacement
+void Check8CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int x, int y, booleanPerso *pcaseNonPisteur){
+//BUT:checker si pisteur ou non sur les 8 cases lors de l'init
 
     booleanPerso caseNonPisteur=vrai;
+
+
     //check lors de l'init, on check donc sur les 8 cases. On se base sur 4 cases pour éviter plantage et après on regarde si l'en des une cases possible, il y a un pisteur
-    if(checkCases_nbChoix==0){
+
 
         if ((x>0) && (x<HAUTEUR_Map-1)){
 
@@ -76,88 +78,292 @@ void CheckCasesVoisine_Monstre(int grillePerso[][LARGEUR_Map], int nbPist, int c
                      }
               }
 
-         }
-
-    }
-
-
-
-
-    //que check sur 4 cases
-    if(checkCases_nbChoix==1){
-
-
-        if ((x>0) && (x<HAUTEUR_Map-1)){
-
-            //or comme certaines positions ne disposent pas de quatres cases les entourant (les coins par exemple), il faut en tenir compte lors de la verification des
-            // 'X' voisins et ainsi eviter le plantage du prog en placant des condtions
-                if ((y>0) && (y<LARGEUR_Map-1)){
-
-                    if((grillePerso[x-1][y]==nbPist)||(grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)){
-                        caseNonPisteur=faux;
-                    }
-                }
-                else if(y==0){
-
-                    if ((grillePerso[x-1][y]==nbPist) || (grillePerso[x+1][y]==nbPist) || (grillePerso[x][y+1]==nbPist)){
-                        caseNonPisteur=faux;
-                    }
-                }
-                else if (y==LARGEUR_Map-1){
-
-                    if ((grillePerso[x-1][y]==nbPist) || (grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist)){
-                        caseNonPisteur=faux;
-                    }
-
-                }
         }
-        else if (x==0){
 
-                if ((y>0) && (y<LARGEUR_Map-1)){
 
-                     if  ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)){
-                        caseNonPisteur=faux;
-                     }
-                }
-                else if(y==0){
 
-                      if ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y+1]==nbPist)){
-                        caseNonPisteur=faux;
-                      }
-                }
-                else if (y==LARGEUR_Map-1){
 
-                      if  ((grillePerso[x+1][y]==nbPist) || (grillePerso[x][y-1]==nbPist)){
-                        caseNonPisteur=faux;
-                      }
-                }
-        }
-        else if (x==HAUTEUR_Map-1){
+      *pcaseNonPisteur=caseNonPisteur;
 
-                if ((y>0) && (y<LARGEUR_Map-1)){
-
-                     if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y-1]==nbPist) || (grillePerso[x][y+1]==nbPist)){
-                        caseNonPisteur=faux;
-                     }
-                }
-               else if (y==0){
-
-                     if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y+1]==nbPist)){
-                        caseNonPisteur=faux;
-                     }
-              }
-              else if (y==LARGEUR_Map-1){
-
-                     if  ((grillePerso[x-1][y]==nbPist) || (grillePerso[x][y-1]==nbPist)){
-                        caseNonPisteur=faux;
-                     }
-              }
-
-         }
-    }
-    *pcaseNonPisteur=caseNonPisteur;
 
 }
+
+
+
+
+
+void Check4CasesVoisine_Monstre(int grillePerso[][LARGEUR_Map],int grilleTraces_Pisteurs[][LARGEUR_Map], historicTrace_Pisteur tabHistoricPist[], booleanPerso *pisteurEstLa,booleanPerso *traceEstLa,int nbTraceMax, int x,int y,int *pX, int *pY){
+
+    //que check sur 4 cases. par contre on regarde si présence de pisteur ou de traces !!!
+
+    //le pisteur se situe sur l'une des cases voisine
+            //haut
+        if(grillePerso[x-1][y]==nbPisteur){
+            pisteurEstLa=vrai;
+            pX=x;
+            pY=y+1;
+        }
+            //bas
+        if(grillePerso[x+1][y]==nbPisteur){
+            pisteurEstLa=vrai;
+            pX=x+2;
+            pY=y+1;
+        }
+            //gauche
+        if(grillePerso[x][y-1]==nbPisteur){
+            pisteurEstLa=vrai;
+            pX=x+1;
+            pY=y;
+        }
+            //droite
+        if(grillePerso[x][y+1]==nbPisteur){
+            pisteurEstLa=vrai;
+            pX=x+1;
+            pY=y+2;
+        }
+
+
+        //Si ce n'est pas le cas, on regarde s'il y a des traces visibles de pisteurs:
+        else if(pisteurEstLa==faux){
+
+            if ((x>0) && (x<HAUTEUR_Map-1)){
+
+                if ((y>0) && (y<LARGEUR_Map-1)){
+
+                        //Haut
+                        if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
+                            tabHistoricPist[0].coords.x=x;
+                            tabHistoricPist[0].coords.y=y+1;
+
+                        }
+
+                        //Droite
+                        if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y+1];
+                            tabHistoricPist[1].coords.x=x+1;
+                            tabHistoricPist[1].coords.y=y+2;
+
+                        }
+
+                        //Bas
+                        if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[2].valeurTrace=grilleTraces_Pisteurs[x+1][y];
+                            tabHistoricPist[2].coords.x=x+2;
+                            tabHistoricPist[2].coords.y=y+1;
+                        }
+
+                        //Gauche
+                        if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[3].valeurTrace=grilleTraces_Pisteurs[x][y-1];
+                            tabHistoricPist[3].coords.x=x+1;
+                            tabHistoricPist[3].coords.y=y;
+                        }
+                }
+                else if(y==0){
+
+                        //Haut
+                        if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
+                            tabHistoricPist[0].coords.x=x;
+                            tabHistoricPist[0].coords.y=y+1;
+
+                        }
+
+                        //Droite
+                        if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y+1];
+                            tabHistoricPist[1].coords.x=x+1;
+                            tabHistoricPist[1].coords.y=y+2;
+                        }
+
+                        //Bas
+                        if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[2].valeurTrace=grilleTraces_Pisteurs[x+1][y];
+                            tabHistoricPist[2].coords.x=x+2;
+                            tabHistoricPist[2].coords.y=y+1;
+                        }
+
+                }
+                else if (y==LARGEUR_Map-1){
+
+                        //Haut
+                        if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
+                            tabHistoricPist[0].coords.x=x;
+                            tabHistoricPist[0].coords.y=y+1;
+
+                        }
+                        //Bas
+                        if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x+1][y];
+                            tabHistoricPist[1].coords.x=x+2;
+                            tabHistoricPist[1].coords.y=y+1;
+                        }
+
+                        //Gauche
+                        if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[2].valeurTrace=grilleTraces_Pisteurs[x][y-1];
+                            tabHistoricPist[2].coords.x=x+1;
+                            tabHistoricPist[2].coords.y=y;
+                        }
+
+
+
+                }
+            }
+            else if (x==0){
+
+                if ((y>0) && (y<LARGEUR_Map-1)){
+
+                        //Droite
+                        if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x][y+1];
+                            tabHistoricPist[0].coords.x=x+1;
+                            tabHistoricPist[0].coords.y=y+2;
+                        }
+                        //Bas
+                        if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x+1][y];
+                            tabHistoricPist[1].coords.x=x+2;
+                            tabHistoricPist[1].coords.y=y+1;
+                        }
+
+                        //Gauche
+                        if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[2].valeurTrace=grilleTraces_Pisteurs[x][y-1];
+                            tabHistoricPist[2].coords.x=x+1;
+                            tabHistoricPist[2].coords.y=y;
+                        }
+
+                }
+                else if(y==0){
+
+                        //Droite
+                        if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x][y+1];
+                            tabHistoricPist[0].coords.x=x+1;
+                            tabHistoricPist[0].coords.y=y+2;
+                        }
+
+                        //Bas
+                        if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x+1][y];
+                            tabHistoricPist[1].coords.x=x+2;
+                            tabHistoricPist[1].coords.y=y+1;
+                        }
+
+                }
+                else if (y==LARGEUR_Map-1){
+
+                        //Bas
+                        if((grilleTraces_Pisteurs[x+1][y]>0)&&(grilleTraces_Pisteurs[x+1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x+1][y];
+                            tabHistoricPist[0].coords.x=x+2;
+                            tabHistoricPist[0].coords.y=y+1;
+                        }
+
+                        //Gauche
+                        if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y-1];
+                            tabHistoricPist[1].coords.x=x+1;
+                            tabHistoricPist[1].coords.y=y;
+                        }
+
+
+                }
+            }
+            else if (x==HAUTEUR_Map-1){
+
+                if ((y>0) && (y<LARGEUR_Map-1)){
+
+                        //Haut
+                        if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
+                            tabHistoricPist[0].coords.x=x;
+                            tabHistoricPist[0].coords.y=y+1;
+
+                        }
+
+                        //Droite
+                        if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y+1];
+                            tabHistoricPist[1].coords.x=x+1;
+                            tabHistoricPist[1].coords.y=y+2;
+                        }
+                        //Gauche
+                        if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[2].valeurTrace=grilleTraces_Pisteurs[x][y-1];
+                            tabHistoricPist[2].coords.x=x+1;
+                            tabHistoricPist[2].coords.y=y;
+                        }
+                }
+               else if (y==0){
+                        //Haut
+                        if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
+                            tabHistoricPist[0].coords.x=x;
+                            tabHistoricPist[0].coords.y=y+1;
+
+                        }
+
+                        //Droite
+                        if((grilleTraces_Pisteurs[x][y+1]>0)&&(grilleTraces_Pisteurs[x][y+1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[1].valeurTrace=grilleTraces_Pisteurs[x][y+1];
+                            tabHistoricPist[1].coords.x=x+1;
+                            tabHistoricPist[1].coords.y=y+2;
+                        }
+               }
+               else if (y==LARGEUR_Map-1){
+
+                        //Haut
+                        if((grilleTraces_Pisteurs[x-1][y]>0)&&(grilleTraces_Pisteurs[x-1][y]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x-1][y];
+                            tabHistoricPist[0].coords.x=x;
+                            tabHistoricPist[0].coords.y=y+1;
+
+                        }
+
+                        //Gauche
+                        if((grilleTraces_Pisteurs[x][y-1]>0)&&(grilleTraces_Pisteurs[x][y-1]<nbTraceMax)){
+                            traceEstLa=vrai;
+                            tabHistoricPist[0].valeurTrace=grilleTraces_Pisteurs[x][y-1];
+                            tabHistoricPist[0].coords.x=x+1;
+                            tabHistoricPist[0].coords.y=y;
+                        }
+              }
+
+            }
+
+        }
+
+}
+
+
+
 
 
 
@@ -211,6 +417,9 @@ void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces
         min=1;
         y=(rand()%(max-min+1)) + min;//nb aléatoire entre 1 et 29
 
+        x=4;
+        y=8;
+
 
 
                 //check cases :
@@ -221,8 +430,8 @@ void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces
                 caseNonPisteur=faux;// si les coordoonéees générées tombent sur une case de pisteur alors faux
             }
         }
-        //sinon on check qu'il n'y a pas de pisteur sur les cases voisines
-        CheckCasesVoisine_Monstre(grillePersonnage,nbPisteurChoisi,0,x-1,y-1,&caseNonPisteur);
+        //sinon on check qu'il n'y a pas de pisteur sur les 8 cases voisines
+        Check8CasesVoisine_Monstre(grillePersonnage,nbPisteur,x-1,y-1,&caseNonPisteur);
 
 
 
@@ -332,17 +541,123 @@ void PisteurEst_CaseMonstre(int grillePersos[][LARGEUR_Map], monster monstre, in
 
 
 //Déplacement du monstre après première position---------------------------------------
-void Deplcmt_Monstre(){
+void Deplcmt_Monstre(int grillePersos[][LARGEUR_Map], int grilleTracesPist[][LARGEUR_Map], int tabPisteurs[], int nbPisteursChoisi, int nbTracesMax,int nbDegats_Monstre, monster monstre, monster *pMonstre){
 //BUT:Le monstre se déplace. Pour cela il checke si pas pisteur voisin,puis pose trace(16) sur ancienne case : appel fcts
 
+    int i;
+    int x;
+    int y;
+    int xNew=0;
+    int yNew=0;
+    int minDirection=1;
+    int maxDirection=4;
+    directions nbDirection;
+    caseNb nbCase;
+    booleanPerso caseVoisine_Pisteur=faux;
+    booleanPerso caseVoisine_Trace=faux;
+    booleanPerso directionEstPossible=faux;
+
+
+    //init :
+    x=monstre.coords.x;
+    y=monstre.coords.y;
+
+    historicTrace_Pisteur tabHistoric_Pisteurs[4];
+    for(i=0;i<4;i++){
+        tabHistoric_Pisteurs[i].valeurTrace=0;
+        tabHistoric_Pisteurs[i].coords.x=0;
+        tabHistoric_Pisteurs[i].coords.y=0;
+    }
+
+
+
+
+
     //on CHECK les quatre cases autour
+        //on appelel fct x-1,y-1,&caseVoisine_Pisteur/&caseVoisine_Trace,&xNew,&yNew
+    Check4CasesVoisine_Monstre(grillePersos,grilleTracesPist,tabHistoric_Pisteurs,&caseVoisine_Pisteur,&caseVoisine_Trace,nbTracesMax,x-1,y-1,&xNew,&yNew);
 
-    //DEPLACEMENT
-    //si case voisine il y a pisteur on va dessus et on appelle PisteurEst_CaseMonstre
 
-    //si traces on va sur la plus fraiche, numero le plus près de 16 dans la limite du tableau
 
-    //sinon on prend une des quatre cases au pif et on va dessus
+    //pisteur sur direction voisine
+    if(caseVoisine_Pisteur==vrai){
+
+        nbCase=nbMonstre;
+        grillePersos[xNew-1][yNew-1]=nbMonstre;
+
+        pMonstre->coords.x=xNew;
+        pMonstre->coords.y=yNew;
+        monstre.coords.x=xNew;//on rempli aussi le monsre non pointeur pour l'envoyer dans la fct ci-dessous
+        monstre.coords.y=yNew;
+
+        PisteurEst_CaseMonstre(grillePersos,monstre,nbDegats_Monstre,tabPisteurs,nbPisteursChoisi);
+    }
+
+
+
+    //trace voisine
+    else if(caseVoisine_Pisteur==faux && caseVoisine_Trace==vrai){
+        //on a un tableau prenant la valeur trace de chaque case voisine et leurs coordoonéees, on les compare et celui ayant la valeur la plus grande on en tire les coords
+        int V=0;
+        for(i=0;i<4;i++){
+
+            if(V<tabHistoric_Pisteurs[i].valeurTrace){
+                    //on compare le plus petit au plus grand et on stocke le plus grand
+                V=tabHistoric_Pisteurs[i].valeurTrace;
+                xNew=tabHistoric_Pisteurs[i].coords.x;
+                yNew=tabHistoric_Pisteurs[i].coords.y;
+            }
+        }
+        grillePersos[xNew-1][yNew-1]=nbMonstre;
+        pMonstre->coords.x=xNew;
+        pMonstre->coords.y=yNew;
+    }
+
+
+
+    //rien donc direction aléatoire prise
+    else{
+        //random des quatre directions
+        do{
+            nbDirection=(rand()%(maxDirection-minDirection+1)) + minDirection;//nb aléatoire entre 1 et 4
+            switch (nbDirection){
+
+                case haut://1
+                    xNew=x-1;
+                    yNew=y;
+                break;
+
+                case droite://2
+                    xNew=x;
+                    yNew=y+1;
+                break;
+
+                case bas://3
+                    xNew=x+1;
+                    yNew=y;
+                break;
+
+                case gauche://4
+                    xNew=x;
+                    yNew=y-1;
+                break;
+            }
+            //on verifie si coord possible
+            if(((xNew>0) && (xNew<HAUTEUR_Map+1))  &&  ((yNew>0)&&(yNew<LARGEUR_Map+1))){
+                directionEstPossible=vrai;
+            }
+        }while(directionEstPossible==faux);
+
+        //on stocke tout
+        nbCase=nbMonstre;
+        grillePersos[xNew-1][yNew-1]=nbMonstre;
+        pMonstre->coords.x=xNew;
+        pMonstre->coords.y=yNew;
+
+    }
+
+    //on enleve le nbMonstre sur l'ancienne position du tableau grille :
+    grillePersos[x-1][y-1]=0;
 
 }
 

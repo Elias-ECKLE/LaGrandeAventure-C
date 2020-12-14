@@ -107,7 +107,7 @@ int main()
     //deplacement des pisteurs :
     etatJeu=dplmtPisteurs;
     Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
-    Deplcmt_Pisteur(grillePersonnages,etatJeu,tabPisteur,nbPisteurChoisi,NB_DistanceMax,CAR_DelimitationMap,monstre);
+    Deplcmt_Pisteur(grillePersonnages,grilleTraces_Pisteurs,etatJeu,tabPisteur,nbPisteurChoisi,NB_DistanceMax,CAR_DelimitationMap,monstre);
 
 
 
@@ -115,6 +115,11 @@ int main()
     etatJeu=dplmtMonstre;
     Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
     //Deplcmt_Monstre
+    Deplcmt_Monstre(grillePersonnages,grilleTraces_Pisteurs,tabPisteur,nbPisteurChoisi,NB_NouvelleTrace,NB_Degat_Monstre,monstre,&monstre);
+
+    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+
+
 
 
 

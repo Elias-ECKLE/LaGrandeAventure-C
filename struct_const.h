@@ -90,7 +90,7 @@ typedef enum directions{
     bas=3,
     gauche=4
 
-}direction;
+}directions;
 
 typedef enum caseAutour{
 
@@ -160,6 +160,11 @@ typedef struct monster{
     char car_Monstre;
 
 }monster;
+
+typedef struct historicTrace_Pisteur{
+    int valeurTrace;
+    coordXY coords;
+}historicTrace_Pisteur;
 
 
 
