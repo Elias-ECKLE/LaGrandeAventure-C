@@ -1,0 +1,81 @@
+section {
+	background-color: rgba(255,250,205,0.5);
+	margin-left:7%;
+	margin-right: 7%;
+	padding: 1%;
+	margin-top:5%;
+	margin-bottom: 5%;
+}
+section p{
+	margin-left: 10%;
+	margin-right:10%;
+	font-size:1.05em;
+}
+
+
+
+
+/*titres de texte*/
+h2{
+	text-align: center;
+	text-decoration: underline;
+	font-size:2em;
+
+	margin-top:2.5%;
+	margin-bottom:5%;
+}
+h3{
+	font-size: 1.5em;
+	margin-top: 100px;
+	margin-left: 175px;
+	margin-bottom: 50px;
+	text-decoration: underline;
+}
+
+
+
+
+
+
+/*liste de textes :**/ 
+		/*souligner chaque titre des listes*/
+.titresListes_Soulignes{
+	text-decoration: underline;
+	font-weight: bold;
+
+	font-size: 1.05em;
+}
+ul{
+	margin-left: 7%;
+	margin-right: 7%;
+	margin-top:40px;
+}
+ol{
+	margin-bottom:20px;
+}
+	/*tirets en gras :*/
+.tiret{
+	font-size: 1.2em;	
+
+}
+
+
+
+/*CSS images :*/
+.imagesDescriptf_div{
+	display: flex;
+	justify-content: center;
+	margin:5%;
+
+}
+
+
+
+
+
+
+
+/*CSS sur le paragraphe de ccl*/
+.pCcl{
+	font-size:1.1em;
+}

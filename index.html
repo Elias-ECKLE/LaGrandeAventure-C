@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game Concept</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="GameConceptHeaderFooter.css">
+	<link rel="stylesheet" type="text/css" href="GameConcept.css">
+	<link rel="shortcut icon" type="image/png" href="images/imageFavicon/logoElias.png">
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="GameConceptHeaderFooter.js"></script>
+	<script type="text/javascript" src="GameConcept.js"></script>
+</head>
+
+
+
+<body> <!-- on initialise différentes valeurs de la partie:: surtout apparition/disparition pour limiter les possibilités du joueur-->
+	<header>
+			<div id="div1_header">
+					<a href="" title="Revenir à l'accueil">Accueil</a>
+					<a href="" title="Mon parcours">Qui suis-je ?</a>
+					<a href="">Contact</a>
+			</div>	
+			<div id="div2_header"> <!-- value par défaut en lightmode-->
+					<a  class="logosReseaux" href="https://www.youtube.com/channel/UC9-j8rVVb2XungybJPsnnYw?view_as=subscriber">
+						<img  id ="imageYoutube" src="images/LogosReseauxSociaux/logoYoutube.png" alt="LienFacebook" 
+							  value="lightMode" 
+						      onmouseout="AfficherImg_defaut('imageYoutube','images/LogosReseauxSociaux/logoYoutube.png')" 
+							  onmouseover="AfficherImg_cercle('imageYoutube','images/LogosReseauxSociaux/logoYoutube.png') ">
+					</a>
+
+
+					<a  class="logosReseaux" href="https://www.facebook.com/elias.ecklee.5"> 
+						<img  id="imageFacebook" src="images/LogosReseauxSociaux/logoFacebook.png" alt="LienFacebook" 
+							 value="lightMode" 
+						 	  onmouseout="AfficherImg_defaut('imageFacebook','images/LogosReseauxSociaux/logoFacebook.png')" 
+							  onmouseover="AfficherImg_cercle('imageFacebook','images/LogosReseauxSociaux/logoFacebook.png') "> 
+					</a>
+
+					<a  class="logosReseaux" href="https://twitter.com/EckleElias"> 
+						<img id ="imageTwitter" src="images/LogosReseauxSociaux/logoTwitter.png" alt="LienTwitter"
+							 value="lightMode"
+						     onmouseout="AfficherImg_defaut('imageTwitter','images/LogosReseauxSociaux/logoTwitter.png')" 
+							 onmouseover="AfficherImg_cercle('imageTwitter','images/LogosReseauxSociaux/logoTwitter.png') "> 
+					</a>
+
+					<a class="logosReseaux" href="https://www.instagram.com/eliaseckle/"> 
+						<img id ="imageInstagram" src="images/LogosReseauxSociaux/logoInstagram.png" alt="LienInstagram"
+							 value="lightMode"
+						     onmouseout="AfficherImg_defaut('imageInstagram','images/LogosReseauxSociaux/logoInstagram.png')" 
+							 onmouseover="AfficherImg_cercle('imageInstagram','images/logosReseauxxSociaux/logoInstagram.png') ">
+					 </a>
+
+					<a class="logosReseaux" href="https://www.flickr.com/photos/190511175@N06/"> 
+						<img id ="imageFlickr"    src="images/LogosReseauxSociaux/logoFlickr.png" alt="LienFlickr"
+							 value="lightMode"
+						     onmouseout="AfficherImg_defaut('imageFlickr','images/LogosReseauxSociaux/logoFlickr.png')" 
+							 onmouseover="AfficherImg_cercle('imageFlickr','images/LogosReseauxSociaux/logoFlickr.png') "> 
+					</a>	
+					<a class="logosReseaux" href="https://www.linkedin.com/in/elias-eckle-b967221aa/"> 
+						<img id ="imageLinkedin"  src="images/LogosReseauxSociaux/logoLinkedin.png" alt="LienLinkedin"
+							 value="lightMode"
+						     onmouseout="AfficherImg_defaut('imageLinkedin','images/LogosReseauxSociaux/logoLinkedin.png')" 
+							 onmouseover="AfficherImg_cercle('imageLinkedin','images/LogosReseauxSociaux/logoLinkedin.png') "> 
+					</a>
+			</div>
+	</header>
+
+
+		<section id="sectionTexte">
+			<h2>Concepts de game design : </h2>
+
+			<div class="imagesDescriptf_div">
+					<img width="50%" style="opacity: 0.9"src="images/images_texte/jeuMonstre.jpg" alt="monstre Guillermo del Toro" title="Monstre dans Le Labyrinthe de Pan de Guillermo Del Toro">
+			</div>
+
+
+
+			<article id="GD_1">
+				<h3>Concept 1 : Yeti</h3>
+
+				<p>Le premier game concept se déroule autour du mythe du Yeti, faisant encore parler de lui récemment : <a href="https://www.youtube.com/watch?v=SeHA4cEIsDo">Vidéo Yeti</a></p>
+
+				<p>
+					L’idée serait de contextualiser le jeu du monkC avec une histoire mieux connue de la population, celle du Yeti.  
+					<br/>
+					Pour cela le monstre se transformerait en Yeti, rodant dans une montagne enneigée, et où les pisteurs le chasse malgré les conditions climatiques difficiles.
+					Par conséquent la mise en place des nouvelles règles devant pimenter et moderniser le concept, pourraient s’adapter avec cohérence au contexte et être bien accueillis si un lien existe entre l’univers du Yeti et l’idée derrière chaque nouvelle règle.
+					<br/>
+					C’est ainsi ce que j’ai essayé d’entreprendre avec les idées suivantes.
+					<br/>
+					<br/>
+					Dans un premier temps toutes les règles de base comme le compte rendu des pisteurs, le déplacement du monstre ou encore le déplacement des pisteurs restent les mêmes : 
+				</p>
+				<ul>
+					<ol><span class="titresListes_Soulignes">Les chasseurs :</span>
+						<ul>
+							<ol><span class="tiret">-</span>	Cependant pour ajouter plus d’options aux chasseurs, ils pourraient en plus de tirer, pouvoir poser chacun un seul piège permettant d’obtenir la position du monstre pendant un court laps de temps s’il vient à tomber dedans, donnant ainsi plus de possibilités au joueur.
+							</ol>
+							<ol>
+								<br/>
+								<br/>
+								<span class="tiret">-</span>	De plus comme il s’agit d’une traque et que le monstre les chassent également, les pisteurs pourraient également utiliser leurs vêtements comme leurre pour créer des fausses pistes et pourquoi pas le prendre à revers. 
+								<br/>
+								<br/>
+								Chaque pisteur aurait la possibilité de bazarder quatre bouts de vêtement tel que « l’écharpe, les gants, le bonnet et la veste » pour brouiller l’odorat du yeti. C’est une technique utilisée pour fuir face à un ours, il est en effet souvent conseillé de s’enfuir tout en se déshabillant pour distraire l’animal avec les vêtements abandonnés.
+								<br/>
+								Ainsi, il y aurait une chance sur quatre que le yeti aille vers les vêtements laissés que vers la position d’un des pisteurs, et une chance sur trois quand le monstre est sur le point de trouver la position du pisteur.
+								<br/>
+								<br/>
+								Néanmoins se débarrasser de ses vêtements à un coût, d’autant plus dans un environnement glacial. De fait, une contrainte s’applique : plus le chasseur abandonne ses vêtements (max 4), et moins il pourra faire de grand déplacement. Au début il peut se déplacer de quatre cases, mais si maintenant il lâche un vêtement, il ne pourra plus qu’en faire trois et ainsi de suite. Le froid l’immobilise de plus en plus et rend ses déplacements plus lents.
+							</ol>
+						</ul>
+					</ol>
+					<ol><span class="titresListes_Soulignes">Le Yeti :</span>
+						<ul>
+							<ol>
+								<span class="tiret">-</span>	Contrairement aux pisteurs qui sont limités par les barrières de la map (représentées par des étoiles), le yeti fort en escalade pourrait passer par-dessus ces montagnes (barrières) et arriver à l’autre bout de la map en passant par son coin opposé. Par exemple si maintenant il se trouve dans le coin inférieur droit de la map, il peut franchir ce coin pour arriver au coin supérieur gauche. Cela lui permet d’avoir une certaine flexibilité dans ses déplacements.
+							</ol>
+							<ol>
+								<br/>
+								<br/>
+								<span class="tiret">-</span>	Puis comme il s’agit d’une bête féroce se trouvant dans son environnement de prédilection, s’il vient à être tiré dessus plusieurs fois de suite, il peut émettre un grand hurlement provoquant des avalanches et un blizzard limitant les chasseurs à deux directions possibles au lieu de quatre par défaut. La tempête est telle qu’ils en sont aveuglés et ne peuvent se déplacer comme ils le souhaitent. Cela donne un avantage au monstre.
+							</ol>
+						</ul>
+					</ol>
+				</ul>
+				<br/>
+				<br/>
+				<p style="text-align:center" class="pCcl"> <strong>En conclusion ces mécaniques dans les deux camps donnent je l’espère une nouvelle dimension au jeu et dynamise le gameplay.</strong></p>
+
+				<div class="imagesDescriptf_div">
+					<img  src="images/images_texte/jeuYeti.gif" alt="gif de yeti en 2D topdown" title="Idée de sprite 2D Yeti">
+				</div>
+
+
+			</article>
+
+
+			<article id="GD_2">
+				<h3>Concept 2 : Criminel :</h3>
+				<p>
+					Le deuxième concept se déroule dans un univers bien plus contemporain et commun : la ville
+					<br/>
+					<br/>
+					On y suit un groupe de policiers qui tente d’arrêter un criminel s’étant échapper de prison. Les pisteurs deviennent donc des policiers et le monstre un criminel hautement recherché.
+					<br/>
+					Comme avec le concept précédent, le contexte permet d’appuyer les règles supplémentaires qui vont être mises en place.
+					<br/>
+					<br/>
+					<br/>
+					Les règles de bases restent également les mêmes. Nous avons les policiers qui patrouillent en ville, où l’on doit choisir leur nombre, leurs déplacements et leurs directions. Et le criminel qui tente de les tuer un par un pour s’enfuir plus facilement. 
+					<br/>
+					Cependant à cela s’ajoute d’autres éléments.
+				</p>
+				<ul>
+					<ol>
+						<br/>
+						<span class="titresListes_Soulignes">Côté du criminel :</span>
+						<ul>
+							<ol>
+								<span class="tiret">-</span>	Du côté du criminel, il peut gagner à deux conditions soit en tuant la totalité des patrouilleurs, soit en s’enfuyant une fois la limite de temps atteinte. 
+								<br/>
+								Une limite de temps est alors de la partie et oblige les policiers à venir à bout du criminel le plus rapidement possible.
+
+							</ol>
+							<ol>
+								<br/><br/>
+								<span class="tiret">-</span>	De plus ce dernier peut se faufiler dans les égouts de la ville pour échapper de justesse aux policiers. En effet il peut emprunter quatre passages menant vers les souterrains pour se retrouver d’un coup à un autre bout de la map, rendant la traque plus difficile. Il y a en tout quatre passages disposés à des endroits équitablement répartis les uns avec les autres.
+								<br/>
+								Néanmoins, s’il se fait toucher, sa position est visible pendant deux tours et il ne peut pas accéder aux égouts.
+							</ol>
+							<ol>
+								<br/><br/>
+								<span class="tiret">-</span>	Et enfin, comme tout grand criminel, il a deux fois la possibilité de prendre en otage un civil lorsqu’il se fait tirer dessus plusieurs fois de suite, obligeant les patrouilleurs à cesser le feu.
+							</ol>
+						</ul>
+					</ol>
+					<ol>
+						<br/>
+						<span class="titresListes_Soulignes">Côté des policiers :</span>
+						<ul>
+							<ol>
+								<span class="tiret">-</span>	Du côté des policiers, ils ont soit la possibilité de l’arrêter soit la possibilité de le tuer.
+								S’ils l’arrêtent, la mission est un succès, sinon la partie est à demi gagnée.
+								<br/>
+								Pour cela, ils doivent trouver sa position et choisir entre arrêter et tirer. Il y a 10% de chances de réussir de l’arrêter et 40% de chances de le tirer dessus, sachant que plus il y a de policiers présents dans les 16 cases alentour de la position du criminel et plus le pourcentage d’arrestation augmente. Soit 10% de plus par policier.
+								<br/>
+								 Par conséquent s’il y a 10 policiers autour du criminel, alors il est totalement encadré et il y a 100% de chance de l’arrêter (s’il n’a pas un passage vers les souterrains à proximité).
+
+							</ol>
+							<ol>
+								<br/>
+								<br/>
+								<span class="tiret">-</span>	Ensuite les patrouilleurs ont la possibilité de prendre deux fois un véhicule leur faisant avancer de 6 cases pour rattraper le criminel s’il s’enfuit dans les égouts. Deux policiers par véhicule et chaque personnage ne peut l'utiliser qu'une fois.
+							</ol>
+							<ol>
+								<br/>
+								<br/>
+								<span class="tiret">-</span>	Et enfin, ils peuvent avoir accès une fois à une arme plus dévastatrice, enlevant non pas 1PV mais 2PV d’un coup.
+								<br/>
+								Celle ci peut poper à n'importe quel moment de la partie, et un seul policier à la fois peut s'en servir.
+								<br/>
+
+							</ol>
+						</ul>
+					</ol>
+				</ul>
+				<p style="text-align:center" class="pCcl"> 
+					<strong>
+						<br/>
+						<br/>
+						Par conséquent, il y a des avantages et des inconvénients des deux côtés afin d’équilibrer le jeu mais avec de nouvelles mécaniques pouvant créer de forts rebondissements.
+						<br/>
+						On pourrait penser par exemple à l’encerclement progressive du criminel et qu’au dernier moment, ce dernier emprunte un passage secret.
+					</strong>
+				</p>
+
+				<div class="imagesDescriptf_div">
+					<img width=50% height=50%  src="images/images_texte/jeuPolice.jpg" alt="image sprite policiers" title="Idée de sprite 2D Policier">
+				</div>
+
+
+			</article>
+
+
+
+		</section>
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<footer>
+			<div id="divFlex">
+
+			<div id="div1_footer">
+				
+					<a href="">Réalisé et développé par Elias Eckle </a>
+					<a href="">Contact : elias.eckle@gmail.com </a>
+					<a href=""> En savoir plus sur moi</a>
+				
+			</div>	
+
+
+			<div id="div2_footer">
+				<a  class="logosReseaux" href="https://www.youtube.com/channel/UC9-j8rVVb2XungybJPsnnYw?view_as=subscriber">
+							<img  id ="imageYoutubeFooter" src="images/LogosReseauxSociaux/logoYoutube.png" alt="LienFacebook" 
+								  value="lightMode" 
+							      onmouseout="AfficherImg_defautFooter('imageYoutubeFooter','images/LogosReseauxSociaux/logoYoutube.png')" 
+								  onmouseover="AfficherImg_cercleFooter('imageYoutubeFooter','images/LogosReseauxSociaux/logoYoutube.png') ">
+						</a>
+
+
+						<a  class="logosReseaux" href="https://www.facebook.com/elias.ecklee.5"> 
+							<img  id="imageFacebookFooter" src="images/LogosReseauxSociaux/logoFacebook.png" alt="LienFacebook" 
+								 value="lightMode" 
+							 	  onmouseout="AfficherImg_defautFooter('imageFacebookFooter','images/LogosReseauxSociaux/logoFacebook.png')" 
+								  onmouseover="AfficherImg_cercleFooter('imageFacebookFooter','images/LogosReseauxSociaux/logoFacebook.png') "> 
+						</a>
+
+						<a  class="logosReseaux" href="https://twitter.com/EckleElias"> 
+							<img id ="imageTwitterFooter" src="images/LogosReseauxSociaux/logoTwitter.png" alt="LienTwitter"
+								 value="lightMode"
+							     onmouseout="AfficherImg_defautFooter('imageTwitterFooter','images/LogosReseauxSociaux/logoTwitter.png')" 
+								 onmouseover="AfficherImg_cercleFooter('imageTwitterFooter','images/LogosReseauxSociaux/logoTwitter.png') "> 
+						</a>
+
+						<a class="logosReseaux" href="https://www.instagram.com/eliaseckle/"> 
+							<img id ="imageInstagramFooter" src="images/LogosReseauxSociaux/logoInstagram.png" alt="LienInstagram"
+								 value="lightMode"
+							     onmouseout="AfficherImg_defautFooter('imageInstagramFooter','images/LogosReseauxSociaux/logoInstagram.png')" 
+								 onmouseover="AfficherImg_cercleFooter('imageInstagramFooter','images/LogosReseauxSociaux/logoInstagram.png') ">
+						 </a>
+
+						<a class="logosReseaux" href="https://www.flickr.com/photos/190511175@N06/"> 
+							<img id ="imageFlickrFooter"    src="images/LogosReseauxSociaux/logoFlickr.png" alt="LienFlickr"
+								 value="lightMode"
+							     onmouseout="AfficherImg_defautFooter('imageFlickrFooter','images/LogosReseauxSociaux/logoFlickr.png')" 
+								 onmouseover="AfficherImg_cercleFooter('imageFlickrFooter','images/LogosReseauxSociaux/logoFlickr.png') "> 
+						</a>	
+						<a class="logosReseaux" href="https://www.linkedin.com/in/elias-eckle-b967221aa/"> 
+							<img id ="imageLinkedinFooter"  src="images/LogosReseauxSociaux/logoLinkedin.png" alt="LienLinkedin"
+								 value="lightMode"
+							     onmouseout="AfficherImg_defautFooter('imageLinkedinFooter','images/LogosReseauxSociaux/logoLinkedin.png')" 
+								 onmouseover="AfficherImg_cercleFooter('imageLinkedinFooter','images/LogosReseauxSociaux/logoLinkedin.png') "> 
+						</a>
+			</div>	
+
+		</div>	
+
+				<p id="copyright">@2020 elias.eckle.com</p>
+		
+	</footer>
+
+</body>
+</html>
