@@ -405,8 +405,6 @@ void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces
     //puis on passe à la création des coordoonées de départ
         //on génère des coods et on check si celles-ci ne sont pas voisines ou autour de celles des pisteurs
 
-    x=5;
-    y=22;
 
     do{
         casesVoisines_vides=vrai;
@@ -716,4 +714,34 @@ void MonstreEnVie(monster *monstre){
     if(monstre->vieRestante<=0){
         monstre->estVivant=faux;
     }
+}
+
+
+void ModeDebug_Monstre(monster *monstre){
+//BUT:Activer ou non le debug du monstre : cararctere visible ou non
+
+    char car;
+    texteNb nbTexte=nbDebug_TMonstre;
+
+    AffichTexte(nbTexte,0,0,0,0,0);
+    do{
+        scanf("%c",&car);
+        if((car!='o')&&(car!='O')&&(car!='n')&&(car!='N')){
+            nbTexte=nb_TErreur;
+            AffichTexte(nbTexte,0,0,0,0,0);
+        }
+    }while((car!='o')&&(car!='O')&&(car!='n')&&(car!='N'));
+
+
+
+    if((car=='o')||(car=='O')){
+         monstre->debugMonstre=vrai;
+    }
+    else{
+       monstre->debugMonstre=faux;
+    }
+
+
+
+
 }

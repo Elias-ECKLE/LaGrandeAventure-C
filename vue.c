@@ -9,6 +9,31 @@ void gotoxy(short x, short y)
 	SetConsoleCursorPosition(hConsole,Pos);
 }
 
+//color :
+/*
+0 : Noir
+1 : Bleu foncé
+2 : Vert foncé
+3 : Turquoise
+4 : Rouge foncé
+5 : Violet
+6 : Vert caca d'oie
+7 : Gris clair
+8 : Gris foncé
+9 : Bleu fluo
+10 : Vert fluo
+11 : Turquoise
+12 : Rouge fluo
+13 : Violet 2
+14 : Jaune
+15 : Blanc
+*/
+void Color(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de couleurs
+{
+        HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
+}
+
 
 
 
@@ -53,6 +78,7 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
     int j;
     caseNb nbCase;
 
+    Color(9,0);
     //tracé horizontal haut
     for(i=0;i<LARGEUR_Map+1;i++){
         gotoxy(i,0);
@@ -77,7 +103,7 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
         printf("%c",delimtMap);
     }
     //--------------------------------------------
-
+    Color(15,0);
     gotoxy(0,0);
     for(i=0;i<HAUTEUR_Map;i++){
 
@@ -93,8 +119,9 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
             }
 
         //caracts monstre
+
             nbCase=nbMonstre;
-            if(grillePersonnages[i][j]==nbCase){
+            if((grillePersonnages[i][j]==nbCase)&&(monstre.debugMonstre==vrai)){
 
                 gotoxy(j+1,i+1);
                 printf("%c",monstre.car_Monstre);
@@ -121,13 +148,27 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
 
 }
 
-void majElement_SurMap(int x, int y, char car,int decalageY_Goto){
+void majElement_SurMap(int x, int y, char car,int decalageY_Goto,char carType_PtExclm, char carType_PtInterog){
 //BUT: mettre à jour l'affichage d'un élément en particulier et non toute la map (éviter de la reécrire en entier) ex: point d'exclamation pisteur
 
     gotoxy(y+1,x+1);
+
+    if(car==carType_PtExclm){
+        Color(2,0); //green
+    }
+    if(car==carType_PtInterog){
+        Color(5,0); //blue
+    }
+
+
     printf("%c\n",car);
     //on remet un goto en dessous du tableau, sinon va écrire par dessus le tabl
+    printf("\n");
     gotoxy(0,decalageY_Goto);
+
+
+    //couleur par défaut :
+    Color(15,0);
 }
 
 
@@ -147,7 +188,7 @@ void MsgConsignes_Jeu(state etatJeu){
     if(etatJeu==debut){
          //message début :
         printf("Bienvenue dans le jeu de La Grande Aventure. Arriverez-vous a eliminer le terrible monstre qui rode dans les parages.\n");
-        printf("Bon courage, vous en aurez bien besoin. Et tachez de ne pas mourir");
+        printf("Bon courage, vous en aurez bien besoin. Et tachez de ne pas mourir...");
     }
     else if(etatJeu==debut_SaisieCoords){
         //message début saisi de coord
@@ -223,7 +264,7 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int n
         printf(" (t pour tirer /r pour ne rien faire) : ");
     }
     if(nbTexte==nbTirLoupe_TMonstre){
-        printf("\nVous avez loupe votre tir\n");
+        printf("Vous avez loupe votre tir\n");
     }
     if(nbTexte==nbTirReussi_TMonstre){
         printf("Vous avez reussi votre tir. Il reste %d PV au monstre\n",vieMonstre);
@@ -296,6 +337,11 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int n
 
 
 
+    //mode debug---------------------------------------------
+    if(nbTexte==nbDebug_TMonstre){
+        printf("\nVoulez vous entrez dans le mode debug. Celui-ci permettra d'afficher le monstre (o:oui/n:non): ");
+
+    }
 
     //-------------------------------------------------------
         //si il y a une erreur dans la saisie d'une valeur par l'utilisateur ou autre même, afficher ce msg

@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include <windows.h>
 #include <time.h> //on inclut une biblio pour utiliser la fct aléatoire
 
@@ -20,7 +21,7 @@
 #define NB_RetireTrace 1
 
 //donnees pisteurs
-#define CHANCE_ReussirTir 100//40% de chance de toucher le monstre
+#define CHANCE_ReussirTir 40//40% de chance de toucher le monstre
 #define NB_DistanceMax 4 //distance de déplacement maximal du pisteur
 #define NB_PisteursMin 1    //nb de pisteurs minimal
 #define NB_PisteursMax 10   //nb de pisteurs maximal
@@ -81,6 +82,7 @@ typedef enum texteNb{
     nbDplmt_TMonstre,
     nbMonstre_TTouche,
 
+    nbDebug_TMonstre,
     nb_TErreur
 
 }texteNb;
@@ -160,6 +162,7 @@ typedef struct monster{
     boolean estVivant;
     int toursBlessureRestante;
     boolean estBlesse;
+    boolean debugMonstre;
     char ptBlessure;
     char car_Monstre;
 

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1607975109 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\main.c
+1608031489 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\main.c
 	"define.h"
 
 1607598736 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\define.h
@@ -7,30 +7,31 @@
 	"monstre.h"
 	"vue.h"
 
-1607974547 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\pisteurs.h
+1608031489 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\pisteurs.h
 	"struct_const.h"
 
 1607974544 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\monstre.h
 	"struct_const.h"
 
-1607721974 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\vue.h
+1608032956 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\vue.h
 	"struct_const.h"
 
-1607975992 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\monstre.c
+1608027004 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\monstre.c
 	"struct_const.h"
 	"monstre.h"
 
-1607974222 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\pisteurs.c
+1608032941 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\pisteurs.c
 	"struct_const.h"
 	"pisteurs.h"
 
-1607975944 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\vue.c
+1608033416 source:c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\vue.c
 	"struct_const.h"
 	"vue.h"
 
-1607974667 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\struct_const.h
+1608032956 c:\algoracine\algoracinef2\codeblockf2\exos\exam_decembre2020_c\lagrandeaventure\lagrandeaventure-c\struct_const.h
 	<stdio.h>
 	<stdlib.h>
+	<conio.h>
 	<windows.h>
 	<time.h>
 

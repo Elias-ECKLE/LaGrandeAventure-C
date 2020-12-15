@@ -5,7 +5,7 @@
 
 extern void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int max, char carAttente, char carVerif, char carPisteur, int maxLettres,int nbPV,int traceFraiche,int traceEnMoins);
 extern void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map],int grilleTraces_Pisteur[][LARGEUR_Map], pisteur tab[],int nbPisteursChoisi,char carDelimt, monster monstre);
-extern void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[][LARGEUR_Map], pisteur tabPisteur[], int nbPisteurs, monster *monstre,int chanceTir,state etatJeu, int nbDegats_Pisteur);
+extern void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[][LARGEUR_Map], pisteur tabPisteur[], int nbPisteurs, monster *monstre,int chanceTir,state etatJeu, int nbDegats_Pisteur,char delimtMap);
 extern int Tirer_SurMonstre(int vieMonstre,int chanceTir, int nbDegats_Pisteur, monster *monstre);
 
 extern int ChoixDirection(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,int x,int y);

@@ -243,7 +243,7 @@ int Tirer_SurMonstre(int vieMonstre,int chanceTir, int nbDegats_Pisteur, monster
 
 }
 
-void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[][LARGEUR_Map], pisteur tabPisteur[], int nbPisteurs, monster *monstre,int chanceTir,state etatJeu, int nbDegats_Pisteur){
+void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[][LARGEUR_Map], pisteur tabPisteur[], int nbPisteurs, monster *monstre,int chanceTir,state etatJeu, int nbDegats_Pisteur,char delimtMap){
 //BUT:checker toutes les cases voisines, les 8 et voir si monstre à côté, il y a des traces ou rien
 
     int i;
@@ -271,8 +271,9 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
             x=x-1;
             y=y-1;
             nbCase=nbMonstre;
+             Maj_AffichMap(grillePerso,delimtMap,etatJeu,tabPisteur,monstre);
             //on affiche le pisteur avec un !
-            majElement_SurMap(x,y,tabPisteur[i].car_Verifie,18+i);
+            majElement_SurMap(x,y,tabPisteur[i].car_Verifie,16,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
 
 
 
@@ -391,7 +392,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
 
 
             //traces visibles :
-            else if(monstreEstLa==faux){
+             if(monstreEstLa==faux){
 
                 nbTexte=nbTraces_TCaseVoisine;
 
@@ -706,9 +707,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
             traceEstLa=faux;
 
             getchar();
-            //on remet l'affichage du pisteur par défaut
 
-            majElement_SurMap(x,y,tabPisteur[i].car_Pisteur,18+i);
         }
     }
 
@@ -904,7 +903,7 @@ void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[
             //-1 pour coller à la plage du tableau : 0 à... et non 1 à...
             x=tabPisteur[i].coords.x-1;
             y=tabPisteur[i].coords.y-1;
-            majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18+i);
+            majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
 
         //demander direction et distance
             //direction :
@@ -912,7 +911,7 @@ void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[
             //distance :
             nb_DistanceChoisie=ChoixDistance(grillePersos,tabPisteur,i,x,y,maxDistance,nb_DirectionChoisie);
             //reinit
-            majElement_SurMap(x,y,tabPisteur[i].car_Pisteur,18+i);
+            majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
 
 
 

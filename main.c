@@ -55,13 +55,11 @@ int main()
   //INIT variables :____________________________________________________________
 
         //vars declar
-  state etatJeu=debut;
-  srand(time(0)); //init de la fct rand
-  pisteur tabPisteur[NB_PisteursMax];
-  monster monstre;
-  booleanPerso pisteursSontEnVie=vrai;
-
-
+   state etatJeu=debut;
+   srand(time(0)); //init de la fct rand
+   pisteur tabPisteur[NB_PisteursMax];
+   monster monstre;
+   booleanPerso pisteursSontEnVie=vrai;
         //tabs declar et init:
    int grillePersonnages[HAUTEUR_Map][LARGEUR_Map];
    int grilleTraces_Monstre[HAUTEUR_Map][LARGEUR_Map];//du monstre
@@ -69,9 +67,17 @@ int main()
    Init_MapVide(grillePersonnages);
    Init_MapVide(grilleTraces_Monstre);
    Init_MapVide(grilleTraces_Pisteurs);
-        //init affichage map
-    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
 
+
+
+        //afficher debut jeu
+    MsgConsignes_Jeu(etatJeu);
+    getchar();
+        //activer ou non le mode debogage du jeu : carmonstre visible ou non
+    ModeDebug_Monstre(&monstre);
+    getchar();
+    //init affichage map
+    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
 
 
 
@@ -83,9 +89,9 @@ int main()
     Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
     Saisie_posPisteurs(grillePersonnages,grilleTraces_Pisteurs,tabPisteur,nbPisteurChoisi,CAR_DelimitationMap,monstre);
 
-
         //init MONSTRE :-------------------------------------
     Init_Pos_DepartMonstre(grillePersonnages,grilleTraces_Monstre,&monstre,tabPisteur,nbPisteurChoisi,NB_MonstrePV,NB_NouvelleTrace,NB_RetireTrace,NB_ToursPoint_DernierePos,CAR_Blessure_DernierePos,CAR_Monstre);
+
 
 
 
@@ -105,12 +111,10 @@ int main()
 
 
 
-
-
         //compte rendu des pisteurs :
         etatJeu=pisteurs_VerifVoisine;
         Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
-        CheckCaseVoisine_Pisteur(grillePersonnages,grilleTraces_Monstre,tabPisteur,nbPisteurChoisi,&monstre,CHANCE_ReussirTir,etatJeu,NB_Degat_Pisteur );
+        CheckCaseVoisine_Pisteur(grillePersonnages,grilleTraces_Monstre,tabPisteur,nbPisteurChoisi,&monstre,CHANCE_ReussirTir,etatJeu,NB_Degat_Pisteur,CAR_DelimitationMap);
 
         //deplacement des pisteurs :
         etatJeu=dplmtPisteurs;
@@ -119,13 +123,12 @@ int main()
 
 
 
-
-
         //on vérifie s'il reste des pisteurs en vie ou non, idem pour le monstre
             //pisteurs:
         PisteursRestant_EnVie(tabPisteur,nbPisteurChoisi,&pisteursSontEnVie);
             //monstre
         MonstreEnVie(&monstre);
+
 
 
         if((monstre.estVivant==vrai)&&(pisteursSontEnVie==vrai)){
@@ -153,8 +156,9 @@ int main()
             etatJeu=rebouclePartie;
             MsgConsignes_Jeu(etatJeu);
         }
-
         getchar();
+
+
     }while((monstre.estVivant==vrai)&&(pisteursSontEnVie==vrai));
 
 
