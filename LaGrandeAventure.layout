@@ -2,27 +2,67 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4983" topLine="102" />
+		</Cursor>
+	</File>
 	<File name="monstre.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="817" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="monstre.c" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="struct_const.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="26628" topLine="266" />
+			<Cursor1 position="127" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="define.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="165" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="vue.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="608" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="pisteurs.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="693" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="monstre.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="27516" topLine="166" />
 		</Cursor>
 		<Folding>
 			<Collapse line="5" />
 			<Collapse line="91" />
-			<Collapse line="468" />
-			<Collapse line="477" />
-			<Collapse line="498" />
-			<Collapse line="528" />
+			<Collapse line="466" />
+			<Collapse line="475" />
+			<Collapse line="496" />
+			<Collapse line="526" />
+			<Collapse line="683" />
+			<Collapse line="711" />
+			<Collapse line="719" />
 		</Folding>
 	</File>
-	<File name="pisteurs.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="vue.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6076" topLine="77" />
+			<Cursor1 position="3252" topLine="117" />
+		</Cursor>
+		<Folding>
+			<Collapse line="44" />
+			<Collapse line="82" />
+			<Collapse line="88" />
+			<Collapse line="94" />
+			<Collapse line="100" />
+		</Folding>
+	</File>
+	<File name="pisteurs.c" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="30537" topLine="85" />
 		</Cursor>
 		<Folding>
 			<Collapse line="9" />
@@ -30,49 +70,13 @@
 			<Collapse line="66" />
 			<Collapse line="158" />
 			<Collapse line="167" />
-			<Collapse line="279" />
-			<Collapse line="316" />
-			<Collapse line="352" />
-			<Collapse line="393" />
+			<Collapse line="189" />
+			<Collapse line="280" />
+			<Collapse line="317" />
+			<Collapse line="353" />
+			<Collapse line="394" />
 			<Collapse line="719" />
 			<Collapse line="804" />
 		</Folding>
-	</File>
-	<File name="struct_const.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="577" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5987" topLine="99" />
-		</Cursor>
-	</File>
-	<File name="vue.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="487" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="pisteurs.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1372" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="vue.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2410" topLine="17" />
-		</Cursor>
-		<Folding>
-			<Collapse line="19" />
-			<Collapse line="56" />
-			<Collapse line="62" />
-			<Collapse line="68" />
-			<Collapse line="74" />
-		</Folding>
-	</File>
-	<File name="define.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="165" topLine="0" />
-		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

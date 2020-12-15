@@ -26,6 +26,7 @@ void Init_Saisie_NBPisteurs(pisteur tab[], int *pNbPisteursChoisi, int min, int 
     do{
 
         scanf("%d",&nbPisteursChoisi); //si renvoie 1 alors scanf a trouvé la saisie si non on reboucle
+        fflush(stdin);
         if ((nbPisteursChoisi<min)||(nbPisteursChoisi>max)||(erreur_Scanf==0)){
 
             nbTexte=nb_TErreur;
@@ -91,6 +92,7 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map],int grilleTraces_Pi
             AffichTexte(nbTexte,tab,i,0,0);
             do{
                 scanf("%d",&x);
+                  fflush(stdin);
 
                 if((x>HAUTEUR_Map)||(x<1)){
                     nbTexte=nb_TErreur;
@@ -105,6 +107,7 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map],int grilleTraces_Pi
             AffichTexte(nbTexte,tab,i,0,0);
             do{
                 scanf("%d",&y);
+                  fflush(stdin);
                 if((y>LARGEUR_Map) ||(y<1)){
                     nbTexte=nb_TErreur;
                     AffichTexte(nbTexte,tab,i);
@@ -715,6 +718,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
 
 
 
+
     //Déplacement d3e chaque pisteur
 int ChoixDistance(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int indexTab,int x,int y,int maxDistance,int nb_Direction){
 //BUT:choisir la distance de cases qu'on veut atteindre. MAX:4
@@ -740,6 +744,7 @@ int ChoixDistance(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int ind
         //demander quelle distance
         do{
             scanf("%d",&nb_Distance);
+              fflush(stdin);
             if((nb_Distance<1)||(nb_Distance>maxDistance)){
                 nbTexte=nb_TErreur;
                 AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
@@ -821,6 +826,7 @@ int ChoixDirection(int grillePersos[][LARGEUR_Map], pisteur tabPisteur[], int in
         nbTexte=nbChoix_TDirection;
         do{
             scanf("%d",&nb_Direction);
+            fflush(stdin);
             if((nb_Direction!=haut)&&(nb_Direction!=droite)&&(nb_Direction!=bas)&&(nb_Direction!=gauche)){
                 nbTexte=nb_TErreur;
                 AffichTexte(nbTexte,tabPisteur,indexTab,0,0,0);
