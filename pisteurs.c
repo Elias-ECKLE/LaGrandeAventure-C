@@ -716,7 +716,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
 
 }
 
-
+/*COde réalisé par Elias Ecklé*/
 
 
     //Déplacement d3e chaque pisteur

@@ -21,7 +21,7 @@
     -->40% de chances de le toucher à savoir qu'il a 4 points de vie et on l'indique à l'écran
 
 - Sur la map affiché avec "?". On déplace ensuite les pisteurs à tour de rôle : d'abord distance de déplacement demandées : de 1 à 4 puis direction de déplacement : quatre directions possibles : 1 pour haut, 2pour droite, 3pour bas et 4 pour gauche
-
+/*COde réalisé par Elias Ecklé
 
 
 - le monstre se déplace d'une case à chaque tour et marque sur la case auquel il se trouve le nb 16. Il se déplace en l'une des 4 cases différentes, H B G D  aléatoirement(ou flaire les traces des pisteurs)
@@ -46,8 +46,11 @@
 #include "define.h"
 
 
+//SDL declaration pointeurs :
+SDL_Window *pWindow=NULL; //pointeur pointant sur paramètres window
+SDL_Renderer *pRenderer=NULL;//pointeur pointant sur paramètres renderer
 
-int main()
+int main(int argc,char *argv[])
 {
 
 
@@ -80,6 +83,18 @@ int main()
     Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
 
 
+        //Init SDL------------------------------------------
+    pWindow=NULL; //pointeur pointant sur paramètres window
+    pRenderer=NULL;//pointeur pointant sur paramètres renderer
+    isOpen=SDL_TRUE; //global
+    SDL_Initialisation(WINDOW_WIDTH,WINDOW_HEIGHT);
+    SDL_InitImg();
+       //refresh SDL :
+        SDL_refreshEvent(monstre.estVivant,pisteursSontEnVie);
+        //affichage Map SDL:
+    SDL_AffichMap(grillePersonnages,monstre,SDL_IMAGE_Etoile,SDL_IMAGE_Pisteur,SDL_IMAGE_Monstre,SDL_Image_PtBlessure,TAILLE_IMAGE);
+
+
 
         //init des PISTEURS :-------------------------------
     int nbPisteurChoisi;
@@ -104,6 +119,8 @@ int main()
 
 
     do{
+
+
         //on commence par effacer d'un pt les traces du monstre et des pisteurs:
         EffacementTraces_Monstre(grilleTraces_Monstre,NB_RetireTrace);
         EffacementTraces_Pisteur(grilleTraces_Pisteurs,NB_RetireTrace);
@@ -159,6 +176,7 @@ int main()
         getchar();
 
 
+
     }while((monstre.estVivant==vrai)&&(pisteursSontEnVie==vrai));
 
 
@@ -179,7 +197,21 @@ int main()
 
 
     getchar();
+
+
+
+    //on libère tout :
+        //Destruction des ressources du rendu
+    if(pRenderer){
+        SDL_DestroyRenderer(pRenderer);
+    }
+
+    if(pWindow){
+      SDL_DestroyWindow(pWindow);
+    }
+    IMG_Quit();
+    SDL_Quit();
     return 0;
 
-
+/*COde réalisé par Elias Ecklé*/
 }

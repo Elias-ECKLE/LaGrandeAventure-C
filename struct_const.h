@@ -1,3 +1,4 @@
+
 #ifndef STRUCT_CONST_H_INCLUDED
 #define STRUCT_CONST_H_INCLUDED
 
@@ -6,6 +7,9 @@
 #include <conio.h>
 #include <windows.h>
 #include <time.h> //on inclut une biblio pour utiliser la fct aléatoire
+#include <SDL2/SDL.h> //on implémente le fichier h correspondant a la bibilio SDL
+#include <SDL2/SDL_image.h>
+
 
 
 //CONSTANTES A MODIFIER_____________________________________________________
@@ -39,6 +43,23 @@
 #define CAR_Blessure_DernierePos '.'
 #define CAR_Monstre 'M'     //car monstre d'affichage dans le mode Debug
 
+
+//SDL Window
+#define TAILLE_IMAGE 25 //25px par 25px
+#define WINDOW_WIDTH  TAILLE_IMAGE*LARGEUR_Map+TAILLE_IMAGE
+#define WINDOW_HEIGHT TAILLE_IMAGE*HAUTEUR_Map+TAILLE_IMAGE
+//SDL declaration pointeurs :
+SDL_Window *pWindow; //pointeur pointant sur paramètres window
+SDL_Renderer *pRenderer;//pointeur pointant sur paramètres renderer
+SDL_Event events;
+SDL_bool isOpen;
+//images utilisées pour l'affichage:
+#define SDL_IMAGE_Etoile "images/imagesSDL/etoileSprite_Resize.jpg"
+#define SDL_IMAGE_Pisteur "images/imagesSDL/P_Pisteur_Resize.png"
+#define SDL_IMAGE_Monstre "images/imagesSDL/monstre_Resize.png"
+#define SDL_Image_PtBlessure "images/imagesSDL/ptBlessure.png"
+#define SDL_IMAGE_PtExclam  "images/imagesSDL/"
+#define SDL_IMAGE_PtInterrog "images/imagesSDL/"
 
 //ENUM:___________________________________________________________________
 typedef enum state{
@@ -175,6 +196,6 @@ typedef struct historicTrace_Pisteur{
 
 
 
-
+/*COde réalisé par Elias Ecklé*/
 
 #endif // STRUCT_CONST_H_INCLUDED
