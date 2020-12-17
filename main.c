@@ -85,20 +85,28 @@ int main(int argc,char *argv[])
 
     //DEBUT DE JEU______________________________________________________
             //afficher debut jeu
+    SDL_AffichMap(grillePersonnages,monstre);
     MsgConsignes_Jeu(etatJeu);
     getchar();
         //activer ou non le mode debogage du jeu : carmonstre visible ou non
     ModeDebug_Monstre(&monstre);
     getchar();
 
-    //SDL_AffichMap(grillePersonnages,monstre);
+
+
             //init des PISTEURS :-------------------------------
     int nbPisteurChoisi;
             //init nombre de pisteurs :
     Init_Saisie_NBPisteurs(tabPisteur,&nbPisteurChoisi,NB_PisteursMin,NB_PisteursMax,CAR_PisteurEnAttente,CAR_PisteurVerifie,CAR_Pisteur,NB_LettresNom,NB_PisteurPV,NB_NouvelleTrace,NB_RetireTrace);
+
+
             //init position de départ des pisteurs
     Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
     Saisie_posPisteurs(grillePersonnages,grilleTraces_Pisteurs,tabPisteur,nbPisteurChoisi,CAR_DelimitationMap,monstre);
+            //on relance la sdl car fenetre s'est fermée pour sortir de la boucle de la pose des pisteurs
+    SDL_Initialisation(WINDOW_WIDTH,WINDOW_HEIGHT);
+    SDL_AffichMap(grillePersonnages,monstre);
+
 
 
         //init MONSTRE :-------------------------------------

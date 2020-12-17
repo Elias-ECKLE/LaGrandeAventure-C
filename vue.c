@@ -511,13 +511,6 @@ void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre){
 
 }
 
-void SDL_NettoieEcran(){
-
-    SDL_RenderClear(pRenderer);
-    SDL_SetRenderDrawColor(pRenderer,0,0,0,SDL_ALPHA_OPAQUE);
-    SDL_RenderPresent(pRenderer);
-
-}
 
 void SDL_MajElement_Map(int x, int y, char car,char carType_PtExclm, char carType_PtInterog){
 
@@ -588,3 +581,26 @@ void SDL_MajElement_Map(int x, int y, char car,char carType_PtExclm, char carTyp
 }
 
 
+void SDL_NettoieEcran(){
+
+    SDL_RenderClear(pRenderer);
+    SDL_SetRenderDrawColor(pRenderer,0,0,0,SDL_ALPHA_OPAQUE);
+    SDL_RenderPresent(pRenderer);
+
+}
+
+void SDL_EnleveElement_Map(int x, int y,int width, int height,int rColor,int gColor, int bColor){
+
+
+            //rectangle
+    SDL_Rect srcrect;//var rectabgle
+    srcrect.x = y*TAILLE_IMAGE+TAILLE_IMAGE;
+    srcrect.y = x*TAILLE_IMAGE+TAILLE_IMAGE;
+    srcrect.w = width;
+    srcrect.h = height;
+    SDL_SetRenderDrawColor(pRenderer,rColor,gColor,bColor,SDL_ALPHA_OPAQUE);
+    SDL_RenderDrawRect(pRenderer,&srcrect);
+    SDL_RenderFillRect(pRenderer,&srcrect);
+
+    SDL_RenderPresent(pRenderer);
+}

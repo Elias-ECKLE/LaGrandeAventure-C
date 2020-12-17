@@ -82,71 +82,86 @@ void Saisie_posPisteurs(int grillePersonnages[][LARGEUR_Map],int grilleTraces_Pi
     MsgConsignes_Jeu(etatJeu); // on affiche les consignes de l'état saisiCoords
 
 
-    for(i=0;i<nbPisteursChoisi;i++){
+    while (SDL_PollEvent(&events)){
+        for(i=0;i<nbPisteursChoisi;i++){
 
-        //on demande les coords :
-        do{
+                //on demande les coords :
+                do{
 
-            //X-----------------
-            nbTexte=nbPos_TPisteurX;
-            AffichTexte(nbTexte,tab,i,0,0);
-            do{
-                scanf("%d",&x);
-                  fflush(stdin);
+                    //X-----------------
+                    nbTexte=nbPos_TPisteurX;
+                    AffichTexte(nbTexte,tab,i,0,0);
+                    do{
+                        scanf("%d",&x);
+                          fflush(stdin);
 
-                if((x>HAUTEUR_Map)||(x<1)){
-                    nbTexte=nb_TErreur;
-                    AffichTexte(nbTexte,tab,i);
-                }
+                        if((x>HAUTEUR_Map)||(x<1)){
+                            nbTexte=nb_TErreur;
+                            AffichTexte(nbTexte,tab,i);
+                        }
 
-            }while((x>HAUTEUR_Map)||(x<1));
-
-
-            //Y----------------
-            nbTexte=nbPos_TPisteurY;
-            AffichTexte(nbTexte,tab,i,0,0);
-            do{
-                scanf("%d",&y);
-                  fflush(stdin);
-                if((y>LARGEUR_Map) ||(y<1)){
-                    nbTexte=nb_TErreur;
-                    AffichTexte(nbTexte,tab,i);
-                }
-
-            }while((y>LARGEUR_Map)||(y<1));
+                    }while((x>HAUTEUR_Map)||(x<1));
 
 
+                    //Y----------------
+                    nbTexte=nbPos_TPisteurY;
+                    AffichTexte(nbTexte,tab,i,0,0);
+                    do{
+                        scanf("%d",&y);
+                          fflush(stdin);
+                        if((y>LARGEUR_Map) ||(y<1)){
+                            nbTexte=nb_TErreur;
+                            AffichTexte(nbTexte,tab,i);
+                        }
 
-            //on vérifie que les coordonnées ne sont pas les mêmes que celles d'un autre pisteur
-            //on reinit coordsIdentiques à faux:
-            coordsIdentiques=faux;
-            for(j=0;j<nbPisteursChoisi;j++){
+                    }while((y>LARGEUR_Map)||(y<1));
 
-                if((x==tab[j].coords.x)&&(y==tab[j].coords.y)){
-                        coordsIdentiques=vrai;
-                }
+
+
+                    //on vérifie que les coordonnées ne sont pas les mêmes que celles d'un autre pisteur
+                    //on reinit coordsIdentiques à faux:
+                    coordsIdentiques=faux;
+                    for(j=0;j<nbPisteursChoisi;j++){
+
+                        if((x==tab[j].coords.x)&&(y==tab[j].coords.y)){
+                                coordsIdentiques=vrai;
+                        }
+                    }
+
+                    //on prévient l'utilisateur qu'il a entré les mêmes coordoonnées qu'un autre pisteur
+                    if(coordsIdentiques==vrai){
+                        nbTexte=erreur_CoordsIdentiques;
+                        AffichTexte(nbTexte,tab,0,0,0,0);
+                    }
+
+
+                }while(coordsIdentiques==vrai);
+
+                //on met en place les coords dans la grille :
+                grillePersonnages[x-1][y-1]=nbCase;
+                tab[i].coords.x=x;
+                tab[i].coords.y=y;
+
+                //on mets la trace du pisteur à son état initial :
+                AjoutTrace_Pisteur(tab,i,grilleTraces_Pisteur);
+
+                //on affiche la map avec à jour la position du pisteur :
+                SDL_NettoieEcran();
+                SDL_AffichMap(grillePersonnages,monstre);
+                Maj_AffichMap(grillePersonnages,carDelimt,etatJeu,tab,monstre);
+
+
+           }
+
+            if(i==nbPisteursChoisi){
+                SDL_Quit();
             }
-
-            //on prévient l'utilisateur qu'il a entré les mêmes coordoonnées qu'un autre pisteur
-            if(coordsIdentiques==vrai){
-                nbTexte=erreur_CoordsIdentiques;
-                AffichTexte(nbTexte,tab,0,0,0,0);
-            }
-
-
-        }while(coordsIdentiques==vrai);
-
-        //on met en place les coords dans la grille :
-        grillePersonnages[x-1][y-1]=nbCase;
-        tab[i].coords.x=x;
-        tab[i].coords.y=y;
-
-        //on mets la trace du pisteur à son état initial :
-        AjoutTrace_Pisteur(tab,i,grilleTraces_Pisteur);
-
-        //on affiche la map avec à jour la position du pisteur :
-        Maj_AffichMap(grillePersonnages,carDelimt,etatJeu,tab,monstre);
-
+            switch (events.type)
+                {
+                    case SDL_QUIT:
+                    isOpen = SDL_FALSE ;
+                    break;
+                }
     }
 
 }
@@ -279,6 +294,7 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
             majElement_SurMap(x,y,tabPisteur[i].car_Verifie,16,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
             SDL_NettoieEcran();
             SDL_AffichMap(grillePerso,monstre);
+            SDL_EnleveElement_Map(x,y,TAILLE_IMAGE,TAILLE_IMAGE,0,0,0);
             SDL_MajElement_Map(x,y,tabPisteur[i].car_Verifie,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
 
 
@@ -914,7 +930,9 @@ void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[
             x=tabPisteur[i].coords.x-1;
             y=tabPisteur[i].coords.y-1;
             majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
+            SDL_EnleveElement_Map(x,y,TAILLE_IMAGE,TAILLE_IMAGE,0,0,0);
             SDL_MajElement_Map(x,y,tabPisteur[i].car_EnAttente,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
+
         //demander direction et distance
             //direction :
             nb_DirectionChoisie=ChoixDirection(grillePersos,tabPisteur,i,x,y);
@@ -922,6 +940,7 @@ void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[
             nb_DistanceChoisie=ChoixDistance(grillePersos,tabPisteur,i,x,y,maxDistance,nb_DirectionChoisie);
             //reinit
             majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
+            SDL_EnleveElement_Map(x,y,TAILLE_IMAGE,TAILLE_IMAGE,0,0,0);
             SDL_MajElement_Map(x,y,tabPisteur[i].car_EnAttente,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
 
 

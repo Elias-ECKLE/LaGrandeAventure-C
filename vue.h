@@ -18,5 +18,6 @@ extern void SDL_InitImg();
 extern void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre);
 extern void SDL_NettoieEcran();
 extern void SDL_MajElement_Map(int x, int y, char car,char carType_PtExclm, char carType_PtInterog);
+extern void SDL_EnleveElement_Map(int x, int y,int width, int height,int rColor,int gColor, int bColor);
 
 #endif // VUE_H_INCLUDED
