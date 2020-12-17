@@ -57,7 +57,7 @@ SDL_bool isOpen;
 #define SDL_IMAGE_Etoile "images/imagesSDL/etoileSprite_Resize.jpg"
 #define SDL_IMAGE_Pisteur "images/imagesSDL/P_Pisteur_Resize.png"
 #define SDL_IMAGE_Monstre "images/imagesSDL/monstre_Resize.png"
-#define SDL_Image_PtBlessure "images/imagesSDL/ptBlessure.png"
+#define SDL_IMAGE_PtBlessure "images/imagesSDL/ptBlessure.png"
 #define SDL_IMAGE_PtExclam  "images/imagesSDL/"
 #define SDL_IMAGE_PtInterrog "images/imagesSDL/"
 

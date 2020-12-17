@@ -46,9 +46,7 @@
 #include "define.h"
 
 
-//SDL declaration pointeurs :
-SDL_Window *pWindow=NULL; //pointeur pointant sur paramètres window
-SDL_Renderer *pRenderer=NULL;//pointeur pointant sur paramètres renderer
+
 
 int main(int argc,char *argv[])
 {
@@ -73,26 +71,28 @@ int main(int argc,char *argv[])
 
 
 
-        //afficher debut jeu
-    MsgConsignes_Jeu(etatJeu);
-    getchar();
-        //activer ou non le mode debogage du jeu : carmonstre visible ou non
-    ModeDebug_Monstre(&monstre);
-    getchar();
-    //init affichage map
-    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
-
-
-        //Init SDL------------------------------------------
+            //Init SDL------------------------------------------
     pWindow=NULL; //pointeur pointant sur paramètres window
     pRenderer=NULL;//pointeur pointant sur paramètres renderer
     isOpen=SDL_TRUE; //global
     SDL_Initialisation(WINDOW_WIDTH,WINDOW_HEIGHT);
     SDL_InitImg();
        //refresh SDL :
-        SDL_refreshEvent(monstre.estVivant,pisteursSontEnVie);
-        //affichage Map SDL:
-    SDL_AffichMap(grillePersonnages,monstre,SDL_IMAGE_Etoile,SDL_IMAGE_Pisteur,SDL_IMAGE_Monstre,SDL_Image_PtBlessure,TAILLE_IMAGE);
+       SDL_refreshEvent(monstre.estVivant,pisteursSontEnVie);
+
+
+
+        //afficher debut jeu
+    MsgConsignes_Jeu(etatJeu);
+    getchar();
+        //activer ou non le mode debogage du jeu : carmonstre visible ou non
+    ModeDebug_Monstre(&monstre);
+    getchar();
+
+    Maj_AffichMap(grillePersonnages,CAR_DelimitationMap,etatJeu,tabPisteur,monstre);
+
+
+
 
 
 
@@ -119,7 +119,7 @@ int main(int argc,char *argv[])
 
 
     do{
-
+    SDL_refreshEvent(monstre.estVivant,pisteursSontEnVie);
 
         //on commence par effacer d'un pt les traces du monstre et des pisteurs:
         EffacementTraces_Monstre(grilleTraces_Monstre,NB_RetireTrace);
@@ -205,7 +205,6 @@ int main(int argc,char *argv[])
     if(pRenderer){
         SDL_DestroyRenderer(pRenderer);
     }
-
     if(pWindow){
       SDL_DestroyWindow(pWindow);
     }

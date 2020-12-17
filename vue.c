@@ -138,7 +138,7 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
 
 
     //affichage Map SDL:
-    SDL_AffichMap(grillePersonnages,monstre,SDL_IMAGE_Etoile,SDL_IMAGE_Pisteur,SDL_IMAGE_Monstre,SDL_Image_PtBlessure,TAILLE_IMAGE);
+    SDL_AffichMap(grillePersonnages,monstre);
 }
 
 void majElement_SurMap(int x, int y, char car,int decalageY_Goto,char carType_PtExclm, char carType_PtInterog){
@@ -390,11 +390,16 @@ void SDL_refreshEvent(booleanPerso monstreEstVivant, booleanPerso pisteursSontEn
 }
     //maj affichage map SDL---------------------------------------------------
 
-void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre,char imageEtoile[], char imagePpisteur[], char imageMonstre[], char imagePtBlessure[], int tailleImage){
+void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre){
 
     int i;
     int j;
     caseNb nbCase;
+    char imageEtoile[]=SDL_IMAGE_Etoile;
+    char imagePpisteur[]=SDL_IMAGE_Pisteur;
+    char imageMonstre[]=SDL_IMAGE_Monstre;
+    char imagePtBlessure[]=SDL_IMAGE_PtBlessure;
+    int tailleImage=TAILLE_IMAGE;
 
     SDL_Surface *pSurfaceEtoile=NULL;
     SDL_Surface *pSurfaceP_Pisteur=NULL;
@@ -416,7 +421,7 @@ void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre,char ima
     pSurfacePtBlessure= IMG_Load(imagePtBlessure);
 
     //Si pas de reference
-    if((!pSurfaceEtoile)&&(!pSurfaceP_Pisteur)&&(!pSurfaceMonstre)&&(!pSurfacePtBlessure)){
+    if((!pSurfaceEtoile)||(!pSurfaceP_Pisteur)||(!pSurfaceMonstre)||(!pSurfacePtBlessure)){
             SDL_Log("Unable to set surface: %s", SDL_GetError());
             return 1;
     }
@@ -430,6 +435,7 @@ void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre,char ima
         SDL_FreeSurface(pSurfaceP_Pisteur);
         SDL_FreeSurface(pSurfaceMonstre);
         SDL_FreeSurface(pSurfacePtBlessure);
+
 
         if((!pTextureEtoile)||(!pTextureP_Pisteur)||(!pTextureMonstre)||(!pTexturePtBlessure)){
             SDL_Log("Unable SDL_CreatetextureFromSurface %s", SDL_GetError());
@@ -502,6 +508,23 @@ void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre,char ima
 
     }
         SDL_RenderPresent(pRenderer);
+
+               //Destruction de la texture
+        if(pTextureEtoile){
+            SDL_DestroyTexture(pTextureEtoile);
+        }
+        if(pTextureP_Pisteur){
+            SDL_DestroyTexture(pTextureP_Pisteur);
+        }
+        if(pTextureMonstre){
+            SDL_DestroyTexture(pTextureMonstre);
+        }
+        if(pTexturePtBlessure){
+            SDL_DestroyTexture(pTexturePtBlessure);
+        }
+
+
+
 
 }
 
