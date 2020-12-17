@@ -277,7 +277,9 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
              Maj_AffichMap(grillePerso,delimtMap,etatJeu,tabPisteur,monstre);
             //on affiche le pisteur avec un !
             majElement_SurMap(x,y,tabPisteur[i].car_Verifie,16,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
-
+            SDL_NettoieEcran();
+            SDL_AffichMap(grillePerso,monstre);
+            SDL_MajElement_Map(x,y,tabPisteur[i].car_Verifie,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
 
 
 
@@ -713,6 +715,8 @@ void CheckCaseVoisine_Pisteur(int grillePerso[][LARGEUR_Map], int grilleTraces[]
 
         }
     }
+      SDL_NettoieEcran();
+    SDL_AffichMap(grillePerso,monstre);
 
 }
 
@@ -910,7 +914,7 @@ void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[
             x=tabPisteur[i].coords.x-1;
             y=tabPisteur[i].coords.y-1;
             majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
-
+            SDL_MajElement_Map(x,y,tabPisteur[i].car_EnAttente,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
         //demander direction et distance
             //direction :
             nb_DirectionChoisie=ChoixDirection(grillePersos,tabPisteur,i,x,y);
@@ -918,7 +922,7 @@ void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[
             nb_DistanceChoisie=ChoixDistance(grillePersos,tabPisteur,i,x,y,maxDistance,nb_DirectionChoisie);
             //reinit
             majElement_SurMap(x,y,tabPisteur[i].car_EnAttente,18,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
-
+            SDL_MajElement_Map(x,y,tabPisteur[i].car_EnAttente,tabPisteur[i].car_Verifie,tabPisteur[i].car_EnAttente);
 
 
         //atribuer ces nouvelles informations
@@ -955,6 +959,8 @@ void Deplcmt_Pisteur(int grillePersos[][LARGEUR_Map], int grillesTraces_Pisteur[
             }
             //on reaffiche la map pour modifier l'affichage de la position du pisteur
             Maj_AffichMap(grillePersos,carDelimt,etatJeu,tabPisteur,monstre);
+            SDL_NettoieEcran();
+            SDL_AffichMap(grillePersos,monstre);
             //on ajoute nouvelle trace du pisteur
             AjoutTrace_Pisteur(tabPisteur,i,grillesTraces_Pisteur);
 

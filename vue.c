@@ -64,6 +64,9 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
 //ENTREE:
 //SORTIE:
 
+    //affichage Map SDL:
+    //SDL_AffichMap(grillePersonnages,monstre);
+
 //caracts délimitation map
 
     system("cls");
@@ -137,8 +140,7 @@ void Maj_AffichMap(int grillePersonnages[][LARGEUR_Map],char delimtMap, state et
     printf("\n\n");
 
 
-    //affichage Map SDL:
-    SDL_AffichMap(grillePersonnages,monstre);
+
 }
 
 void majElement_SurMap(int x, int y, char car,int decalageY_Goto,char carType_PtExclm, char carType_PtInterog){
@@ -372,22 +374,6 @@ void SDL_InitImg(){
         }
 }
 
-void SDL_refreshEvent(booleanPerso monstreEstVivant, booleanPerso pisteursSontEnVie){
-
-    while ((isOpen) && (monstreEstVivant == faux) &&(pisteursSontEnVie==faux))
-    {
-        while (SDL_PollEvent(&events))
-        {
-            switch (events.type)
-            {
-                case SDL_QUIT:
-                    isOpen = SDL_FALSE ;
-                    break;
-                }
-            }
-    }
-
-}
     //maj affichage map SDL---------------------------------------------------
 
 void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre){
@@ -451,19 +437,19 @@ void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre){
 
             //tracé horizontal bas
             for(i=0;i<LARGEUR_Map+1;i++){
-                SDL_Rect dst_Img={i*tailleImage,HAUTEUR_Map*tailleImage,tailleImage,tailleImage};
+                SDL_Rect dst_Img={i*tailleImage+tailleImage,HAUTEUR_Map*tailleImage+tailleImage,tailleImage,tailleImage};
                 SDL_RenderCopy(pRenderer,pTextureEtoile,NULL,&dst_Img);
             }
 
             //tracé vetical gauche
             for(i=0;i<HAUTEUR_Map+1;i++){
-                SDL_Rect dst_Img={0,i*tailleImage,tailleImage,tailleImage};
+                SDL_Rect dst_Img={0,i*tailleImage+tailleImage,tailleImage,tailleImage};
                 SDL_RenderCopy(pRenderer,pTextureEtoile,NULL,&dst_Img);
             }
 
             //tracé vertical droit
             for(i=0;i<HAUTEUR_Map+1;i++){
-                SDL_Rect dst_Img={LARGEUR_Map*tailleImage,i*tailleImage,tailleImage,tailleImage};
+                SDL_Rect dst_Img={LARGEUR_Map*tailleImage+tailleImage,i*tailleImage,tailleImage,tailleImage};
                 SDL_RenderCopy(pRenderer,pTextureEtoile,NULL,&dst_Img);
             }
 
@@ -477,7 +463,7 @@ void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre){
                     nbCase=nbPisteur;
                     if(grillePersonnages[i][j]==nbCase){
 
-                        SDL_Rect dst_Img={j*tailleImage,i*tailleImage,tailleImage,tailleImage};
+                        SDL_Rect dst_Img={j*tailleImage+tailleImage,i*tailleImage+tailleImage,tailleImage,tailleImage};
                         SDL_RenderCopy(pRenderer,pTextureP_Pisteur,NULL,&dst_Img);
                     }
 
@@ -487,7 +473,7 @@ void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre){
                     if((grillePersonnages[i][j]==nbCase)&&(monstre.debugMonstre==vrai)){
 
                        // gotoxy(j+1,i+1);
-                        SDL_Rect dst_Img={j*tailleImage,i*tailleImage,tailleImage,tailleImage};
+                        SDL_Rect dst_Img={j*tailleImage+tailleImage,i*tailleImage+tailleImage,tailleImage,tailleImage};
                         SDL_RenderCopy(pRenderer,pTextureMonstre,NULL,&dst_Img);
                     }
 
@@ -495,7 +481,7 @@ void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre){
                     nbCase=nbpointPos_Monstre;
                     if(grillePersonnages[i][j]==nbCase){
                         //gotoxy(j+1,i+1);
-                        SDL_Rect dst_Img={j*tailleImage,i*tailleImage,tailleImage,tailleImage};
+                        SDL_Rect dst_Img={j*tailleImage+tailleImage,i*tailleImage+tailleImage,tailleImage,tailleImage};
                         SDL_RenderCopy(pRenderer,pTexturePtBlessure,NULL,&dst_Img);
 
                     }
@@ -523,12 +509,82 @@ void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre){
             SDL_DestroyTexture(pTexturePtBlessure);
         }
 
+}
 
+void SDL_NettoieEcran(){
 
+    SDL_RenderClear(pRenderer);
+    SDL_SetRenderDrawColor(pRenderer,0,0,0,SDL_ALPHA_OPAQUE);
+    SDL_RenderPresent(pRenderer);
 
 }
 
+void SDL_MajElement_Map(int x, int y, char car,char carType_PtExclm, char carType_PtInterog){
+
+    int i;
+    int j;
+    caseNb nbCase;
+    char imagePtIntero[]=SDL_IMAGE_PtIntero;
+    char imagePtExclam[]=SDL_IMAGE_PtExclam;
+
+    int tailleImage=TAILLE_IMAGE;
+
+    SDL_Surface *pSurfacePtIntero=NULL;
+    SDL_Surface *pSurfacePtExclam=NULL;
+    SDL_Texture *pTexturePtIntero=NULL;
+    SDL_Texture *pTexturePtExclam=NULL;
 
 
+
+
+  //INIT ---------------------------------------------------
+    //LOad images :
+    pSurfacePtIntero = IMG_Load(imagePtIntero);
+    pSurfacePtExclam= IMG_Load(imagePtExclam);
+
+
+    //Si pas de reference
+    if((!pSurfacePtIntero)||(!pSurfacePtExclam)){
+            SDL_Log("Unable to set surface: %s", SDL_GetError());
+            return 1;
+    }
+    else{
+        pTexturePtIntero=SDL_CreateTextureFromSurface(pRenderer,pSurfacePtIntero);
+        pTexturePtExclam=SDL_CreateTextureFromSurface(pRenderer,pSurfacePtExclam);
+        SDL_FreeSurface(pSurfacePtIntero);
+        SDL_FreeSurface(pSurfacePtExclam);
+
+
+
+        if((!pTexturePtIntero)||(!pTexturePtExclam)){
+            SDL_Log("Unable SDL_CreatetextureFromSurface %s", SDL_GetError());
+            return 1;
+        }
+        else{
+
+                if(car==carType_PtInterog){
+
+                    SDL_Rect dst_Img={y*tailleImage+tailleImage,x*tailleImage+tailleImage,tailleImage,tailleImage};
+                    SDL_RenderCopy(pRenderer,pTexturePtIntero,NULL,&dst_Img);
+                }
+                if(car==carType_PtExclm){
+
+                    SDL_Rect dst_Img={y*tailleImage+tailleImage,x*tailleImage+tailleImage,tailleImage,tailleImage};
+                    SDL_RenderCopy(pRenderer,pTexturePtExclam,NULL,&dst_Img);
+                }
+
+        }
+    }
+    SDL_RenderPresent(pRenderer);
+
+               //Destruction de la texture
+    if(pTexturePtIntero){
+        SDL_DestroyTexture(pTexturePtIntero);
+    }
+    if(pTexturePtExclam){
+        SDL_DestroyTexture(pTexturePtExclam);
+    }
+
+}
 
 

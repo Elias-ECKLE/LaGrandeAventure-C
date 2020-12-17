@@ -16,5 +16,7 @@ extern void majElement_SurMap(int x, int y, char car,int decalageY_Goto,char car
 extern void SDL_Initialisation(int window_width, int window_height);
 extern void SDL_InitImg();
 extern void SDL_AffichMap(int grillePersonnages[][LARGEUR_Map],monster monstre);
+extern void SDL_NettoieEcran();
+extern void SDL_MajElement_Map(int x, int y, char car,char carType_PtExclm, char carType_PtInterog);
 
 #endif // VUE_H_INCLUDED
