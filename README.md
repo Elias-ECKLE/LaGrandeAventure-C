@@ -13,6 +13,8 @@ Une fois les changements faits, compiler avant d'exécuter à nouveau le code.
 
 Pour accéder à l'espace web de Game Design, veuillez cliquer sur le lien ci-joint :  https://elias-eckle.github.io/LaGrandeAventure-C/
 
+Possibilité aussi de télécharger que l'exécutable au lien suivant : https://github.com/Elias-ECKLE/LaGrandeAventure-C/releases/tag/excutable
+
 
 Pour tous problèmes rencontrés ou renseignements supplémentaires, je suis joignable par email : e.eckle@ludus-academie.com ou bien depuis mes différents réseaux sociaux avec comme pseudo "elias eckle"
 Instagram : @eliaseckle
