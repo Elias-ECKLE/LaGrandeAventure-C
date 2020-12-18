@@ -389,7 +389,7 @@ void Init_Pos_DepartMonstre(int grillePersonnage[][LARGEUR_Map],int grilleTraces
 
 
     //init des variables associées au monstre : chiffres et car
-    //monstre->estVivant=enVie;
+    monstre->estVivant=enVie;
     monstre->vieRestante=monstrePV;
     monstre->tracesFraiches=nouvelleTrace;
     monstre->traceEnMoins=retireTrace;

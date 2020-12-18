@@ -60,7 +60,6 @@ int main(int argc,char *argv[])
    srand(time(0)); //init de la fct rand
    pisteur tabPisteur[NB_PisteursMax];
    monster monstre;
-   monstre.estVivant=vrai;
    booleanPerso pisteursSontEnVie=vrai;
 
         //tabs declar et init:

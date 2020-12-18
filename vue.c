@@ -181,7 +181,7 @@ void MsgConsignes_Jeu(state etatJeu){
     }
     else if(etatJeu==debut_SaisieCoords){
         //message début saisi de coord
-        printf("Avant de commencer la partie, vous devez positioner chacun de vos pisteurs en saisissant une coordoonee X et Y ci-apres\n");
+        printf("Avant de commencer la partie, vous devez positioner chacun de vos pisteurs sur la map en saisissant une coordoonee X et Y ci-apres.\nPour vous reperer, le terrain de jeu est l'espace encadre par les etoiles bleues ci-contre\n");
     }
     else if(etatJeu==pisteurs_VerifVoisine){
         //moment ou les pisteus disent ce qu'ils voient dans les cases voisines
@@ -217,7 +217,7 @@ void AffichTexte(texteNb nbTexte, pisteur tab[], int indexTab, int nbCase, int n
         //texte: void Saisie_NBPisteurs();
     if(nbTexte==nbSaisie_TPisteur){
 
-        printf("\n\nCombien de pisteurs voulez-vous ? Vous pouvez choisir de 1 a 10 au maximum : ");
+        printf("\n\nVous devez dans un premier temps choisir le nombre de pisteurs de la partie. \nCombien de pisteurs voulez-vous ? Vous pouvez choisir de 1 a 10 au maximum : ");
     }
    //--------------------------------------------------------------
 
